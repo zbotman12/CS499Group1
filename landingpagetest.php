@@ -4,8 +4,8 @@
 		$DB_LOCATION = 'localhost';  //Server URL
 		$DB_USERNAME = 'nick';       //Database access username
 		$DB_PW       = 'diliberti';  //Database access password
-		$DB_NAME     = 'example';    //Name of database to be accessed
-		$TABLE_NAME	 = 'nicktest';	 //Name of the table to be accessed
+		$DB_NAME     = 'ParagonMLS';    //Name of database to be accessed
+		$TABLE_NAME	 = 'Agents';	 //Name of the table to be accessed
 
 		//Check empty username
 		if(empty($_POST['username'])){
@@ -37,8 +37,8 @@
 
 		//Check existence in DB
 		$query = "SELECT * FROM " . $TABLE_NAME . " ";
-		$query .= "WHERE name = \"" . $username . "\" ";
-		$query .= "AND value = \"" . $password . "\";";
+		$query .= "WHERE user_login = \"" . $username . "\" ";
+		$query .= "AND password = \"" . $password . "\";";
 
 		//echo "Query: " . $query . "<br/>";
 
