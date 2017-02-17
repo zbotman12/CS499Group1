@@ -1,0 +1,17 @@
+
+
+legend {
+	font-size: 20px;
+}
+
+legend.field {
+	font-weight: bold;
+}
+
+input.textbox {
+	width: 300px;
+	float: left;
+}
+
+
+
