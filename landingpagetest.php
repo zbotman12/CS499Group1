@@ -1,12 +1,17 @@
 <?php
 	function Login(){
+
 		//Set database variables
 		$DB_LOCATION = 'localhost';  //Server URL
-		$DB_USERNAME = 'nick';       //Database access username
-		$DB_PW       = 'diliberti';  //Database access password
-		$DB_NAME     = 'ParagonMLS';    //Name of database to be accessed
+		$DB_USERNAME = 'root';       //Database access username
+		$DB_PW       = '';  		 //Database access password
+		$DB_NAME     = 'ParagonMLS'; //Name of database to be accessed
 		$TABLE_NAME	 = 'Agents';	 //Name of the table to be accessed
-
+		
+		//$DB_USERNAME = 'nick';       //Database access username
+		//$DB_PW       = 'diliberti';  //Database access password
+		//$DB_NAME     = 'ParagonMLS';    //Name of database to be accessed
+		
 		//Check empty username
 		if(empty($_POST['username'])){
 			//echo("UserName is empty!<br/>");
