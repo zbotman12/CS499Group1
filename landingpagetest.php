@@ -68,5 +68,5 @@
 	<a href="./sessiontest.php">Session test</a> <br/>
 	<a href="./logouttest.php">Logout</a>
 	<a href="./changepass.php">Change Password</a>
-	<a href="./Listing/inputtest.php">Add A New Listing</a>
+	<a href="./Listing/inputTest.php">Add A New Listing</a>
 </body>
