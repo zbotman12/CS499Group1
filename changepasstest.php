@@ -1,35 +1,24 @@
 <!-- 
     File: changepasstest.php
-    Change password code.  
+    Change password code.
     Given an agent's username, communicates with database to update agent's password. 
-
 -->
 
 <!-- PHP Functions -->
 <?php
-    function changePass() {
-        $DB_LOCATION = 'localhost';  //Server URL
-        $DB_USERNAME = 'root';       //Database access username
-        $DB_PW       = '';           //Database access password
-        $DB_NAME     = 'ParagonMLS'; //Name of database to be accessed
-        $TABLE_NAME  = 'Agents';     //Name of the table to be accessed
-        
-        //Obtain Agent ID and Username. Hardcoded for now.
-        //session_start();
-        //$AGENT_USERNAME = $_SESSION['name'];
-         
-        $username = 'jbonds';          //Username for this agent. Must obtain this from session.
-        //$AGENT_ID = 1;               //Must obtain this from current session
+    function changePassword(){
+        //Establish Database Connection 
+        include "dbconnect.php";
+        //Resume session. If no session found, rout to login page
+        include "sessioncheck.php";
 
-        // Connect to DB
-        $conn = new mysqli($DB_LOCATION, $DB_USERNAME, $DB_PW, $DB_NAME);
-        
-        //Check connection to database.
-        if ($conn->connect_error) {
-            //echo "Connection failed: " . $conn->connect_error;
+        //Obtain Agent ID and Username.
+        if(isset($_SESSION['name'])) {
+            $username = $_SESSION['name'];  //Username for this agent. Must obtain this from session.
+            //$AGENT_ID = 1;                //Must obtain this from current session
         } else {
-            //echo "Connection successful<br/>";
-        } 
+            $username = $_POST['username'];
+        }
 
         //Quarantine Zone
         $password    = sanitizer($_POST['currentPass']);
@@ -43,7 +32,7 @@
 
         //Query database for username
         $result = $conn->query($query);
-       
+           
         //Check if user exists
         $userExists = false;
 
@@ -86,12 +75,14 @@
     }
 
     function sanitizer($data) {
-  		return htmlspecialchars(stripslashes(trim($data)));
+          return htmlspecialchars(stripslashes(trim($data)));
     }
 ?>
 
+<head>
+</head>
 <body>
-	<?php changePass(); ?>
-	<a href="./logintest.php">Login</a><br/>
-	<a href="./changepass.php">Change Your Password</a><br/>
+    <?php changePassword(); ?>
+    <a href="./sessiontest.php">Session test</a> <br/>
+    <a href="./logouttest.php">Logout</a>
 </body>

@@ -1,6 +1,6 @@
 <html>
    <head>
-      <title>Hello World!</title>      
+      <title>Paragon MLS</title>      
    </head>
    
    <body>
@@ -11,6 +11,6 @@
          webpage is working.</h3>";
          echo "<h5> Under construction.</h5>";
       ?>
-   
+      <a href="./logintest.php">Login</a>
    </body>
 </html>

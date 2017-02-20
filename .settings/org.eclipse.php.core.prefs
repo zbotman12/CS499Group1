@@ -1,2 +1,5 @@
+#Sun Feb 19 17:08:45 CST 2017
 eclipse.preferences.version=1
-include_path=0;/FreeRealEstate499
+include_path=0;/CS499Group1
+org.eclipse.php.core.phpForamtterIndentationSize=3
+org.eclipse.php.core.phpForamtterUseTabs=false

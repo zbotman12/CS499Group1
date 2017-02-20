@@ -1,3 +1,7 @@
+<?php 
+  //Check and make sure we have an active session. If not we need one so send the user to the login page.
+  include './../sessioncheck.php';
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +42,7 @@
     <label class= "field" for="num_bathrooms">Number of Bathrooms:</label><br>
   	<input type="text" name="num_bathrooms" value=""><br><br>
   	<label class= "field" for="localDesc">Location Description:</label><br>
-    <textarea name="locaDesc" rows="10" cols="30">
+    <textarea name="localDesc" rows="10" cols="30">
 	</textarea><br><br>
    	<label class= "field" for="alarm">Alarm Information:</label><br>
   	<input type="text" name="alarm" value=""><br><br>

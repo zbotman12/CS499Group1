@@ -1,17 +1,8 @@
 <?php
 	function Login(){
+		//Establish Database Connection
+		include "dbconnect.php";
 
-		//Set database variables
-		$DB_LOCATION = 'localhost';  //Server URL
-		$DB_USERNAME = 'root';       //Database access username
-		$DB_PW       = '';  		 //Database access password
-		$DB_NAME     = 'ParagonMLS'; //Name of database to be accessed
-		$TABLE_NAME	 = 'Agents';	 //Name of the table to be accessed
-		
-		//$DB_USERNAME = 'nick';       //Database access username
-		//$DB_PW       = 'diliberti';  //Database access password
-		//$DB_NAME     = 'ParagonMLS';    //Name of database to be accessed
-		
 		//Check empty username
 		if(empty($_POST['username'])){
 			//echo("UserName is empty!<br/>");
@@ -30,15 +21,6 @@
 
 		//Check if user exists
 		$userExists = false;
-
-		//Connect to DB
-		$conn = new mysqli($DB_LOCATION, $DB_USERNAME, $DB_PW, $DB_NAME);
-
-		if ($conn->connect_error) {
-			//echo "Connection failed: " . $conn->connect_error;
-		} else {
-			//echo "Connection successful<br/>";
-		}
 
 		//Check existence in DB
 		$query = "SELECT * FROM " . $TABLE_NAME . " ";
@@ -85,4 +67,6 @@
 	<?php Login(); ?>
 	<a href="./sessiontest.php">Session test</a> <br/>
 	<a href="./logouttest.php">Logout</a>
+	<a href="./changepass.php">Change Password</a>
+	<a href="./Listing/inputtest.php">Add A New Listing</a>
 </body>

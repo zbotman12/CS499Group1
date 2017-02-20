@@ -1,3 +1,7 @@
+<?php 
+  //Check and make sure we have an active session. If not we need one so send the user to the login page.
+  include './../sessioncheck.php';
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,4 +30,4 @@ type="text/css"
 		</fieldset>
 	</form>
 </body>
-</html>		
+</html>
