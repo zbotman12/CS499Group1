@@ -30,7 +30,9 @@
         $query .= "WHERE user_login = \"" . $username . "\" ";
         $query .= "AND password = \"" . $password . "\";";
 
-        //Query database for username
+        //Query database for username. This also checks if passwords match. If
+        //not, query fails. User doesn't "exist" in the sense that it's not that
+        //agent that's login in.
         $result = $conn->query($query);
            
         //Check if user exists
@@ -45,6 +47,8 @@
         } else {
             echo $conn->error;
         }
+        
+        mysqli_free_result($result);
 
         if ($userExists == true) {
             //Check if new passwords match
