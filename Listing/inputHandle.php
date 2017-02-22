@@ -25,13 +25,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 //Get the listing agent id from the session
 $agent = $_SESSION["name"];
-if(!($agent_id = mysqli_query($conn, "SELECT agent_id FROM agents WHERE user_login='$agent'")->fetch_array()["agent_id"]))
+$agent_id = mysqli_query($conn, "SELECT agent_id FROM Agents WHERE user_login='$agent'")->fetch_array()["agent_id"];
+echo mysqli_error($conn);
+
+if(!($agent_id = mysqli_query($conn, "SELECT agent_id FROM Agents WHERE user_login='$agent'")->fetch_array()["agent_id"]))
 {
 	echo "Error: <br>" . mysqli_error($conn);
 }
 
 //Check if this house is already in the database.
-if(!empty(mysqli_query($conn, "SELECT MLS_number FROM listings WHERE address='$address' AND state='$state' AND zip='$zip' AND Agents_listing_agent_id='$agent_id'")->fetch_array()))
+if(!empty(mysqli_query($conn, "SELECT MLS_number FROM Listings WHERE address='$address' AND state='$state' AND zip='$zip' AND Agents_listing_agent_id='$agent_id'")->fetch_array()))
 {
 	echo "House already listed. <br>";
 	//Go ahead with the current listed house and move on to pictures page
@@ -52,7 +55,7 @@ if (mysqli_query($conn, $sql)) {
 
 	echo "New record created successfully";
 	//Get the new houses MLS number from the DB
-	if($result = mysqli_query($conn, "SELECT MLS_number FROM listings WHERE address='$address' AND state='$state' AND zip='$zip' AND Agents_listing_agent_id='$agent_id'"))
+	if($result = mysqli_query($conn, "SELECT MLS_number FROM Listings WHERE address='$address' AND state='$state' AND zip='$zip' AND Agents_listing_agent_id='$agent_id'"))
 	{
 		//Save the MLS number and move on to the pictures page
 		$mls = $result->fetch_array()["MLS_number"];
