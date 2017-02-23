@@ -12,6 +12,7 @@
 -->
 
 <?php
+
     class DB_Listings extends Paragon implements DBTransactor {
     
         // ***************************************************************************
@@ -24,7 +25,7 @@
         // Initializes a connection to the ParagonMLS database.
         // Given a table name. Creates a database connection to the table.
         public function __construct($TABLE_NAME) {
-                $conn = new mysqli(Paragon::DB_LOCATION, Paragon::DB_USERNAME, Paragon::DB_PW, Paragon::DB_NAME);
+                $conn = new mysqli($DB_LOCATION, $DB_USERNAME, $DB_PW, $DB_NAME);
                 $this->TABLE_NAME = $TABLE_NAME;
         }
 
@@ -35,9 +36,9 @@
         
         // ***************************************************************************
         // DBTransactor Methods (To be implemented)
-        public function insert($assoc_array)             : boolean {return false;}
-        public function update($set_array, $where_array) : boolean {return false;}
-        public function delete($key_array)               : boolean {return false;}
+        public function insert($assoc_array)             : bool {return false;}
+        public function update($set_array, $where_array) : bool {return false;}
+        public function delete($key_array)               : bool {return false;}
         public function select($array)                   : array   {return array();}
         public function search($assoc_rray)              : array   {return array();}
 

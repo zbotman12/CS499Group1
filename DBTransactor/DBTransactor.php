@@ -14,6 +14,7 @@
 -->
 
 <?php
+
     interface DBTransactor {
 
         /** insert()             -> Insert an entry to a table
@@ -23,11 +24,11 @@
         *                           Key values of the associative array must be the same as the column names of the database table as each DBTransactor uses the following SQL syntax.
         *                           "INSERT INTO table VALUES (value1, value2, ... );""
         * 
-        *   @return boolean      -> True  : Insert operation succeeded.
+        *   @return bool         -> True  : Insert operation succeeded.
         *                           False : Insert operation failed. 
         *   @throws              -> BadMethodCallException 
         */                          
-        public function insert($assoc_array) : boolean;
+        public function insert($assoc_array);
         
 
 
@@ -38,12 +39,11 @@
         *   @param $set_array    -> $set_array is an associative array where ["column_name"]    = "new value";
         *          $where_array  -> $where_array is a single valued array where "["column_name"] = condition_value;" This cannot be empty.
         *                           
-        *   @return boolean      -> Indicates if operation was successful (true if yes, false if no)
+        *   @return bool      -> Indicates if operation was successful (true if yes, false if no)
         *
         *   @throws 
         */    
-        public function update($set_array, $where_array) : boolean;
-        
+        public function update($set_array, $where_array);
 
 
 
@@ -52,12 +52,11 @@
         *
         *                         delete() corresponds to following mysql syntax: "DELETE FROM 'table_name' WHERE 'condition';
         *
-        *  @return boolean     -> Indicate if operation was sucessful or not
+        *  @return bool     -> Indicate if operation was sucessful or not
         *
         *  @throws Exception   -> Throws mysql query failure if database query failed
         */
-        public function delete($key_array) : boolean;
-        
+        public function delete($key_array);   
 
 
 
@@ -71,8 +70,7 @@
         *                         "SELECT column_name1,column_name2, .. FROM table_name; "
         * @throws exception    -> mysql errors if query failed 
         */
-        public function select($array) : array;
-
+        public function select($array);
 
 
 
@@ -95,6 +93,6 @@
         * search() will return all possible matchings of the conditions supplied in the associative array (i.e return all agents where agency is "British Intelligence Agency").
         * select() can act like a search, but a search cannot return a single value, only an entire entry.
         */
-        public function search($assoc_rray) : array;
+        public function search($assoc_rray);
     }
 ?>
