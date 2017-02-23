@@ -5,9 +5,8 @@
     When implementing a DBTransactor in your files, the transactor will initiate a
     connection to the ParagonMLS database.
     
-    Once you are done with your queries, call the destructor at the end of your
-    files or whenever you are done using the DBTransactor object to close the
-    connection to the database.
+    Once you are done with the object, you do not have to call the destructor implicitly.
+    PHP calls it at the end of the script.
 
 -->
 
@@ -40,6 +39,7 @@
 
         // Destroys object and closes database connection
         public function __destruct() {
+            //echo "Closing connection! Goodbye! <br/>";
             $this->connection->close();
         }
 
