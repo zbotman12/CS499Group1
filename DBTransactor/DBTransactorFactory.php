@@ -18,8 +18,7 @@
             $class_name = "DB_" . $table_name;
             if (class_exists($class_name) {
                 return new $class_name($table_name);
-            }
-            else {
+            } else {
                 throw new Exception("Invalid table name.")
             }
         }

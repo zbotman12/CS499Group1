@@ -34,6 +34,14 @@
             $conn->close();
         }
 
+        // ***************************************************************************
+        // DBTransactor Methods (To be implemented)
+        public function insert($assoc_array)             : boolean {return false;}
+        public function update($set_array, $where_array) : boolean {return false;}
+        public function delete($key_array)               : boolean {return false;}
+        public function select($array)                   : array   {return array();}
+        public function search($assoc_rray)              : array   {return array();}
+
 
         // ***************************************************************************
         // Private Methods

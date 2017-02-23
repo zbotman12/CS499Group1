@@ -93,7 +93,7 @@
         * @return array           -> Returns associative array of items selected from table. If no values found, array returned will be empty.
         * The difference between search() and select() is that select() searches for a very specific value. (i.e Return agent phone number.)
         * search() will return all possible matchings of the conditions supplied in the associative array (i.e return all agents where agency is "British Intelligence Agency").
-        * select() can act like a search, but a search cannot return a single value.
+        * select() can act like a search, but a search cannot return a single value, only an entire entry.
         */
         public function search($assoc_rray) : array;
     }
