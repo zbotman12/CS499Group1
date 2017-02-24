@@ -11,7 +11,7 @@
 
     function createAgent() {
         //Test
-        //print_r($_POST);
+        print_r($_POST);
         
         // Create a connection to the database and access Agents table
         try {

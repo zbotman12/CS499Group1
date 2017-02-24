@@ -14,20 +14,15 @@
 
     class DB_Agents extends Paragon implements DBTransactor {
         
-        // ***************************************************************************
-        // Private fields    
-        private $AGENTS_TABLE;
-        private $AGENCIES_TABLE = 'Agencies';
-        private $connection;    
-
         // ****************************************************************************
-        // Constructor/Desctructor and Public Methods
+        // Constructor/Destructor and Public Methods
 
         // Initializes a connection to the ParagonMLS database.
         // Given a table name. Creates a database connection to the table.
         public function __construct($TABLE_NAME) {
             $this->AGENTS_TABLE = $TABLE_NAME;
-            $this->connection = parent::getConn();
+            $this->connection = $this->getConn();
+            $this->AGENCIES_TABLE = 'Agencies';
 
             //Check for connection errors
             if ($this->connection->connect_error) {
@@ -79,8 +74,12 @@
                 throw new Exception($this->connection->error);
             }
 
+            //TODO: Once DB_Agencies is implemented. Just initialize object of that class here.
+
             if ($agency_exists) { //Agency exists. Get its agency ID. Create agent and assign agency ID obtained. 
                 
+                //TODO: Once DB_Agencies is implemented. Just initialize object of that class here.
+
                 //Build query to select agency id
                 $query  = "SELECT agency_id FROM " . $this->AGENCIES_TABLE . " WHERE company_name=" . "'" . $assoc_array['company_name'] . "'" .";";
 
@@ -168,7 +167,7 @@
                     //echo $row['agency_id'] . "<br/>";
 
                     //Build insert agent query
-                    $agent_query = "INSERT INTO " . $this->AGENTS_TABLE. " VALUES (NULL,";
+                    $agent_query = "INSERT INTO " . $this->AGENTS_TABLE . " VALUES (NULL,";
                     $agent_query .= "'" . $row['agency_id']                 . "'" . ",";
                     $agent_query .= "'" . $assoc_array['user_login']          . "'" . ",";
                     $agent_query .= "'" . $assoc_array['password']          . "'" . ",";
@@ -213,10 +212,10 @@
                 throw $e;
             }
 
-            $agent_query = "INSERT INTO " . $this->AGENTS_TABLE. " VALUES (NULL,";
-            $agent_query .= "'" . $assoc_array['agency_id']                 . "'" . ",";
-            $agent_query .= "'" . $assoc_array['user_login']          . "'" . ",";
-            $agent_query .= "'" . $assoc_array['password']          . "'" . ",";
+            $agent_query = "INSERT INTO " . $this->AGENTS_TABLE . " VALUES (NULL,";
+            $agent_query .= "'" . $assoc_array['agency_id']          . "'" . ",";
+            $agent_query .= "'" . $assoc_array['user_login']         . "'" . ",";
+            $agent_query .= "'" . $assoc_array['password']           . "'" . ",";
             $agent_query .= "'" . $assoc_array['first_name']         . "'" . ",";
             $agent_query .= "'" . $assoc_array['last_name']          . "'" . ",";
             $agent_query .= "'" . $assoc_array['email']              . "'" . ",";
@@ -246,25 +245,76 @@
             }
         }
 
-        // update() -> Updates Agent information in database 
-        public function update($set_array, $where_array) : bool {return false;}
-        public function delete($key_array)               : bool {return false;}
-        public function select($array)                   : array   {return array();}
-        
-        // Search function for agent does not have to be implemented for this object.
-        // Return a search function
-        public function search($assoc_rray)              : array   {return array();}
+        /** update() -> Updates a table entry in database
+        *               update() corresponds to following mysql syntax: 
+        *               "UPDATE 'table_name' SET column_1 = [value1], column_2 = [value2], ... WHERE 'condition' ""
+        *
+        *   @param $set_array, $where_array
+        *            -> $set_array is an associative array where ["column_name"]    = "new value";
+        *            -> $where_array is a single valued array where "["column_name"] = condition_value;" This cannot be empty.
+        */
+        public function update($set_array, $where_array) : bool {
+            
+            if(empty($set_array)) {
+                throw new BadMethodCallException("\$set_array cannot be empty");
+            }
+            
+            $ignore = ['submitted', 'Submit'];
+            
+            $columns     = $this->conditionBuilder($set_array, ",", $ignore);
+            $condition   = $this->conditionBuilder($where_array, " AND ", $ignore);
+            
+            $query = "UPDATE " . $this->AGENTS_TABLE . " SET " . $columns . " WHERE " . $condition . ";";
 
+            $results = $this->connection->query($query);
+
+            if ($results) {
+                return true;
+            }
+            else {
+                return false;   
+            }
+        }
+
+        /* delete()           -> Deletes an entry from the database
+            @param $key_array -> A single valued associative array where ["column_name"] = value_to_delete; 
+                                delete() corresponds to following mysql syntax: "DELETE FROM 'table_name' WHERE 'condition1' AND 'condition1' AND ...;
+                                Array must not be empty.
+          @throws Exception, BadMethodCallException  -> Throws mysql query failure if database query failed
+        */
+        public function delete($key_array) : bool {
+            
+            if (empty($key_array)) {
+                throw new Exception ("Nothing to delete.");
+            }
+
+            $condition = $this->conditionBuilder($key_array, " AND ", []);
+
+            $query = "DELETE FROM " . $this->AGENTS_TABLE . " WHERE " . $condition . ";";
+
+            $results = $this->connection->query($query);
+
+            if ($results) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        public function select($array)                   {return array();}
+        public function search($assoc_rray)              {return array();}
 
         // ***************************************************************************
-        // Private Methods
+        // Private Methods and Fields
 
         /** Quarantine zone.
         *    Makes sure everything about the Agent associative array is ok
         */
-        private function q_zone($assoc_array) {
+        
+        protected function q_zone($assoc_array) {
             // Sanitize the associative array. 
-            $assoc_array = array_map(array($this,"sanitizer"), $assoc_array);
+            //$assoc_array = array_map(array($this,"sanitizer"), $assoc_array);
+            $assoc_array   = array_map(array($this, "sanitizer"), $assoc_array);
 
             // Check for empty fields. 
             if($this->hasEmptyFields($assoc_array)) {
@@ -279,28 +329,6 @@
             return $assoc_array;
         }
         
-        /* hasEmptyFields()
-        *  Given an associative array with strings as values, determines if any of the values are empty
-        *  Returns bool
-        */
-        private function hasEmptyFields($arr) 
-        {
-            foreach($arr as $k => $v) 
-            {
-                if (empty($v)) {
-                  //echo "$k cannot be empty </br>";
-                  return true;
-                }
-            }
-            return false;
-        }
-
-        /* sanitizer() 
-        *  Given a string, strips special characters and slashes
-        */
-        private function sanitizer($data) {
-           return htmlspecialchars(stripslashes(trim($data))); 
-        }
     }
 
 ?>

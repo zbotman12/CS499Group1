@@ -8,9 +8,12 @@
     Examples: 
         $agentobj = DBTransactorFactory::build("Agents");
         $listings = DBTransactorFactory::build("Listings");
-        
+
+    Note: 
+        include_once is a better choice. Consider it in the future.         
 -->
 <?php
+
     require_once('Paragon.php') ;
     require_once('DBTransactor.php');
     require_once('DB_Agencies.php');
