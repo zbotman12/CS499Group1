@@ -31,10 +31,19 @@
         $agent = DBTransactorFactory::build("Agents");
 
         // Insert Agent information into database.
-        if($agent->insert($info) != true) {
-            echo "Could not create agent credentials. <br/>";
-        } else {
-            echo "Created your account succesfully! You may now login.";
+        try {
+            if($agent->insert($info) == true) {
+                echo "Created your account succesfully! You may now login.";
+            }
+            else {
+                echo "Could not create agent credentials. <br/>";
+            }
+        }
+        catch(Exception $e) {
+            //PHP Code to Handle Database Exception
+        }
+        catch(BadMethodCallException $e) {
+            //PHP Code to Handle $e bad user input Exception
         }
     }
 ?>

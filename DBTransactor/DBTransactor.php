@@ -11,6 +11,8 @@
 
     Interface behavior is described as:
         "If I want to be an Database Transactor (DBTransactor) object, I must fulfill the DBTransactor contract."
+
+    All of the function calls shall throw an exception if database queries to the corresponding transactor table fails.
 -->
 
 <?php
@@ -23,25 +25,24 @@
         *                           
         *                           Key values of the associative array must be the same as the column names of the database table as each DBTransactor uses the following SQL syntax.
         *                           "INSERT INTO table VALUES (value1, value2, ... );""
-        * 
-        *   @return bool         -> True  : Insert operation succeeded.
-        *                           False : Insert operation failed. 
-        *   @throws              -> BadMethodCallException 
+        *
+        *   @throws Exception, BadMethodCallException 
         */                          
         public function insert($assoc_array);
         
 
 
 
-        /** update()             -> Updates a table entry in database
-        *                           update() corresponds to following mysql syntax: "UPDATE 'table_name' SET column_1 = [value1], column_2 = [value2], ... WHERE 'condition' ""
+        /** update() -> Updates a table entry in database
+        *               update() corresponds to following mysql syntax: 
+        *               "UPDATE 'table_name' SET column_1 = [value1], column_2 = [value2], ... WHERE 'condition' ""
         *
-        *   @param $set_array    -> $set_array is an associative array where ["column_name"]    = "new value";
-        *          $where_array  -> $where_array is a single valued array where "["column_name"] = condition_value;" This cannot be empty.
+        *   @param $set_array, $where_array
+        *            -> $set_array is an associative array where ["column_name"]    = "new value";
+        *            -> $where_array is a single valued array where "["column_name"] = condition_value;" This cannot be empty.
         *                           
-        *   @return bool      -> Indicates if operation was successful (true if yes, false if no)
         *
-        *   @throws 
+        *   @throws Exception
         */    
         public function update($set_array, $where_array);
 
@@ -51,8 +52,6 @@
         *  @param $key_array   -> A single valued associative array where ["column_name"] = value_to_delete; 
         *
         *                         delete() corresponds to following mysql syntax: "DELETE FROM 'table_name' WHERE 'condition';
-        *
-        *  @return bool     -> Indicate if operation was sucessful or not
         *
         *  @throws Exception   -> Throws mysql query failure if database query failed
         */
@@ -68,7 +67,7 @@
         *                         If query wasn't found, returns empty array. Function uses mysql_num_rows to check if anything from the query was returned.
         *
         *                         "SELECT column_name1,column_name2, .. FROM table_name; "
-        * @throws exception    -> mysql errors if query failed 
+        * @throws Exception    -> mysql errors if query failed 
         */
         public function select($array);
 

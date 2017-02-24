@@ -31,10 +31,8 @@
 
             //Check for connection errors
             if ($this->connection->connect_error) {
-                echo "Connection failed: " . $this->connection->connect_error;
-            } else {
-                echo "Connection successful<br/>"; 
-            }
+                throw new Exception("Connection failed: " . $this->connection->connect_error);
+            } 
         }
 
         // Destroys object and closes database connection
@@ -48,23 +46,21 @@
         
         /** insert()
         *  DB_Agents also creates an agency if agency supplied doesn't exist as agent depends on agency existence.
+        *  @throws Exception, BadMethodCallException
         */
         public function insert($assoc_array) : bool {
 
-            // Sanitize the associative array. 
-            $assoc_array = array_map(array($this,"sanitizer"), $assoc_array);
-
-            // Check for empty fields. 
-            if($this->hasEmptyFields($assoc_array)) {
-                return false;
-            } 
-
-            //Check if passwords match
-            if (strcmp($assoc_array['password'], $assoc_array['confirm_pass']) != 0) {
-                echo "Could not create agent. Passwords do not match! <br/>";
-                return false;
+            //Quarantine Zone
+            try {
+                $assoc_array = q_zone($assoc_array);
             }
-            
+            catch(Exception $e) {
+                throw $e;
+            }
+            catch (BadMethodCallException $e) {
+                throw $e;
+            }
+
             //Build query to check existence of Agency  
             $query  = "SELECT * FROM " . $this->AGENCIES_TABLE . " ";
             $query .= "WHERE company_name = \"" . $assoc_array['company_name'] . "\" ";
@@ -83,8 +79,7 @@
                     $agency_exists = false;
                 }
             } else { // Something happened. Could not create agent.
-                echo $this->connection->error;
-                return false;
+                throw new Exception($this->connection->error);
             }
 
             if ($agency_exists) { //Agency exists. Get its agency ID. Create agent and assign agency ID obtained. 
@@ -115,13 +110,10 @@
 
                 if ($dup_results) {
                   if ($dup_results->num_rows == 1) {
-                      echo "Username already exists!<br/> Cannot create agent. <br/>";
-                      //$conn->close();
-                      return false;
+                      throw new Exception("Username already exists!<br/> Cannot create agent.");
                   } 
                 } else {
-                    echo $this->connection->error;
-                    return false;
+                    throw new Exception($this->connection->error);
                 }
 
                 //Query the database. Insert Agent into Agents table
@@ -129,12 +121,11 @@
                 
                 //Check results. $results is either true or false
                 if($results) {
-                    echo "Created agent successfully!<br/>";
                     return true;
                 } else {
-                    echo "Could not create agent! Database error!<br/>";
-                    echo $this->connection->error;
-                    return false;
+                    throw new Exception("Could not create agent! Database error! " . $this->connection->error);
+                    //echo $this->connection->error;
+                    //return false;
                 }
             } else { //Agency doesn't exist. Create a new agency. After creating agency. Give agency ID to agent. 
                 
@@ -163,13 +154,13 @@
 
                     if ($dup_results) {
                       if ($dup_results->num_rows == 1) {
-                          echo "Username already exists!<br/> Cannot create agent. <br/>";
+                          throw new Exception("Username already exists!<br/> Cannot create agent.");
                           //$conn->close();
-                          return false;
+                          //return false;
                       } 
                     } else {
-                        echo $conn->error;
-                        return false;
+                        throw new Exception($this->connection->error);
+                        //return false;
                     }
 
                     //Build agent entry as username is unique
@@ -198,34 +189,112 @@
                         //echo "Created agent successfully!<br/>";
                         return true;
                     } else {
-                        //echo "Could not create agent! Database error!</br>"; 
-                        return false;
+                        throw new Exception("Could not create agent! Database error!"); 
+                        //return false;
                     }
-                } else { //We need to change this to exceptions.
-                    //echo "Could not create Agency! Could not create agent credentials! Database error! <br/>";
-                    return false;
+                } else {
+                    throw new Exception("Could not create Agency! Could not create agent credentials! Database error!");
+                    //return false;
                 }
             }
         }
 
+        /* insertAgent()
+        * This function already assumes agent knows his agency ID and creates an
+        * agent entry in Agents table. agency_id must be in the map.
+        * Returns true if successful completion. 
+        * Otherwise, throws exception due to mysql.
+        * @throws Exception, BadMethodCallException
+        */
+        public function insertAgent($assoc_array) {
+
+            //Quarantine Zone
+            try {
+                $assoc_array = q_zone($assoc_array);
+            }
+            catch(Exception $e) {
+                throw $e;
+            }
+            catch (BadMethodCallException $e) {
+                throw $e;
+            }
+
+            $agent_query = "INSERT INTO " . $this->AGENTS_TABLE. " VALUES (NULL,";
+            $agent_query .= "'" . $assoc_array['agency_id']                 . "'" . ",";
+            $agent_query .= "'" . $assoc_array['user_login']          . "'" . ",";
+            $agent_query .= "'" . $assoc_array['password']          . "'" . ",";
+            $agent_query .= "'" . $assoc_array['first_name']         . "'" . ",";
+            $agent_query .= "'" . $assoc_array['last_name']          . "'" . ",";
+            $agent_query .= "'" . $assoc_array['email']              . "'" . ",";
+            $agent_query .= "'" . $assoc_array['agent_phone_number'] . "'" . ");";
+
+            $dup_query = "SELECT * FROM " . $this->AGENTS_TABLE . " WHERE user_login=" . "'" . $assoc_array['user_login'] . "';";    
+            $dup_results = $this->connection->query($dup_query);
+
+            if ($dup_results) {
+              if ($dup_results->num_rows == 1) {
+                  throw new Exception("Username already exists! Cannot create agent.");
+              } 
+            } else {
+                throw new Exception($this->connection->error);
+            }
+
+            //Query the database. Insert Agent into Agents table
+            $results = $this->connection->query($agent_query);
+            
+            //Check results. $results is either true or false
+            if($results) {
+                return true;
+            } else {
+                throw new Exception("Could not create agent! Database error! " . $this->connection->error);
+                //echo $this->connection->error;
+                //return false;
+            }
+        }
+
+        // update() -> Updates Agent information in database 
         public function update($set_array, $where_array) : bool {return false;}
         public function delete($key_array)               : bool {return false;}
         public function select($array)                   : array   {return array();}
+        
+        // Search function for agent does not have to be implemented for this object.
+        // Return a search function
         public function search($assoc_rray)              : array   {return array();}
 
 
         // ***************************************************************************
         // Private Methods
+
+        /** Quarantine zone.
+        *    Makes sure everything about the Agent associative array is ok
+        */
+        private function q_zone($assoc_array) {
+            // Sanitize the associative array. 
+            $assoc_array = array_map(array($this,"sanitizer"), $assoc_array);
+
+            // Check for empty fields. 
+            if($this->hasEmptyFields($assoc_array)) {
+                throw new BadMethodCallException ("Fields cannot be empty!");
+            } 
+
+            //Check if passwords match
+            if (strcmp($assoc_array['password'], $assoc_array['confirm_pass']) != 0) {
+                throw new BadMethodCallException ("Could not create agent. Passwords do not match!");
+            }
+
+            return $assoc_array;
+        }
         
         /* hasEmptyFields()
         *  Given an associative array with strings as values, determines if any of the values are empty
         *  Returns bool
         */
-        private function hasEmptyFields($arr) {
+        private function hasEmptyFields($arr) 
+        {
             foreach($arr as $k => $v) 
             {
-                if (empty($v)){
-                  echo "$k cannot be empty </br>";
+                if (empty($v)) {
+                  //echo "$k cannot be empty </br>";
                   return true;
                 }
             }

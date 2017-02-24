@@ -39,6 +39,9 @@
         public function update($set_array, $where_array) : bool {return false;}
         public function delete($key_array)               : bool {return false;}
         public function select($array)                   : array   {return array();}
+        
+
+        
         public function search($assoc_rray)              : array   {return array();}
 
         // ***************************************************************************
