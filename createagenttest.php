@@ -25,7 +25,7 @@
         // Insert Agent information into database.
         try {
             if($agent->insert($_POST) == true) {
-                echo "Created your account succesfully! You may now login.";
+                echo "Created your account succesfully! You may now login. <br/>";
             }
             else {
                 echo "Could not create agent credentials. <br/>";
