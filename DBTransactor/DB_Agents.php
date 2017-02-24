@@ -326,10 +326,15 @@
               $query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . " WHERE " . $c . ";";
               
               $results = $this->connection->query($query);
+              return $results;
             }
         }
         
-        public function search($assoc_rray)              {return array();}
+
+        // Do not know how this should be implemented
+        public function search($assoc_rray) {
+            throw new Exception("Search function not yet implemented for Agents");
+        }
 
         // ***************************************************************************
         // Private Methods and Fields
