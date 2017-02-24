@@ -168,9 +168,9 @@
 
                     //Build insert agent query
                     $agent_query = "INSERT INTO " . $this->AGENTS_TABLE . " VALUES (NULL,";
-                    $agent_query .= "'" . $row['agency_id']                 . "'" . ",";
-                    $agent_query .= "'" . $assoc_array['user_login']          . "'" . ",";
-                    $agent_query .= "'" . $assoc_array['password']          . "'" . ",";
+                    $agent_query .= "'" . $row['agency_id']                  . "'" . ",";
+                    $agent_query .= "'" . $assoc_array['user_login']         . "'" . ",";
+                    $agent_query .= "'" . $assoc_array['password']           . "'" . ",";
                     $agent_query .= "'" . $assoc_array['first_name']         . "'" . ",";
                     $agent_query .= "'" . $assoc_array['last_name']          . "'" . ",";
                     $agent_query .= "'" . $assoc_array['email']              . "'" . ",";
@@ -301,7 +301,34 @@
                 return false;
             }
         }
-        public function select($array)                   {return array();}
+
+
+        /* select($array) -> Selects an entry and returns a SQL object of
+        *                    results obtained. 
+        *  @param $array -> Regular list. Just give a list of column names to select.
+        *  @param $cond  -> A map of conditions to to select based on.
+        */
+        public function select($array, $cond) {
+            if (empty($array)) {
+                throw new Exception ("Nothing to select");
+            }
+            
+            $s = implode(",", $array);
+            
+            // If condition is empty. Just select all columns given.
+            if (empty($cond)) {
+              $query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . ";"; 
+              $results = $this->connection->query($query);
+
+              return results;
+            }{ //Else, select based on given conditions
+              $c = $this->conditionBuilder($cond, " AND ", []);
+              $query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . " WHERE " . $c . ";";
+              
+              $results = $this->connection->query($query);
+            }
+        }
+        
         public function search($assoc_rray)              {return array();}
 
         // ***************************************************************************
@@ -330,5 +357,4 @@
         }
         
     }
-
 ?>

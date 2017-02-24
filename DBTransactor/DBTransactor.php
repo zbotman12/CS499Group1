@@ -61,16 +61,17 @@
         public function delete($key_array) : bool;   
 
         /*  select()           -> Selects data from the database
-            @param  $array       -> Array of column names to select. 
+            @param  $array     -> Array of column names to select. 
                        
             @return mysqli_result   -> Return mysql object of items selected from table ['column_name'] = Array(values for column) 
                                     Functions use mysql_fetch_assoc() to turn result query into associative array of values you specified.
                                     If query wasn't found, returns empty array. Function uses mysql_num_rows to check if anything from the query was returned.
         
-                                 "SELECT column_name1,column_name2, .. FROM table_name; "
+                                 "SELECT column_name1,column_name2, .. FROM
+                                 table_name WHERE; "
             @throws Exception    -> mysql errors if query failed 
         */
-        public function select($array);
+        public function select($array, $cond);
 
 
 
