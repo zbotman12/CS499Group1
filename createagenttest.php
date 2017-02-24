@@ -41,9 +41,11 @@
         }
         catch(Exception $e) {
             //PHP Code to Handle Database Exception
+            echo $e->getMessage() . "<br/>";
         }
         catch(BadMethodCallException $e) {
             //PHP Code to Handle $e bad user input Exception
+            echo $e->getMessage() . "<br/>";
         }
     }
 ?>

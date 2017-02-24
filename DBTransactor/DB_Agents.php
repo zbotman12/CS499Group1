@@ -52,10 +52,7 @@
 
             //Quarantine Zone
             try {
-                $assoc_array = q_zone($assoc_array);
-            }
-            catch(Exception $e) {
-                throw $e;
+                $assoc_array = $this->q_zone($assoc_array);
             }
             catch (BadMethodCallException $e) {
                 throw $e;
@@ -210,10 +207,7 @@
 
             //Quarantine Zone
             try {
-                $assoc_array = q_zone($assoc_array);
-            }
-            catch(Exception $e) {
-                throw $e;
+                $assoc_array = $this->q_zone($assoc_array);
             }
             catch (BadMethodCallException $e) {
                 throw $e;
