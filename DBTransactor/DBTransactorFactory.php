@@ -26,6 +26,7 @@
             if (class_exists($class_name)) {
                 return new $class_name($table_name);
             } else {
+                //You do not have to catch this one.
                 throw new Exception("Invalid table name.");
             }
         }

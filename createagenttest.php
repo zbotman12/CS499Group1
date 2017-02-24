@@ -10,29 +10,21 @@
     include './DBTransactor/DBTransactorFactory.php';
 
     function createAgent() {
-
-        //Create information associative array to supply to 
-        $info = array( 
-                    "company_name"         => $_POST['company_name'],
-                    "address"              => $_POST['company_address'], 
-                    "city"                 => $_POST['company_city'], 
-                    "state"                => $_POST['company_state'], 
-                    "zip"                  => $_POST['company_zip'], 
-                    "agency_phone_number"  => $_POST['company_phone_number'],
-                    "user_login"           => $_POST['username'],
-                    "password"             => $_POST['password'],
-                    "confirm_pass"         => $_POST['confirmPass'],
-                    "first_name"           => $_POST['firstname'],
-                    "last_name"            => $_POST['lastname'],
-                    "email"                => $_POST['email'],
-                    "agent_phone_number"   => $_POST['agent_phone_number']);
-
+        //Test
+        //print_r($_POST);
+        
         // Create a connection to the database and access Agents table
-        $agent = DBTransactorFactory::build("Agents");
+        try {
+          $agent = DBTransactorFactory::build("Agents");
+        }
+        catch (Exception $e) {
+              // Serious error. Could not connect to the database and initalize DBTransactor object.
+              echo $e->getMessage() . "<br/>"; 
+        }
 
         // Insert Agent information into database.
         try {
-            if($agent->insert($info) == true) {
+            if($agent->insert($_POST) == true) {
                 echo "Created your account succesfully! You may now login.";
             }
             else {
