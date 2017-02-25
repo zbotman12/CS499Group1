@@ -280,12 +280,12 @@
             @param $key_array -> A single valued associative array where ["column_name"] = value_to_delete; 
                                 delete() corresponds to following mysql syntax: "DELETE FROM 'table_name' WHERE 'condition1' AND 'condition1' AND ...;
                                 Array must not be empty.
-          @throws Exception, BadMethodCallException  -> Throws mysql query failure if database query failed
+          @throws BadMethodCallException  -> Throws mysql query failure if database query failed
         */
         public function delete($key_array) : bool {
             
             if (empty($key_array)) {
-                throw new Exception ("Nothing to delete.");
+                throw new BadMethodCallException("Nothing to delete.");
             }
 
             $condition = $this->conditionBuilder($key_array, " AND ", []);

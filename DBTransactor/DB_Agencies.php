@@ -38,7 +38,29 @@
         // DBTransactor Methods (To be implemented)
         public function insert($assoc_array)             : bool  {return false;}
         public function update($set_array, $where_array) : bool  {return false;}
-        public function delete($key_array)               : bool  {return false;}
+        
+        /* delete()           -> Deletes an entry from the database
+            @param $key_array -> A single valued associative array where ["column_name"] = value_to_delete; 
+                                delete() corresponds to following mysql syntax: "DELETE FROM 'table_name' WHERE 'condition1' AND 'condition1' AND ...;
+                                Array must not be empty.
+          @throws BadMethodCallException  -> Throws mysql query failure if database query failed
+        */
+        public function delete($key_array) : bool {
+            
+            if (empty($key_array)) {
+                throw new BadMethodCallException ("Nothing to delete.");
+            }
+
+            $condition = $this->conditionBuilder($key_array, " AND ", []);
+            $query = "DELETE FROM " . $this->AGENCIES_TABLE . " WHERE " . $condition . ";";
+            $results = $this->connection->query($query);
+            if ($results) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
         
         /* select($array) -> Selects an entry and returns a SQL object of
         *                    results obtained. 
@@ -68,7 +90,7 @@
             }
         }
 
-        public function search($assoc_rray)                {return array();}
+        public function search($assoc_rray) {return array();}
 
 
         // ***************************************************************************
