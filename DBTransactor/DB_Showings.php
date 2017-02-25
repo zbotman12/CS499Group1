@@ -38,7 +38,34 @@
         public function insert($assoc_array)              : bool {return false;}
         public function update($set_array, $where_array)  : bool {return false;}
         public function delete($key_array)                : bool {return false;}
-        public function select($array, $cond)             {return array();}
+
+        /* select($array) -> Selects an entry and returns a SQL object of
+        *                    results obtained. 
+        *  @param $array -> Regular list. Just give a list of column names to select.
+        *  @param $cond  -> A map of conditions to to select based on.
+        */
+        public function select($array, $cond) {
+            if (empty($array)) {
+                throw new Exception ("Nothing to select");
+            }
+            
+            $s = implode(",", $array);
+            
+            // If condition is empty. Just select all columns given.
+            if (empty($cond)) {
+              $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_FEEDB_TABLE . ";"; 
+              $results = $this->connection->query($query);
+
+              return results;
+            }{ //Else, select based on given conditions
+              $c = $this->conditionBuilder($cond, " AND ", []);
+              $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_FEEDB_TABLE . " WHERE " . $c . ";";
+              
+              $results = $this->connection->query($query);
+              return $results;
+            }
+        }
+        
         public function search($assoc_rray)               {return array();}
 
         // ***************************************************************************
