@@ -77,31 +77,6 @@
             return (implode ($str ,$a));
         }
 
-        /* columnBuilder
-           Given an associative array. Returns a string of array keys listed by commas
-           Example Input: 
-                    $agent_id = array('agency_id'  => '100',
-                                      'user_login' => 'dasani',
-                                      'password'   => 'dasani');
-                    $var = columnBuilder($agent_id);
-           
-           Example Output: $var is now $var = "agency_id, user_login, password"
-        */
-        protected function columnBuilder($assoc_array) {
-            if (empty($assoc_array) {
-                throw new BadMethodCallException ("selectColumns: Array cannot be empty");
-            }
-            
-            $a = array();
-            $s = '';
-
-            foreach ($assoc_array as $key => $value) {
-                $s = $key;
-                array_push($a, $s);
-            }
-            return (implode (", ", $a));
-        }
-
         // *******************************************************************************************************************************
         // Utilities
         
