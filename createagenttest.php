@@ -7,12 +7,19 @@
 <?php
     
     // Include a factory whenever you need a database connection.
-    include './DBTransactor/DBTransactorFactory.php';
+    //include './DBTransactor/DBTransactorFactory.php';
 
     function createAgent() {
+        include './DBTransactor/DBTransactorFactory.php';
+
         //Test
-        print_r($_POST);
-        
+        //print_r($_POST);
+        if ($_POST == Array()) {
+            header("location: index.php");
+            //echo "test";
+            //exit;
+        }
+
         // Create a connection to the database and access Agents table
         try {
           $agent = DBTransactorFactory::build("Agents");
@@ -43,7 +50,9 @@
 ?>
 
 <body>
-    <?php createAgent(); ?>
+    <?php ob_start();
+          createAgent(); 
+    ?>
     <a href="./logintest.php">Login</a><br/>
 </body>
 
