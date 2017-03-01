@@ -302,7 +302,6 @@
             }
         }
 
-
         /* select($array) -> Selects an entry and returns a SQL object of
         *                    results obtained. 
         *  @param $array -> Regular list. Just give a list of column names to select.
@@ -320,13 +319,15 @@
               $query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . ";"; 
               $results = $this->connection->query($query);
 
-              return results;
+              return $this->resultToArray($results);
+
             }{ //Else, select based on given conditions
               $c = $this->conditionBuilder($cond, " AND ", []);
               $query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . " WHERE " . $c . ";";
               
               $results = $this->connection->query($query);
-              return $results;
+
+              return $this->resultToArray($results);;
             }
         }
         

@@ -113,5 +113,27 @@
         protected function array_except($array, $keys) {
             return array_diff_key($array, array_flip((array) $keys));   
         }
+
+        public function printer($array) {
+            foreach ($array as $key => $val) {
+                echo "Key: " . $key . "<br/>";
+                foreach ($val as $k => $v) {
+                    echo "$k " . "=" . "$v" . "<br/>";
+                }
+                echo "<br/>";
+            }
+        }
+        
+        protected function resultToArray($result) {
+            $rows = array();
+            while($row = $result->fetch_assoc()) {
+                //$rows[] = $row;
+                foreach ($row as $key => $value) {
+                    $rows[$row['agent_id']][$key] = $value;
+                }
+            }
+            return $rows;
+        }      
+
     }
 ?>
