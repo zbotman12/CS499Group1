@@ -64,15 +64,8 @@
                 return false;
             }
         }
-        
-        /* select($array) -> Selects an entry and returns a SQL object of
-        *                    results obtained. 
-        *  @param $array -> Regular list. Just give a list of column names to select.
-        *  @param $cond  -> A map of conditions to to select based on.
-        */
-        
-        /* select($array) -> Selects an entry and returns a SQL object of
-        *                    results obtained. 
+
+        /* select($array) -> Selects an entry and returns an associative array of values obtained.
         *  @param $array -> Regular list. Just give a list of column names to select.
         *  @param $cond  -> A map of conditions to to select based on.
         */

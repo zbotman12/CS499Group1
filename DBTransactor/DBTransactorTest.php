@@ -49,7 +49,6 @@
                          'zip'                => '55555',
                          'address'            => '221B Baker Street');
 
-
     echo "Inserting into Agents table... <br/>";    
     echo "Calling insert() <br/>";
     try {
