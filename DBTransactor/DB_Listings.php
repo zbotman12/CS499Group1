@@ -36,8 +36,90 @@
 
         // ***************************************************************************
         // DBTransactor Methods (To be implemented)
-        public function insert($assoc_array)             : bool {return false;}
-        public function update($set_array, $where_array) : bool {return false;}
+        public function insert($assoc_array) : bool {
+
+            //Quarantine Zone
+            try {
+                $assoc_array = $this->q_zone($assoc_array);
+            }
+            catch (BadMethodCallException $e) {
+                throw $e;
+            }
+
+            //Check for duplicate entries
+            $dup_query  = "SELECT * FROM "          . $this->LISTINGS_TABLE . " WHERE ";
+            $dup_query .= "address="                . "'" . $assoc_array['address'] . "' AND ";
+            $dup_query .= "state="                  . "'" . $assoc_array['state']   . "' AND ";
+            $dup_query .= "zip="                    . "'" . $assoc_array['zip']     . "' AND ";
+            $dup_query .= "Agents_listing_agent_id" . "'" . $assoc_array["Agents_listing_agent_id"] . "';"; 
+
+            $dup_results = $this->connection->query($dup_query);
+
+            if ($dup_results) {
+              if ($dup_results->num_rows == 1) {
+                  throw new Exception("Listing already exists! Cannot create listing.");
+              } 
+            } else {
+                throw new Exception($this->connection->error);
+            }
+
+            //Build listings query 
+            $listings_q  = "INSERT INTO " . $this->LISTINGS_TABLE   . " VALUES (NULL,";
+            $listings_q .= "'" . $assoc_array['Agents_listing_agent_id']  . "'" . ",";
+            $listings_q .= "'" . $assoc_array['price']                    . "'" . ",";
+            $listings_q .= "'" . $assoc_array['city']                     . "'" . ",";
+            $listings_q .= "'" . $assoc_array['state']                    . "'" . ",";
+            $listings_q .= "'" . $assoc_array['zip']                      . "'" . ",";
+            $listings_q .= "'" . $assoc_array['address']                  . "'" . ",";
+            $listings_q .= "'" . $assoc_array['square_footage']           . "'" . ",";
+            $listings_q .= "'" . $assoc_array['number_of_bedrooms']       . "'" . ",";
+            $listings_q .= "'" . $assoc_array['number_of_bathrooms']      . "'" . ",";
+            $listings_q .= "'" . $assoc_array['room_desc']                . "'" . ",";
+            $listings_q .= "'" . $assoc_array['listing_desc']             . "'" . ",";
+            $listings_q .= "'" . $assoc_array['additional_info']          . "'" . ",";
+            $listings_q .= "'" . $assoc_array['agent_only_info']          . "'" . ");";
+            
+            //Insert listing into database
+            $result = $this->connection->query($listings_q);
+
+            //Check results. $results is either true or false
+            if($results) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function update($set_array, $where_array) : bool {
+            
+            if(empty($set_array)) {
+                throw new BadMethodCallException("\$set_array cannot be empty");
+            }
+            
+            //Quarantine Zone
+            try {
+                $assoc_array = $this->q_zone($assoc_array);
+            }
+            catch (BadMethodCallException $e) {
+                throw $e;
+            }     
+            
+            $ignore = ['submitted', 'Submit'];
+            
+            $columns     = $this->conditionBuilder($set_array, ",", $ignore);
+            $condition   = $this->conditionBuilder($where_array, " AND ", $ignore);
+            
+            $query = "UPDATE " . $this->LISTINGS_TABLE . " SET " . $columns . " WHERE " . $condition . ";";
+
+            $results = $this->connection->query($query);
+
+            if ($results) {
+                return true;
+            }
+            else {
+                return false;   
+            }
+        }
 
         /* delete()           -> Deletes an entry from the database
             @param $key_array -> A single valued associative array where ["column_name"] = value_to_delete; 
@@ -127,7 +209,14 @@
         // ***************************************************************************
         // Private Methods and Fields
         protected function q_zone($assoc_array){
-            return true;
+            //Strip special tags
+            $assoc_array = array_map(array($this, "sanitizer"), $assoc_array);
+
+            // Check for empty fields. 
+            if($this->hasEmptyFields($assoc_array)) {
+                throw new BadMethodCallException ("Fields cannot be empty!");
+            }
+            return $assoc_array; 
         }
 
         // Index query control 

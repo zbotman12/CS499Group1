@@ -259,6 +259,14 @@
                 throw new BadMethodCallException("\$set_array cannot be empty");
             }
             
+            //Quarantine Zone
+            try {
+                $assoc_array = $this->q_zone($assoc_array);
+            }
+            catch (BadMethodCallException $e) {
+                throw $e;
+            }
+
             $ignore = ['submitted', 'Submit'];
             
             $columns     = $this->conditionBuilder($set_array, ",", $ignore);
@@ -322,9 +330,9 @@
             else {
                 array_push($array, $this->index);
             }
-
             
             $s = implode(",", $array);
+
             // If condition is empty. Just select all columns given.
             if (empty($cond)) {
               $query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . ";"; 

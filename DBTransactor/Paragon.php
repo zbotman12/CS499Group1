@@ -75,6 +75,8 @@
             Given a string, strips special characters and slashes
         */
         protected function sanitizer($data) {
+            //IMPORTANT NOTE (RYAN): We need to alter test_input so that we can
+            //Use special characters like apostrophes without causing sql errors.
            return htmlspecialchars(stripslashes(trim($data))); 
         }
 

@@ -53,7 +53,7 @@
 
             if ($dup_results) {
               if ($dup_results->num_rows == 1) {
-                  throw new Exception("Agency already exists! Cannot create agent.");
+                  throw new Exception("Agency already exists! Cannot create agency.");
               } 
             } else {
                 throw new Exception($this->connection->error);
@@ -93,6 +93,14 @@
                 throw new BadMethodCallException("\$set_array cannot be empty");
             }
             
+            //Quarantine Zone
+            try {
+                $assoc_array = $this->q_zone($assoc_array);
+            }
+            catch (BadMethodCallException $e) {
+                throw $e;
+            }
+
             $ignore = ['submitted', 'Submit'];
             
             $columns     = $this->conditionBuilder($set_array, ",", $ignore);
