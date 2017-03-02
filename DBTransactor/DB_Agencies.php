@@ -35,7 +35,7 @@
         }
 
         // ***************************************************************************
-        // DBTransactor Methods (To be implemented)
+        // DBTransactor Methods (needs testing)
         
         public function insert($assoc_array) : bool {
             

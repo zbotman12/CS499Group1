@@ -35,7 +35,7 @@
         }
 
         // ***************************************************************************
-        // DBTransactor Methods (To be implemented)
+        // DBTransactor Methods (needs testing)
         public function insert($assoc_array) : bool {
 
             //Quarantine Zone
@@ -191,7 +191,7 @@
             if($isThere){
                 return $result_array;
             } 
-            else { //Otherwise, filter the arrays that have the values.
+            else { //Otherwise, filter the arrays that have the values. 
                 $noID = array();
                 foreach ($result_array as $agid => $value) {
                     foreach ($value as $k => $v) {

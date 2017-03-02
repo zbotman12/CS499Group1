@@ -37,7 +37,7 @@
         }
 
         // ***************************************************************************
-        // DBTransactor Methods 
+        // DBTransactor Methods (needs testing)
         
         /** insert()
         *  DB_Agents also creates an agency if agency supplied doesn't exist as agent depends on agency existence.

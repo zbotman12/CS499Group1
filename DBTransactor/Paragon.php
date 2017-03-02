@@ -33,7 +33,7 @@
         private $connection;
         
         // *******************************************************************************************************************************
-        // Paragon Abstract Methods
+        // Paragon Abstract Methods (needs testing)
 
         /*
             getConn()

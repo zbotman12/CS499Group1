@@ -35,7 +35,7 @@
         }
 
         // ***************************************************************************
-        // DBTransactor Methods 
+        // DBTransactor Methods (needs testing)
         public function insert($assoc_array) : bool {
 
             //Quarantine Zone
