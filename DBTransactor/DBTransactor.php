@@ -91,6 +91,6 @@
         * search() will return all possible matchings of the conditions supplied in the associative array (i.e return all agents where agency is "British Intelligence Agency").
         * select() can act like a search, but a search cannot return a single value, only an entire entry.
         */
-        public function search($assoc_rray);
+        //public function search($assoc_rray);
     }
 ?>

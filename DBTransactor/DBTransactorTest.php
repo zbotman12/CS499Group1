@@ -50,24 +50,26 @@
                          'address'            => '221B Baker Street');
 
 
-   /* echo "Inserting into Agents table... <br/>";    
+    echo "Inserting into Agents table... <br/>";    
     echo "Calling insert() <br/>";
-    $agents->insert($agent_no_id);
-
-    echo "Calling insertAgent() <br/>";
-    $agents->insertAgent($agent_id);
-*/
-
-/*
+    try {
+        $agents->insert($agent_no_id);
+    }
+    catch (Exception $e) {
+        echo $e->getMessage() . "<br/>";
+    }
+    //echo "Calling insertAgent() <br/>";
+    //$agents->insertAgent($agent_id);
+    
+    /*
     $set = array('password' => 'haha',
                  'email'    => 'changed@working.com'); 
-    $where = array('user_login' => 'Dasani',
-                   'password'   => 'dasani');
+    $where = array('user_login' => 'jbonds',
+                   'password'   => 'hello');
 
-    //echo "Updating agent info...<br/>";
+    echo "Updating agent info...<br/>";
     $agents->update($set,$where); 
-*/
-
+    */
 /*
     $cond = array('user_login'    => 'dasani',
                   'password'      => 'dasani');
@@ -82,21 +84,10 @@
     /* Test select */
     //$w1 = Array('password' => 'ryank');
 
-    $o = $agents->select(['*'], []);
-
-    /*foreach ($o as $key => $val) {
-        //print_r $o;
-        echo $key . " is " . $val . "<br/>";
-    }*/
+    $o = $agents->selectAll();
+    //$o = $agents->select(['agent_id', 'first_name', 'last_name'], []);
 
     $agents->printer($o);
-/*
-    //Row Test
-    echo "<br> Row test <br/>";
-    while ($row = $o->fetch_row()) {
-        printf ("%s (%s)\n", $row[0]);
-    } 
-*/
 
     echo "Done! Test complete. <br/>";
 ?>

@@ -70,26 +70,58 @@
         *  @param $cond  -> A map of conditions to to select based on.
         */
         public function select($array, $cond) {
+            $isThere = false;
+            $result_array = Array();
+
+            // Check if $array is empty.
             if (empty($array)) {
                 throw new Exception ("Nothing to select");
             }
-            
+
+            // Check if agent_id is in the query to be requested.
+            if (in_array('', $array)){
+                $isThere = true;
+            }
+            else {
+                array_push($array, $this->index);
+            }
+
+            // Make string acceptable for SQL command
             $s = implode(",", $array);
-            
+
             // If condition is empty. Just select all columns given.
             if (empty($cond)) {
-              $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_FEEDB_TABLE . ";"; 
+              $query = "SELECT " . $s . " FROM " . $this->LISTINGS_TABLE . ";"; 
               $results = $this->connection->query($query);
 
-              return results;
-            }{ //Else, select based on given conditions
+              $result_array = $this->resultToArray($results, $this->index);
+
+            } else { //Else, select based on given conditions
               $c = $this->conditionBuilder($cond, " AND ", []);
-              $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_FEEDB_TABLE . " WHERE " . $c . ";";
+              $query = "SELECT " . $s . " FROM " . $this->LISTINGS_TABLE . " WHERE " . $c . ";";
               
               $results = $this->connection->query($query);
-              return $results;
+
+              $result_array = $this->resultToArray($results, $this->index);
+            }
+
+            //If agent_id was supplied as value in $array, just return the array.
+            if($isThere){
+                return $result_array;
+            } 
+            else { //Otherwise, filter the arrays that have the values.
+                $noID = array();
+                foreach ($result_array as $agid => $value) {
+                    foreach ($value as $k => $v) {
+                        if ($k == $this->$index) {
+                            unset($result_array[$agid][$k]);
+                        }
+                    }
+                }
+                return $result_array;
             }
         }
+
 
         public function search($assoc_rray)               {return array();}
 
@@ -98,6 +130,7 @@
         protected function q_zone($assoc_array){
             return true;
         }
+        private $index = "showing_id";
     }
 
 ?>

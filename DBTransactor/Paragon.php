@@ -35,47 +35,20 @@
         // *******************************************************************************************************************************
         // Paragon Abstract Methods
 
+        /*
+            getConn()
+            returns a new mysql object and authenticates to the server using credentials from Paragon.
+        */
         protected function getConn() {
             return new mysqli($this->DB_LOCATION, $this->DB_USERNAME, $this->DB_PW, $this->DB_NAME);
         }
 
-        abstract protected function q_zone($assoc_array);
-        
-        /* conditionBuilder : Given an associative array of values, constructs a string for suitable for MYSQL queries.
-           Intersperces the given $str in between query strings.
-           Example Input:
-                $agent_id = array('agency_id'  => '100',
-                                  'user_login' => 'dasani',
-                                  'password'   => 'dasani');
-                $var = conditionBuilder($agent_id, ",", [values in array to ignore]);
-           Example Output:
-                agency_id='100' , user_login='dasani' , password='dasani'
-
-            If you are ignoring a specific value, for example agency_id:
-                Input:
-                    $var = conditionBuilder($agent_id, ",", ['agency_id']); 
-                
-                Output:
-                    user_login='dasani' , password='dasani'
+        /*
+            q_zone() - Quarantine Zone
+            The "quarantine zone" is a function called to sanitize your input.
+            Each DBTransactor must implement its own quarantine zone.
         */
-        protected function conditionBuilder($array, $str, $ignorevalues) {
-            $array = $this->array_except($array, $ignorevalues);
-            
-            // Check $empty array
-            if(empty($array)){
-                throw new BadMethodCallException ("Condition builder cannot take empty arrays.");
-            }
-
-            $a = array();
-            $s = '';
-
-            foreach ($array as $key => $value) {
-                $s = $key . '=' . "'" . $value . "'";
-                array_push($a, $s);
-                //echo $s;
-            }
-            return (implode ($str ,$a));
-        }
+        abstract protected function q_zone($assoc_array);
 
         // *******************************************************************************************************************************
         // Utilities
@@ -114,6 +87,10 @@
             return array_diff_key($array, array_flip((array) $keys));   
         }
 
+        /*
+            printer()
+            Print all values of database for testing.
+        */
         public function printer($array) {
             foreach ($array as $key => $val) {
                 echo "Key: " . $key . "<br/>";
@@ -124,16 +101,66 @@
             }
         }
         
-        protected function resultToArray($result) {
+        /*
+            selectAll()
+            Queries the database for all entries and returns it in an associative array.
+        */
+        public function selectAll(){
+            return $this->select(['*'], []);
+        }
+        
+        /*
+            resultToArray()
+            After getting the query from the database, this function
+            transforms the result object into an associative array to be used throughout the program.
+        */
+        protected function resultToArray($result, $index) {
             $rows = array();
             while($row = $result->fetch_assoc()) {
                 //$rows[] = $row;
                 foreach ($row as $key => $value) {
-                    $rows[$row['agent_id']][$key] = $value;
+                    $rows[$row[$index]][$key] = $value;
                 }
             }
             return $rows;
-        }      
+        }
+              
+        /* conditionBuilder : Given an associative array of values, constructs a string for suitable for MYSQL queries.
+           Intersperces the given $str in between query strings.
+           
+           * Example Input:
+                $agent_id = array('agency_id'  => '100',
+                                  'user_login' => 'dasani',
+                                  'password'   => 'dasani');
+                $var = conditionBuilder($agent_id, ",", [values in array to ignore]);
+           
+           * Example Output:
+                agency_id='100' , user_login='dasani' , password='dasani'
 
+             If you are ignoring a specific value, for example agency_id:
+                Input:
+                    $var = conditionBuilder($agent_id, ",", ['agency_id']); 
+                
+                Output:
+                    user_login='dasani' , password='dasani'
+        */
+        protected function conditionBuilder($array, $str, $ignorevalues) {
+            $array = $this->array_except($array, $ignorevalues);
+            
+            // Check $empty array
+            if(empty($array)){
+                throw new BadMethodCallException ("Condition builder cannot take empty arrays.");
+            }
+
+            $a = array();
+            $s = '';
+
+            foreach ($array as $key => $value) {
+                $s = $key . '=' . "'" . $value . "'";
+                array_push($a, $s);
+                //echo $s;
+            }
+            return (implode ($str ,$a));
+        }
     }
 ?>

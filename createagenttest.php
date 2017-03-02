@@ -50,8 +50,9 @@
 ?>
 
 <body>
-    <?php ob_start();
-          createAgent(); 
+    <?php
+        ob_start();
+        createAgent(); 
     ?>
     <a href="./logintest.php">Login</a><br/>
 </body>

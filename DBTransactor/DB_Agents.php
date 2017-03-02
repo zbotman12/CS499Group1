@@ -37,7 +37,7 @@
         }
 
         // ***************************************************************************
-        // DBTransactor Methods (To be implemented)
+        // DBTransactor Methods 
         
         /** insert()
         *  DB_Agents also creates an agency if agency supplied doesn't exist as agent depends on agency existence.
@@ -239,9 +239,9 @@
             if($results) {
                 return true;
             } else {
-                throw new Exception("Could not create agent! Database error! " . $this->connection->error);
+                //throw new Exception("Could not create agent! Database error! " . $this->connection->error);
                 //echo $this->connection->error;
-                //return false;
+                return false;
             }
         }
 
@@ -302,40 +302,66 @@
             }
         }
 
-        /* select($array) -> Selects an entry and returns a SQL object of
-        *                    results obtained. 
+        /* select($array) -> Selects an entry and returns an associative array of values obtained.
         *  @param $array -> Regular list. Just give a list of column names to select.
         *  @param $cond  -> A map of conditions to to select based on.
         */
         public function select($array, $cond) {
+            $isThere = false;
+            $result_array = Array();
+
+            // Check if $array is empty.
             if (empty($array)) {
                 throw new Exception ("Nothing to select");
             }
+
+            // Check if agent_id is in the query to be requested.
+            if (in_array($this->index, $array)){
+                $isThere = true;
+            }
+            else {
+                array_push($array, $this->index);
+            }
+
             
             $s = implode(",", $array);
-            
             // If condition is empty. Just select all columns given.
             if (empty($cond)) {
               $query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . ";"; 
               $results = $this->connection->query($query);
 
-              return $this->resultToArray($results);
+              $result_array = $this->resultToArray($results, 'agent_id');
 
-            }{ //Else, select based on given conditions
+            } else { //Else, select based on given conditions
               $c = $this->conditionBuilder($cond, " AND ", []);
               $query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . " WHERE " . $c . ";";
               
               $results = $this->connection->query($query);
 
-              return $this->resultToArray($results);;
+              $result_array = $this->resultToArray($results, $this->index);
+            }
+
+            //If agent_id was supplied as value in $array, just return the array.
+            if($isThere){
+                return $result_array;
+            } 
+            else { //Otherwise, filter the arrays that have the values.
+                $noID = array();
+                foreach ($result_array as $agid => $value) {
+                    foreach ($value as $k => $v) {
+                        if ($k == $this->index) {
+                            unset($result_array[$agid][$k]);
+                        }
+                    }
+                }
+                return $result_array;
             }
         }
-        
 
         // Do not know how this should be implemented
-        public function search($assoc_rray) {
+        /* public function search($assoc_rray) {
             throw new Exception("Search function not yet implemented for Agents");
-        }
+        } */
 
         // ***************************************************************************
         // Private Methods and Fields
@@ -362,5 +388,7 @@
             return $assoc_array;
         }
         
+        //Index query control
+        private $index = 'agent_id';
     }
 ?>
