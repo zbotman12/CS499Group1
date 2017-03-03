@@ -156,8 +156,8 @@
                 throw new Exception ("Nothing to select");
             }
 
-            // Check if agent_id is in the query to be requested.
-            if (in_array($this->index, $array)){
+            // Check if agency_id is in the query to be requested.
+            if (in_array($this->index, $array) || $array == ['*']){
                 $isThere = true;
             }
             else {

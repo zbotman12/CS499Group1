@@ -10,7 +10,7 @@
         //$agencies           = DBTransactorFactory::build("Agencies");
         //$agents             = DBTransactorFactory::build("Agents");
         $listings           = DBTransactorFactory::build("Listings");
-        //$showings           = DBTransactorFactory::Build("Showings");
+        $showings           = DBTransactorFactory::Build("Showings");
         //$showings_feedback  = DBTransactorFactory::build("Showing_Feedback");
    
     } catch (Exception $e) {
