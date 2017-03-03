@@ -31,7 +31,7 @@
 
         // Destroys object and closes database connection
         public function __destruct() {
-            $connection->close();
+            $this->connection->close();
         }
 
         // ***************************************************************************

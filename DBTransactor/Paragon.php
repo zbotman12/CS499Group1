@@ -94,6 +94,10 @@
             Print all values of database for testing.
         */
         public function printer($array) {
+            //if(empty($array)) {
+            //    throw new Exception("printer() : Array cannot be empty.");
+            //}
+            
             foreach ($array as $key => $val) {
                 echo "Key: " . $key . "<br/>";
                 foreach ($val as $k => $v) {

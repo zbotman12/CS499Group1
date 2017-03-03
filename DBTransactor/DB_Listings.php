@@ -45,13 +45,13 @@
             catch (BadMethodCallException $e) {
                 throw $e;
             }
-
+            //echo "Does it crash here? <br/>";
             //Check for duplicate entries
-            $dup_query  = "SELECT * FROM "          . $this->LISTINGS_TABLE . " WHERE ";
-            $dup_query .= "address="                . "'" . $assoc_array['address'] . "' AND ";
-            $dup_query .= "state="                  . "'" . $assoc_array['state']   . "' AND ";
-            $dup_query .= "zip="                    . "'" . $assoc_array['zip']     . "' AND ";
-            $dup_query .= "Agents_listing_agent_id" . "'" . $assoc_array["Agents_listing_agent_id"] . "';"; 
+            $dup_query  = "SELECT * FROM "           . $this->LISTINGS_TABLE . " WHERE ";
+            $dup_query .= "address="                 . "'" . $assoc_array['address'] . "' AND ";
+            $dup_query .= "state="                   . "'" . $assoc_array['state']   . "' AND ";
+            $dup_query .= "zip="                     . "'" . $assoc_array['zip']     . "' AND ";
+            $dup_query .= "Agents_listing_agent_id=" . "'" . $assoc_array["Agents_listing_agent_id"] . "';"; 
 
             $dup_results = $this->connection->query($dup_query);
 
@@ -81,9 +81,9 @@
             
             //Insert listing into database
             $result = $this->connection->query($listings_q);
-
+            //echo "Am I failing here?";
             //Check results. $results is either true or false
-            if($results) {
+            if($result) {
                 return true;
             } else {
                 return false;
@@ -98,7 +98,7 @@
             
             //Quarantine Zone
             try {
-                $assoc_array = $this->q_zone($assoc_array);
+                $assoc_array = $this->q_zone($set_array);
             }
             catch (BadMethodCallException $e) {
                 throw $e;
@@ -161,7 +161,7 @@
             }
 
             // Check if agent_id is in the query to be requested.
-            if (in_array('', $array)){
+            if (in_array($this->index, $array) || $array == ['*']){
                 $isThere = true;
             }
             else {
@@ -195,7 +195,7 @@
                 $noID = array();
                 foreach ($result_array as $agid => $value) {
                     foreach ($value as $k => $v) {
-                        if ($k == $this->$index) {
+                        if ($k == $this->index) {
                             unset($result_array[$agid][$k]);
                         }
                     }
@@ -212,10 +212,10 @@
             //Strip special tags
             $assoc_array = array_map(array($this, "sanitizer"), $assoc_array);
 
-            // Check for empty fields. 
-            if($this->hasEmptyFields($assoc_array)) {
+            // Don't Check for empty fields since fields can be empty. 
+            /*if($this->hasEmptyFields($assoc_array)) {
                 throw new BadMethodCallException ("Fields cannot be empty!");
-            }
+            } */
             return $assoc_array; 
         }
 
