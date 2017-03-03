@@ -199,14 +199,14 @@
         protected function q_zone($assoc_array){
             //Strip special tags
             $assoc_array = array_map(array($this, "sanitizer"), $assoc_array);
-
+ 
             // Check for empty fields. 
-            if($this->hasEmptyFields($assoc_array)) {
+            // Do not have to check for empty fields since fields can be empty.
+            /*if($this->hasEmptyFields($assoc_array)) {
                 throw new BadMethodCallException ("Fields cannot be empty!");
-            }
+            } */
             return $assoc_array; 
         }
         private $index = "Showings_showing_id";
     }
-
 ?>

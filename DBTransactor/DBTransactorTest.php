@@ -9,9 +9,9 @@
     try {
         //$agencies           = DBTransactorFactory::build("Agencies");
         //$agents             = DBTransactorFactory::build("Agents");
-        $listings           = DBTransactorFactory::build("Listings");
+        //$listings           = DBTransactorFactory::build("Listings");
         $showings           = DBTransactorFactory::Build("Showings");
-        //$showings_feedback  = DBTransactorFactory::build("Showing_Feedback");
+        $showings_fb        = DBTransactorFactory::build("Showing_Feedback");
    
     } catch (Exception $e) {
       echo $e->getMessage() . "<br/>";
@@ -63,6 +63,33 @@
                       'listing_desc'            => 'close to cinema',
                       'additional_info'         => null,
                       'agent_only_info'         => '33321');
+    
+    // Time Zone Codes (PT, MT, CT, ET)
+    // Time format for mktime(hours, minutes, seconds, month, day, year);
+    $showinf = array('Listings_MLS_number'     => '6',
+                     'Agents_showing_agent_id' => '4',
+                     'start_time'              => date("Y-m-d H:i:s", mktime(10, 30, 0, 10, 27, 1994)),
+                     'end_time'                => date("Y-m-d H:i:s", mktime(11,30, 0, 10, 27, 1994)),
+                     'time_zone'               => 'CT',
+                     'is_house_vacant'         => 1,
+                     'customer_first_name'     => 'Jason',
+                     'customer_last_name'      => 'Bourne',
+                     'lockbox_code'            => null);
+
+/*
+    $show_fb = array('idShowing_Feedback' => 1,
+                     'Showings_showing_id' => '1');
+*/
+
+
+    echo "Calling Showings insert() <br/>";
+    try {
+      $showings->insert($showinf);
+    } catch (Exception $e) {
+      echo $e->getMessage() . "<br/>";
+    }
+
+    $showings->printer($showings->selectAll());
 
 /*
     echo "Inserting into Agents table... <br/>";    
@@ -112,6 +139,8 @@
 
     echo "<br/>";
 */
+
+/*
     //select the MLS number for $listinga
     $result = $listings->select(['MLS_number'], ['address' => '221B Baker Street']);
 
@@ -133,6 +162,9 @@
     echo "<br/>";
     $listings->printer($listings->selectAll());
 
+*/
+
+/*
     echo "Now modifiying entry for listing <br/> <br/>";
     
     $set = array('price' => '300000', 'zip' => '35818');
@@ -149,7 +181,7 @@
     
     $listings->printer($listings->selectAll());
     echo "<br/>";
-    
+*/ 
     /* Test select */
     //$w1 = Array('password' => 'ryank');
     //$o = $agents->select(['agent_id', 'first_name', 'last_name'], []);

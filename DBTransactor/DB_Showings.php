@@ -46,13 +46,17 @@
 
             //Check for duplicate entries
             $dup_query  = "SELECT * FROM " . $this->SHOWINGS_TABLE . " WHERE ";
-            $dup_query .= "customer_first_name" . "'" . $assoc_array['customer_first_name'] . "' AND ";
-            $dup_query .= "customer_last_name"  . "'" . $assoc_array['customer_last_name']  . "' AND ";
-            $dup_query .= "start_time="         . "'" . $assoc_array['start_time']          . "' AND ";
-            $dup_query .= "end_time="           . "'" . $assoc_array['end_time']            . "'";
+            $dup_query .= "customer_first_name=" . "'" . $assoc_array['customer_first_name'] . "' AND ";
+            $dup_query .= "customer_last_name="  . "'" . $assoc_array['customer_last_name']  . "' AND ";
+            $dup_query .= "start_time="          . "'" . $assoc_array['start_time']          . "' AND ";
+            $dup_query .= "end_time="            . "'" . $assoc_array['end_time']            . "' AND ";
+            $dup_query .= "Listings_MLS_number=" . "'" . $assoc_array['Listings_MLS_number'] . "' AND ";
+            $dup_query .= "time_zone="           . "'" . $assoc_array['time_zone']           . "';";
 
             $dup_results = $this->connection->query($dup_query);
-
+            
+            //var_dump($dup_results);
+            
             if ($dup_results) {
               if ($dup_results->num_rows == 1) {
                   throw new Exception("Showing already exists! Cannot create showing.");
@@ -63,7 +67,7 @@
 
             //Build showing query 
             $showing_q = "INSERT INTO " . $this->SHOWINGS_TABLE   . " VALUES (NULL,";
-            $showing_q .= "'" . $assoc_array['Listings_MLS_number']      . "'" . ",";
+            $showing_q .= "'" . $assoc_array['Listings_MLS_number']     . "'" . ",";
             $showing_q .= "'" . $assoc_array['Agents_showing_agent_id'] . "'" . ",";
             $showing_q .= "'" . $assoc_array['start_time']              . "'" . ",";
             $showing_q .= "'" . $assoc_array['end_time']                . "'" . ",";
@@ -77,7 +81,7 @@
             $result = $this->connection->query($showing_q);
 
             //Check results. $results is either true or false
-            if($results) {
+            if($result) {
                 return true;
             } else {
                 return false;
@@ -188,7 +192,7 @@
                 $noID = array();
                 foreach ($result_array as $agid => $value) {
                     foreach ($value as $k => $v) {
-                        if ($k == $this->$index) {
+                        if ($k == $this->index) {
                             unset($result_array[$agid][$k]);
                         }
                     }
@@ -204,9 +208,12 @@
             $assoc_array = array_map(array($this, "sanitizer"), $assoc_array);
 
             // Check for empty fields. 
-            if($this->hasEmptyFields($assoc_array)) {
+            // Do not have to check for empty fields since
+            // fields can be null.
+            
+            /*if($this->hasEmptyFields($assoc_array)) {
                 throw new BadMethodCallException ("Fields cannot be empty!");
-            }
+            }*/
             return $assoc_array; 
         }
         private $index = "showing_id";
