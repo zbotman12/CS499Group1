@@ -81,16 +81,50 @@
                      'Showings_showing_id' => '1');
 */
 
-
+/*
     echo "Calling Showings insert() <br/>";
     try {
       $showings->insert($showinf);
     } catch (Exception $e) {
       echo $e->getMessage() . "<br/>";
     }
+    $showings->printer($showings->selectAll());
+*/
 
+/*
     $showings->printer($showings->selectAll());
 
+    echo "Testing delete() <br/>";
+
+    $showings->delete(['showing_id' => 2]);
+
+    $showings->printer($showings->selectAll());
+*/
+
+/*
+    echo "Testing select() <br/>";
+
+    $result = $showings->select(['*'], ['showing_id' => 1]);
+    echo "<br/>";
+    var_dump($result);
+    echo "<br/>";
+    
+*/
+
+/*
+    $showings->printer($showings->selectAll());
+    echo "<br/>";
+    echo "Modifying Showing information <br/>";
+    echo "Testing update <br/>";
+    $set = array('start_time' => date("Y-m-d H:i:s", mktime(2, 0, 0, 3, 10, 2017)),
+                 'end_time'   => date("Y-m-d H:i:s", mktime(3, 30, 0, 3, 10, 2017)),
+                 'customer_first_name' => "Alan",
+                 "customer_last_name"  => "Turing");
+
+    $showings->update($set, ['showing_id' => 1]);
+
+    $showings->printer($showings->selectAll());
+*/
 /*
     echo "Inserting into Agents table... <br/>";    
     echo "Calling insert() <br/>";

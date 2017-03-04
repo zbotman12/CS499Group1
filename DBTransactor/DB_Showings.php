@@ -95,7 +95,7 @@
             }
             //Quarantine Zone
             try {
-                $assoc_array = $this->q_zone($assoc_array);
+                $set_array = $this->q_zone($set_array);
             }
             catch (BadMethodCallException $e) {
                 throw $e;
@@ -125,7 +125,6 @@
           @throws BadMethodCallException  -> Throws mysql query failure if database query failed
         */
         public function delete($key_array) : bool {
-            
             if (empty($key_array)) {
                 throw new BadMethodCallException("Nothing to delete.");
             }
@@ -157,8 +156,8 @@
                 throw new Exception ("Nothing to select");
             }
 
-            // Check if agent_id is in the query to be requested.
-            if (in_array('', $array)){
+            // Check if showing_id is in the query to be requested.
+            if (in_array($this->index, $array) || $array == ['*']) {
                 $isThere = true;
             }
             else {
