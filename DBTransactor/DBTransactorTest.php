@@ -10,7 +10,7 @@
         //$agencies           = DBTransactorFactory::build("Agencies");
         //$agents             = DBTransactorFactory::build("Agents");
         //$listings           = DBTransactorFactory::build("Listings");
-        //$showings           = DBTransactorFactory::Build("Showings");
+        //$showings           = DBTransactorFactory::build("Showings");
         $showings_fb        = DBTransactorFactory::build("Showing_Feedback");
    
     } catch (Exception $e) {
@@ -50,7 +50,7 @@
                          'address'            => '221B Baker Street');
 
     //Listing
-    $listinga = array('Agents_listing_agent_id' => '2',
+    $listinga = array('Agents_listing_agent_id' => '1',
                       'price'                   => '200000',
                       'city'                    => 'Huntsville',
                       'state'                   => 'AL',
@@ -66,8 +66,8 @@
     
     // Time Zone Codes (PT, MT, CT, ET)
     // Time format for mktime(hours, minutes, seconds, month, day, year);
-    $showinf = array('Listings_MLS_number'     => '6',
-                     'Agents_showing_agent_id' => '4',
+    $showinf = array('Listings_MLS_number'     => '1',
+                     'Agents_showing_agent_id' => '1',
                      'start_time'              => date("Y-m-d H:i:s", mktime(10, 30, 0, 10, 27, 1994)),
                      'end_time'                => date("Y-m-d H:i:s", mktime(11,30, 0, 10, 27, 1994)),
                      'time_zone'               => 'CT',
@@ -76,13 +76,14 @@
                      'customer_last_name'      => 'Bourne',
                      'lockbox_code'            => null);
 
-    $showingfb = array ('idShowing_Feedback'              => 1,
-                        'Showings_showing_id'             => 1,
-                        'customer_interest_level'         => 5,
-                        'showing_agent_experience_level'  => 10,
-                        'customer_price_opinion'          => "This house is marvelous!",
-                        'additional_notes'                => "Customer says house is too expensive but says it's a nice house."); 
+    $s = array('idShowing_Feedback'              => '2',
+               'Showings_showing_id'             => '2',
+               'customer_interest_level'         => '5',
+               'showing_agent_experience_level'  => '10',
+               'customer_price_opinion'          => "This house is marvelous!",
+               'additional_notes'                => "Customer says house is too expensive but says it's a nice house."); 
 
+/*
     echo "Testing showing_fb->insert() <br/>";
     try {
       $showings_fb->insert($showingfb);
@@ -103,6 +104,7 @@
     $result = $showings_fb->select(['*'], ['Showings_showing_id' => 1]);
     echo "<br/>";
     var_dump($result);
+*/
 
 /*
     echo "<br/> Testing delete()<br/>";
@@ -118,50 +120,6 @@
 */
 
 /*
-    echo "Calling Showings insert() <br/>";
-    try {
-      $showings->insert($showinf);
-    } catch (Exception $e) {
-      echo $e->getMessage() . "<br/>";
-    }
-    $showings->printer($showings->selectAll());
-*/
-
-/*
-    $showings->printer($showings->selectAll());
-
-    echo "Testing delete() <br/>";
-
-    $showings->delete(['showing_id' => 2]);
-
-    $showings->printer($showings->selectAll());
-*/
-
-/*
-    echo "Testing select() <br/>";
-
-    $result = $showings->select(['*'], ['showing_id' => 1]);
-    echo "<br/>";
-    var_dump($result);
-    echo "<br/>";
-    
-*/
-
-/*
-    $showings->printer($showings->selectAll());
-    echo "<br/>";
-    echo "Modifying Showing information <br/>";
-    echo "Testing update <br/>";
-    $set = array('start_time' => date("Y-m-d H:i:s", mktime(2, 0, 0, 3, 10, 2017)),
-                 'end_time'   => date("Y-m-d H:i:s", mktime(3, 30, 0, 3, 10, 2017)),
-                 'customer_first_name' => "Alan",
-                 "customer_last_name"  => "Turing");
-
-    $showings->update($set, ['showing_id' => 1]);
-
-    $showings->printer($showings->selectAll());
-*/
-/*
     echo "Inserting into Agents table... <br/>";    
     echo "Calling insert() <br/>";
     try {
@@ -170,11 +128,12 @@
     catch (Exception $e) {
         echo $e->getMessage() . "<br/>";
     }
-*/    
+    echo "Done creating agent Dasani <br/>";
+*/
     //echo "Calling insertAgent() <br/>";
     //$agents->insertAgent($agent_id);
     
-    /*
+/*
     $set = array('password' => 'haha',
                  'email'    => 'changed@working.com'); 
     $where = array('user_login' => 'jbonds',
@@ -182,7 +141,8 @@
 
     echo "Updating agent info...<br/>";
     $agents->update($set,$where); 
-    */
+*/
+
 /*
     $cond = array('user_login'    => 'dasani',
                   'password'      => 'dasani');
@@ -193,6 +153,7 @@
     $agents->delete($cond);
     $agents->delete($cond2);
 */
+
 /*
     echo "Inserting into listings table... <br/>";
     echo "Calling DBListing insert()...<br/>";
@@ -209,7 +170,6 @@
 
     echo "<br/>";
 */
-
 /*
     //select the MLS number for $listinga
     $result = $listings->select(['MLS_number'], ['address' => '221B Baker Street']);
@@ -252,6 +212,60 @@
     $listings->printer($listings->selectAll());
     echo "<br/>";
 */ 
+/*
+    echo "Calling Showings insert() <br/>";
+    try {
+      $showings->insert($showinf);
+    } catch (Exception $e) {
+      echo $e->getMessage() . "<br/>";
+    }
+    $showings->printer($showings->selectAll());
+*/
+/*
+    $showings->printer($showings->selectAll());
+
+    echo "Testing delete() <br/>";
+
+    $showings->delete(['showing_id' => 2]);
+
+    $showings->printer($showings->selectAll());
+*/
+
+/*
+    echo "Testing select() <br/>";
+
+    $result = $showings->select(['*'], ['showing_id' => 1]);
+    echo "<br/>";
+    var_dump($result);
+    echo "<br/>";
+    
+*/
+    echo "Testing showing_fb->insert() <br/>";
+    try {
+      $showings_fb->insert($s);
+    } catch (Exception $e) {
+      echo $e->getMessage() . "<br/>";
+    }
+
+    echo "Insert complete! <br/>";
+
+    $showings_fb->printer($showings_fb->selectAll());
+
+/*
+    $showings->printer($showings->selectAll());
+    echo "<br/>";
+    echo "Modifying Showing information <br/>";
+    echo "Testing update <br/>";
+    $set = array('start_time' => date("Y-m-d H:i:s", mktime(2, 0, 0, 3, 10, 2017)),
+                 'end_time'   => date("Y-m-d H:i:s", mktime(3, 30, 0, 3, 10, 2017)),
+                 'customer_first_name' => "Alan",
+                 "customer_last_name"  => "Turing");
+
+    $showings->update($set, ['showing_id' => 1]);
+
+    $showings->printer($showings->selectAll());
+*/
+
     /* Test select */
     //$w1 = Array('password' => 'ryank');
     //$o = $agents->select(['agent_id', 'first_name', 'last_name'], []);

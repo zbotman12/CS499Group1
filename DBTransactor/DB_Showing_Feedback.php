@@ -46,6 +46,7 @@
                 throw $e;
             }
 
+            echo "Am I working? <br/>";
             //Check for duplicate entries
             $dup_query  = "SELECT * FROM " . $this->SHOWINGS_FEEDB_TABLE . " WHERE ";
             $dup_query .= "idShowing_Feedback="  . "'" . $assoc_array['idShowing_Feedback']  . "' AND ";
@@ -61,6 +62,7 @@
                 throw new Exception($this->connection->error);
             }
 
+            echo "Am I working now? <br/>";
             //Build agency query 
             $showings_q = "INSERT INTO " . $this->SHOWINGS_FEEDB_TABLE . " VALUES (";
             $showings_q .= "'" . $assoc_array['idShowing_Feedback']             . "'" . ",";
@@ -77,7 +79,7 @@
             if($result) {
                 return true;
             } else {
-                //throw new Exception($this->connection->error);
+                throw new Exception($this->connection->error);
                 return false;
             }
         }

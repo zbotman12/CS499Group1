@@ -11,7 +11,7 @@
 -->
 
 <?php
-
+    
     /** Paragon Utility Class
     * Protected credentials used to authenticate to the database to be used throughout code.
     * DBTransactor classes inherit this class in order to establish database connection.
@@ -20,10 +20,11 @@
     */
     abstract class Paragon {
 
-        private $DB_LOCATION = 'localhost';
-        private $DB_USERNAME = 'root';
-        private $DB_PW       = '';
-        private $DB_NAME     = 'ParagonMLS';
+        // I guess we can keep this for better documentation.
+        //private $DB_LOCATION;
+        //private $DB_USERNAME;
+        //private $DB_PW;
+        //private $DB_NAME;
         
         private $AGENTS_TABLE;
         private $AGENCIES_TABLE;
@@ -40,7 +41,20 @@
             returns a new mysql object and authenticates to the server using credentials from Paragon.
         */
         protected function getConn() {
-            return new mysqli($this->DB_LOCATION, $this->DB_USERNAME, $this->DB_PW, $this->DB_NAME);
+
+            $config = parse_ini_file('/var/www/config.ini');
+            
+            //$this->DB_LOCATION = $config['dblocation'];
+            //$this->DB_USERNAME = $config['username'];
+            //$this->DB_PW       = $config['password'];
+            //$this->DB_NAME     = $config['dbname'];
+            
+            $o = new mysqli($config['dblocation'], $config['username'], $config['password'], $config['dbname']);
+            //$o =  new mysqli($this->DB_LOCATION, $this->DB_USERNAME, $this->DB_PW, $this->DB_NAME);
+
+            //unset($this->DB_LOCATION, $this->DB_USERNAME, $this->DB_PW, $this->DB_NAME);
+            //unset($config);
+            return $o;
         }
 
         /*
