@@ -1,4 +1,4 @@
-"\""-
+<!--
     File: DB_Listings.php
     Class to create Listings database transactions in ParagonMLS database.
     
