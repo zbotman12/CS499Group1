@@ -48,8 +48,8 @@
 
             //Check for duplicate entries
             $dup_query  = "SELECT * FROM " . $this->SHOWINGS_FEEDB_TABLE . " WHERE ";
-            $dup_query .= "idShowing_Feedback=" . "'" . $assoc_array['idShowing_Feedback']  . "' AND ";
-            $dup_query .= "Showings_showing_id" . "'" . $assoc_array['Showings_showing_id'] . "';";
+            $dup_query .= "idShowing_Feedback="  . "'" . $assoc_array['idShowing_Feedback']  . "' AND ";
+            $dup_query .= "Showings_showing_id=" . "'" . $assoc_array['Showings_showing_id'] . "';";
 
             $dup_results = $this->connection->query($dup_query);
 
@@ -67,16 +67,17 @@
             $showings_q .= "'" . $assoc_array['Showings_showing_id']            . "'" . ",";
             $showings_q .= "'" . $assoc_array['customer_interest_level']        . "'" . ",";
             $showings_q .= "'" . $assoc_array['showing_agent_experience_level'] . "'" . ",";
-            $showings_q .= "'" . $assoc_array['customer_price_opinion']         . "'" . ",";
-            $showings_q .= "'" . $assoc_array['additional_notes']               . "'" . ");";
+            $showings_q .= "\"" . $assoc_array['customer_price_opinion']        . "\"" . ",";
+            $showings_q .= "\"" . $assoc_array['additional_notes']              . "\"" . ");";
             
             //Insert agency into database
             $result = $this->connection->query($showings_q);
 
             //Check results. $results is either true or false
-            if($results) {
+            if($result) {
                 return true;
             } else {
+                //throw new Exception($this->connection->error);
                 return false;
             }
         }
@@ -89,7 +90,7 @@
             
             //Quarantine Zone
             try {
-                $assoc_array = $this->q_zone($assoc_array);
+                $set_array = $this->q_zone($set_array);
             }
             catch (BadMethodCallException $e) {
                 throw $e;
@@ -108,6 +109,7 @@
                 return true;
             }
             else {
+
                 return false;   
             }
         }
@@ -126,7 +128,7 @@
 
             $condition = $this->conditionBuilder($key_array, " AND ", []);
 
-            $query = "DELETE FROM " . $this->SHOWINGS_FEEB_TABLE . " WHERE " . $condition . ";";
+            $query = "DELETE FROM " . $this->SHOWINGS_FEEDB_TABLE . " WHERE " . $condition . ";";
 
             $results = $this->connection->query($query);
 
@@ -152,7 +154,7 @@
             }
 
             // Check if agent_id is in the query to be requested.
-            if (in_array($this->index, $array)){
+            if (in_array($this->index, $array) || $array == ['*']){
                 $isThere = true;
             }
             else {
@@ -198,7 +200,7 @@
         // Private Methods and Fields
         protected function q_zone($assoc_array){
             //Strip special tags
-            $assoc_array = array_map(array($this, "sanitizer"), $assoc_array);
+            $assoc_array = array_map([$this, "sanitizer"], $assoc_array);
  
             // Check for empty fields. 
             // Do not have to check for empty fields since fields can be empty.

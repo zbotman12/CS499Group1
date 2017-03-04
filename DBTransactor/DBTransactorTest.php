@@ -10,7 +10,7 @@
         //$agencies           = DBTransactorFactory::build("Agencies");
         //$agents             = DBTransactorFactory::build("Agents");
         //$listings           = DBTransactorFactory::build("Listings");
-        $showings           = DBTransactorFactory::Build("Showings");
+        //$showings           = DBTransactorFactory::Build("Showings");
         $showings_fb        = DBTransactorFactory::build("Showing_Feedback");
    
     } catch (Exception $e) {
@@ -75,6 +75,42 @@
                      'customer_first_name'     => 'Jason',
                      'customer_last_name'      => 'Bourne',
                      'lockbox_code'            => null);
+
+    $showingfb = array ('idShowing_Feedback'              => 1,
+                        'Showings_showing_id'             => 1,
+                        'customer_interest_level'         => 5,
+                        'showing_agent_experience_level'  => 10,
+                        'customer_price_opinion'          => "This house is marvelous!",
+                        'additional_notes'                => "Customer says house is too expensive but says it's a nice house."); 
+
+    echo "Testing showing_fb->insert() <br/>";
+    try {
+      $showings_fb->insert($showingfb);
+    } catch (Exception $e) {
+      echo $e->getMessage() . "<br/>";
+    }
+
+    echo "Insert complete! <br/>";
+
+    $showings_fb->printer($showings_fb->selectAll());
+
+    echo "<br/> Testing update showing_fb <br/>";
+    $showings_fb->update(["customer_price_opinion" => "This house is alright!"] , ["Showings_showing_id" => 1]);
+
+    $showings_fb->printer($showings_fb->selectAll());
+
+    echo "<br/> Testing Select()<br/>";
+    $result = $showings_fb->select(['*'], ['Showings_showing_id' => 1]);
+    echo "<br/>";
+    var_dump($result);
+
+/*
+    echo "<br/> Testing delete()<br/>";
+
+    $showings_fb->delete(['Showings_showing_id' => 1]);
+
+    $showings_fb->printer($showings_fb->selectAll());
+*/
 
 /*
     $show_fb = array('idShowing_Feedback' => 1,

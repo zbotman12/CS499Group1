@@ -81,7 +81,7 @@
                 //TODO: Once DB_Agencies is implemented. Just initialize object of that class here.
 
                 //Build query to select agency id
-                $query  = "SELECT agency_id FROM " . $this->AGENCIES_TABLE . " WHERE company_name=" . "'" . $assoc_array['company_name'] . "'" .";";
+                $query  = "SELECT agency_id FROM " . $this->AGENCIES_TABLE . " WHERE company_name=" . "\"" . $assoc_array['company_name'] . "\"" .";";
 
                 //Fetch row of agency_id
                 $r = $this->connection->query($query);
@@ -89,19 +89,19 @@
                 
                 //Build insert agent query
                 $agent_query = "INSERT INTO " . $this->AGENTS_TABLE . " VALUES (NULL,";
-                $agent_query .= "'" . $row['agency_id']                 . "'" . ",";
-                $agent_query .= "'" . $assoc_array['user_login']          . "'" . ",";
-                $agent_query .= "'" . $assoc_array['password']          . "'" . ",";
-                $agent_query .= "'" . $assoc_array['first_name']         . "'" . ",";
-                $agent_query .= "'" . $assoc_array['last_name']          . "'" . ",";
-                $agent_query .= "'" . $assoc_array['email']              . "'" . ",";
-                $agent_query .= "'" . $assoc_array['agent_phone_number'] . "'" . ");";
+                $agent_query .= "'" . $row['agency_id']                   . "'" . ",";
+                $agent_query .= "\"" . $assoc_array['user_login']         . "\"" . ",";
+                $agent_query .= "\"" . $assoc_array['password']           . "\"" . ",";
+                $agent_query .= "\"" . $assoc_array['first_name']         . "\"" . ",";
+                $agent_query .= "\"" . $assoc_array['last_name']          . "\"" . ",";
+                $agent_query .= "\"" . $assoc_array['email']              . "\"" . ",";
+                $agent_query .= "\"" . $assoc_array['agent_phone_number'] . "\"" . ");";
                 
                 //echo $agent_query . "<br/>";
                 
                 //IMPORTANT
                 //Check if agent already exists in database!
-                $dup_query = "SELECT * FROM " . $this->AGENTS_TABLE . " WHERE user_login=" . "'" . $assoc_array['user_login'] . "';";    
+                $dup_query = "SELECT * FROM " . $this->AGENTS_TABLE . " WHERE user_login=" . "\"" . $assoc_array['user_login'] . "\";";    
                 $dup_results = $this->connection->query($dup_query);
 
                 if ($dup_results) {
@@ -127,12 +127,12 @@
                 
                 //Build agency query 
                 $agency_q = "INSERT INTO " . $this->AGENCIES_TABLE   . " VALUES (NULL,";
-                $agency_q .= "'" . $assoc_array['company_name']         . "'" . ",";
-                $agency_q .= "'" . $assoc_array['agency_phone_number']  . "'" . ",";
-                $agency_q .= "'" . $assoc_array['city']                 . "'" . ",";
-                $agency_q .= "'" . $assoc_array['state']                . "'" . ",";
-                $agency_q .= "'" . $assoc_array['zip']                  . "'" . ",";
-                $agency_q .= "'" . $assoc_array['address']              . "'" . ");";
+                $agency_q .= "\"" . $assoc_array['company_name']         . "\"" . ",";
+                $agency_q .= "\"" . $assoc_array['agency_phone_number']  . "\"" . ",";
+                $agency_q .= "\"" . $assoc_array['city']                 . "\"" . ",";
+                $agency_q .= "\"" . $assoc_array['state']                . "\"" . ",";
+                $agency_q .= "\"" . $assoc_array['zip']                  . "\"" . ",";
+                $agency_q .= "\"" . $assoc_array['address']              . "\"" . ");";
                 
                 //echo $agency_q . "<br/>";
                 
@@ -145,7 +145,7 @@
                     echo "Creating agent... <br/>";
                     
                     //Check if agent username is in database. Ensures unique usernames.
-                    $dup_query = "SELECT * FROM " . $this->AGENTS_TABLE . " WHERE user_login=" . "'" . $assoc_array['user_login'] . "';";            
+                    $dup_query = "SELECT * FROM " . $this->AGENTS_TABLE . " WHERE user_login=" . "\"" . $assoc_array['user_login'] . "\";";            
                     $dup_results = $this->connection->query($dup_query);
 
                     if ($dup_results) {
@@ -160,7 +160,7 @@
                     }
 
                     //Build agent entry as username is unique
-                    $query = "SELECT agency_id FROM " . $this->AGENCIES_TABLE . " WHERE company_name=" . "'" . $assoc_array['company_name'] . "'" .";";
+                    $query = "SELECT agency_id FROM " . $this->AGENCIES_TABLE . " WHERE company_name=" . "\"" . $assoc_array['company_name'] . "\"" .";";
                     $r = $this->connection->query($query);
                     $row = $r->fetch_assoc();
 
@@ -168,13 +168,13 @@
 
                     //Build insert agent query
                     $agent_query = "INSERT INTO " . $this->AGENTS_TABLE . " VALUES (NULL,";
-                    $agent_query .= "'" . $row['agency_id']                  . "'" . ",";
-                    $agent_query .= "'" . $assoc_array['user_login']         . "'" . ",";
-                    $agent_query .= "'" . $assoc_array['password']           . "'" . ",";
-                    $agent_query .= "'" . $assoc_array['first_name']         . "'" . ",";
-                    $agent_query .= "'" . $assoc_array['last_name']          . "'" . ",";
-                    $agent_query .= "'" . $assoc_array['email']              . "'" . ",";
-                    $agent_query .= "'" . $assoc_array['agent_phone_number'] . "'" . ");";
+                    $agent_query .= "'" . $row['agency_id']                   . "'" . ",";
+                    $agent_query .= "\"" . $assoc_array['user_login']         . "\"" . ",";
+                    $agent_query .= "\"" . $assoc_array['password']           . "\"" . ",";
+                    $agent_query .= "\"" . $assoc_array['first_name']         . "\"" . ",";
+                    $agent_query .= "\"" . $assoc_array['last_name']          . "\"" . ",";
+                    $agent_query .= "\"" . $assoc_array['email']              . "\"" . ",";
+                    $agent_query .= "\"" . $assoc_array['agent_phone_number'] . "\"" . ");";
                     //echo $agent_query . "<br/>";
 
                     //Insert agent into database
@@ -213,15 +213,15 @@
             }
 
             $agent_query = "INSERT INTO " . $this->AGENTS_TABLE . " VALUES (NULL,";
-            $agent_query .= "'" . $assoc_array['agency_id']          . "'" . ",";
-            $agent_query .= "'" . $assoc_array['user_login']         . "'" . ",";
-            $agent_query .= "'" . $assoc_array['password']           . "'" . ",";
-            $agent_query .= "'" . $assoc_array['first_name']         . "'" . ",";
-            $agent_query .= "'" . $assoc_array['last_name']          . "'" . ",";
-            $agent_query .= "'" . $assoc_array['email']              . "'" . ",";
-            $agent_query .= "'" . $assoc_array['agent_phone_number'] . "'" . ");";
+            $agent_query .= "\"" . $assoc_array['agency_id']          . "\"" . ",";
+            $agent_query .= "\"" . $assoc_array['user_login']         . "\"" . ",";
+            $agent_query .= "\"" . $assoc_array['password']           . "\"" . ",";
+            $agent_query .= "\"" . $assoc_array['first_name']         . "\"" . ",";
+            $agent_query .= "\"" . $assoc_array['last_name']          . "\"" . ",";
+            $agent_query .= "\"" . $assoc_array['email']              . "\"" . ",";
+            $agent_query .= "\"" . $assoc_array['agent_phone_number'] . "\"" . ");";
 
-            $dup_query = "SELECT * FROM " . $this->AGENTS_TABLE . " WHERE user_login=" . "'" . $assoc_array['user_login'] . "';";    
+            $dup_query = "SELECT * FROM " . $this->AGENTS_TABLE . " WHERE user_login=" . "\"" . $assoc_array['user_login'] . "\";";    
             $dup_results = $this->connection->query($dup_query);
 
             if ($dup_results) {

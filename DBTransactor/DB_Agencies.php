@@ -48,7 +48,7 @@
             }
 
             //Check for duplicate entries
-            $dup_query = "SELECT * FROM " . $this->AGENCIES_TABLE . " WHERE company_name=" . "'" . $assoc_array['company_name'] . "';";    
+            $dup_query = "SELECT * FROM " . $this->AGENCIES_TABLE . " WHERE company_name=" . "\"" . $assoc_array['company_name'] . "\";";    
             $dup_results = $this->connection->query($dup_query);
 
             if ($dup_results) {
@@ -61,12 +61,12 @@
 
             //Build agency query 
             $agency_q = "INSERT INTO " . $this->AGENCIES_TABLE   . " VALUES (NULL,";
-            $agency_q .= "'" . $assoc_array['company_name']         . "'" . ",";
-            $agency_q .= "'" . $assoc_array['agency_phone_number']  . "'" . ",";
-            $agency_q .= "'" . $assoc_array['city']                 . "'" . ",";
-            $agency_q .= "'" . $assoc_array['state']                . "'" . ",";
-            $agency_q .= "'" . $assoc_array['zip']                  . "'" . ",";
-            $agency_q .= "'" . $assoc_array['address']              . "'" . ");";
+            $agency_q .= "\"" . $assoc_array['company_name']         . "\"" . ",";
+            $agency_q .= "\"" . $assoc_array['agency_phone_number']  . "\"" . ",";
+            $agency_q .= "\"" . $assoc_array['city']                 . "\"" . ",";
+            $agency_q .= "\"" . $assoc_array['state']                . "\"" . ",";
+            $agency_q .= "\"" . $assoc_array['zip']                  . "\"" . ",";
+            $agency_q .= "\"" . $assoc_array['address']              . "\"" . ");";
             
             //Insert agency into database
             $result = $this->connection->query($agency_q);

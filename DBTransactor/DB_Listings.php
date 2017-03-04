@@ -1,4 +1,4 @@
-<!--
+"\""-
     File: DB_Listings.php
     Class to create Listings database transactions in ParagonMLS database.
     
@@ -48,10 +48,10 @@
             //echo "Does it crash here? <br/>";
             //Check for duplicate entries
             $dup_query  = "SELECT * FROM "           . $this->LISTINGS_TABLE . " WHERE ";
-            $dup_query .= "address="                 . "'" . $assoc_array['address'] . "' AND ";
-            $dup_query .= "state="                   . "'" . $assoc_array['state']   . "' AND ";
-            $dup_query .= "zip="                     . "'" . $assoc_array['zip']     . "' AND ";
-            $dup_query .= "Agents_listing_agent_id=" . "'" . $assoc_array["Agents_listing_agent_id"] . "';"; 
+            $dup_query .= "address="                 . "\"" . $assoc_array['address']                 . "\" AND ";
+            $dup_query .= "state="                   . "\"" . $assoc_array['state']                   . "\" AND ";
+            $dup_query .= "zip="                     . "\"" . $assoc_array['zip']                     . "\" AND ";
+            $dup_query .= "Agents_listing_agent_id=" . "\"" . $assoc_array["Agents_listing_agent_id"] . "\";"; 
 
             $dup_results = $this->connection->query($dup_query);
 
@@ -67,17 +67,17 @@
             $listings_q  = "INSERT INTO " . $this->LISTINGS_TABLE   . " VALUES (NULL,";
             $listings_q .= "'" . $assoc_array['Agents_listing_agent_id']  . "'" . ",";
             $listings_q .= "'" . $assoc_array['price']                    . "'" . ",";
-            $listings_q .= "'" . $assoc_array['city']                     . "'" . ",";
-            $listings_q .= "'" . $assoc_array['state']                    . "'" . ",";
-            $listings_q .= "'" . $assoc_array['zip']                      . "'" . ",";
-            $listings_q .= "'" . $assoc_array['address']                  . "'" . ",";
-            $listings_q .= "'" . $assoc_array['square_footage']           . "'" . ",";
-            $listings_q .= "'" . $assoc_array['number_of_bedrooms']       . "'" . ",";
-            $listings_q .= "'" . $assoc_array['number_of_bathrooms']      . "'" . ",";
-            $listings_q .= "'" . $assoc_array['room_desc']                . "'" . ",";
-            $listings_q .= "'" . $assoc_array['listing_desc']             . "'" . ",";
-            $listings_q .= "'" . $assoc_array['additional_info']          . "'" . ",";
-            $listings_q .= "'" . $assoc_array['agent_only_info']          . "'" . ");";
+            $listings_q .= "\"" . $assoc_array['city']                     . "\"" . ",";
+            $listings_q .= "\"" . $assoc_array['state']                    . "\"" . ",";
+            $listings_q .= "\"" . $assoc_array['zip']                      . "\"" . ",";
+            $listings_q .= "\"" . $assoc_array['address']                  . "\"" . ",";
+            $listings_q .= "\"" . $assoc_array['square_footage']           . "\"" . ",";
+            $listings_q .= "\"" . $assoc_array['number_of_bedrooms']       . "\"" . ",";
+            $listings_q .= "\"" . $assoc_array['number_of_bathrooms']      . "\"" . ",";
+            $listings_q .= "\"" . $assoc_array['room_desc']                . "\"" . ",";
+            $listings_q .= "\"" . $assoc_array['listing_desc']             . "\"" . ",";
+            $listings_q .= "\"" . $assoc_array['additional_info']          . "\"" . ",";
+            $listings_q .= "\"" . $assoc_array['agent_only_info']          . "\"" . ");";
             
             //Insert listing into database
             $result = $this->connection->query($listings_q);
