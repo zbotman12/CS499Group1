@@ -14,10 +14,10 @@
 
         //Test
         //print_r($_POST);
-        if ($_POST == Array()) {
+        if ($_POST == Array() || empty($_POST)) {
             header("location: index.php");
             //echo "test";
-            //exit;
+            exit;
         }
 
         // Create a connection to the database and access Agents table
@@ -50,8 +50,9 @@
 ?>
 
 <body>
-    <?php ob_start();
-          createAgent(); 
+    <?php
+        ob_start();
+        createAgent(); 
     ?>
     <a href="./logintest.php">Login</a><br/>
 </body>
