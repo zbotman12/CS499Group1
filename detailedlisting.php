@@ -1,26 +1,68 @@
 <?php
     session_start();
+    include "DBTransactor/DBTransactorFactory.php";
+
     function GetListingArray()
     { 
-        include "dbconnect.php";
-        //$_GET['MLS'] = 1; //Someone else send this to me later
-        //Get the listing's record from the database via the MLS number
-        if($ListingObj = mysqli_query($conn, "SELECT * FROM Listings WHERE MLS_number=" . $_GET['MLS'])) /*'$_GET['MLS']'*/
+        if(!isset($_GET['MLS']))
         {
-            return $ListingObj->fetch_array();
+            echo "ERROR: You are trying to view a detailed listing without an MLS number in the URL.";
+            exit();
+        }
+
+        $listings = DBTransactorFactory::build("Listings");
+
+        if($ListingArray = $listings->select(['*'], ['MLS_number' => $_GET['MLS']]))
+        {
+            return $ListingArray[$_GET['MLS']];
         } else {
             echo "Error: Could not find MLS number in database. <br>" . mysqli_error($conn);
             return null;
         }
     }
 
-    function GetData($index)
-    {
-        $ListingArray = GetListingArray();
-        if($ListingArray != null && count($ListingArray) > 0)
+    function GetAgentArray()
+    { 
+        $listingArray = GetListingArray();
+        $Agents = DBTransactorFactory::build("Agents");
+
+        if($agentArray = $Agents->select(['*'], ['agent_id' => $listingArray['Agents_listing_agent_id']]))
         {
-            return $ListingArray[$index];
-        }   
+            return $agentArray[$listingArray['Agents_listing_agent_id']];
+        } else {
+            echo "Error: Could not find listing agent in database. <br>" . mysqli_error($conn);
+            return null;
+        }
+    }
+
+    function GetAgencyArray()
+    { 
+        $agentArray = GetAgentArray();
+        $Agencies = DBTransactorFactory::build("Agencies");
+
+        if($agencyArray = $Agencies->select(['*'], ['agency_id' => $agentArray['Agencies_agency_id']]))
+        {
+            return $agencyArray[$agentArray['Agencies_agency_id']];
+        } else {
+            echo "Error: Could not find MLS number in database. <br>" . mysqli_error($conn);
+            return null;
+        }
+    }
+
+    function GetData($index, $table)
+    {
+        switch ($table) 
+        {   
+            case 'Listings' : $Array = GetListingArray(); break;
+            case 'Agents'   : $Array = GetAgentArray(); break;
+            case 'Agencies' : $Array = GetAgencyArray(); break;
+            default         : return null;
+        }
+
+        if($Array != null && count($Array) > 0)
+        {
+            return $Array[$index];
+        } 
     }
 
     function GetFilePathArray()
@@ -70,8 +112,8 @@
     <body>
         <h1>
             <?php
-                echo GetData('address') . "<br>";
-                echo GetData('city') . ", " . GetData('state') . ", " . GetData('zip');
+                echo GetData('address', 'Listings') . "<br>";
+                echo GetData('city', 'Listings') . ", " . GetData('state', 'Listings') . ", " . GetData('zip', 'Listings');
             ?>
         </h1>
         <div class="col-md-6">
@@ -108,29 +150,35 @@
         </div>
 
         <div class="col-md-6">
+            Listing Agent:
+            <?php echo GetData('first_name', 'Agents') . " " . GetData('last_name', 'Agents');?>
+            <br>
+            Listing Company:
+            <?php echo GetData('company_name', 'Agencies');?>
+            <br><br>
             Square Footage:
-            <?php echo GetData('square_footage');?>
+            <?php echo GetData('square_footage', 'Listings');?>
             <br>
             Bedrooms:
-            <?php echo GetData('number_of_bedrooms');?>
+            <?php echo GetData('number_of_bedrooms', 'Listings');?>
             <br>
             Bathrooms:
-            <?php echo GetData('number_of_bathrooms');?>
+            <?php echo GetData('number_of_bathrooms', 'Listings');?>
             <br>
             Room Descriptions:
-            <?php echo "<pre>" . GetData('room_desc') . "</pre>";?>
+            <?php echo "<pre>" . GetData('room_desc', 'Listings') . "</pre>";?>
             <br>
             Listing Description:
-            <?php echo "<pre>" . GetData('listing_desc')  . "</pre>";?>
+            <?php echo "<pre>" . GetData('listing_desc', 'Listings')  . "</pre>";?>
             <br>
             Additional Info:
-            <?php echo "<pre>" . GetData('additional_info')  . "</pre>";?>
+            <?php echo "<pre>" . GetData('additional_info', 'Listings')  . "</pre>";?>
             <br>
             <?php
                 if(!empty($_SESSION['name']))
                 {
                     echo "Agent Only Info:"; 
-                    echo "<pre>" . GetData('agent_only_info')  . "</pre>";
+                    echo "<pre>" . GetData('agent_only_info', 'Listings')  . "</pre>";
                 }
             ?>
         </div>
