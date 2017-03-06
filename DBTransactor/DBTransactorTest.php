@@ -94,11 +94,11 @@
     echo "Insert complete! <br/>";
 
 */
-/*
+
     $showings_fb->printer($showings_fb->selectAll());
 
     echo "<br/> Testing update showing_fb <br/>";
-    $showings_fb->update(["customer_price_opinion" => "This house is alright!"] , ["Showings_showing_id" => 2]);
+    $showings_fb->update(["customer_price_opinion" => "This house is b-okay!"] , ["Showings_showing_id" => 2]);
 
     $showings_fb->printer($showings_fb->selectAll());
 
@@ -107,14 +107,13 @@
     echo "<br/>";
     var_dump($result);
 
-*/
-
+/*
     echo "<br/> Testing delete()<br/>";
     $showings_fb->printer($showings_fb->selectAll());
     $showings_fb->delete(['idShowing_Feedback' => 3]);
 
     $showings_fb->printer($showings_fb->selectAll());
-
+*/
 
 /*
     $show_fb = array('idShowing_Feedback' => 1,
