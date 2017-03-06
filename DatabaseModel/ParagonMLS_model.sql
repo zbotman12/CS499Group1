@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `ParagonMLS`.`Agencies` ;
 CREATE TABLE IF NOT EXISTS `ParagonMLS`.`Agencies` (
   `agency_id` INT NOT NULL AUTO_INCREMENT,
   `company_name` VARCHAR(100) NOT NULL,
-  `phone_number` CHAR(14) NULL,
+  `agency_phone_number` CHAR(14) NULL,
   `city` VARCHAR(45) NOT NULL,
   `state` CHAR(2) NOT NULL,
   `zip` CHAR(5) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `ParagonMLS`.`Agents` (
   `first_name` VARCHAR(50) NOT NULL,
   `last_name` VARCHAR(50) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
-  `phone_number` CHAR(14) NOT NULL,
+  `agent_phone_number` CHAR(14) NOT NULL,
   PRIMARY KEY (`agent_id`),
   INDEX `fk_Agents_Agencies1_idx` (`Agencies_agency_id` ASC),
   CONSTRAINT `fk_Agents_Agencies1`
