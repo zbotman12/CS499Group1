@@ -118,6 +118,17 @@
             }
         }
 
+        public function updateShowing($query) {
+          $results = $this->connection->query($query);
+          
+          if ($results) {
+              return true;
+          }
+          else {
+              return false;
+          }
+        }
+
         /* delete()           -> Deletes an entry from the database
             @param $key_array -> A single valued associative array where ["column_name"] = value_to_delete; 
                                 delete() corresponds to following mysql syntax: "DELETE FROM 'table_name' WHERE 'condition1' AND 'condition1' AND ...;
