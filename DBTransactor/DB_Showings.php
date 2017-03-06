@@ -46,12 +46,9 @@
 
             //Check for duplicate entries
             $dup_query  = "SELECT * FROM " . $this->SHOWINGS_TABLE . " WHERE ";
-            $dup_query .= "customer_first_name=" . "\"" . $assoc_array['customer_first_name'] . "\" AND ";
-            $dup_query .= "customer_last_name="  . "\"" . $assoc_array['customer_last_name']  . "\" AND ";
             $dup_query .= "start_time="          . "'"  . $assoc_array['start_time']          . "' AND ";
             $dup_query .= "end_time="            . "'"  . $assoc_array['end_time']            . "' AND ";
-            $dup_query .= "Listings_MLS_number=" . "'"  . $assoc_array['Listings_MLS_number'] . "' AND ";
-            $dup_query .= "time_zone="           . "\"" . $assoc_array['time_zone']           . "\";";
+            $dup_query .= "Listings_MLS_number=" . "'"  . $assoc_array['Listings_MLS_number'] . "';";
 
             $dup_results = $this->connection->query($dup_query);
             
@@ -67,16 +64,16 @@
 
             //Build showing query 
             $showing_q = "INSERT INTO " . $this->SHOWINGS_TABLE   . " VALUES (NULL,";
-            $showing_q .= "'"  . $assoc_array['Listings_MLS_number']     . "'"  . ",";
-            $showing_q .= "'"  . $assoc_array['Agents_showing_agent_id'] . "'"  . ",";
-            $showing_q .= "'"  . $assoc_array['start_time']              . "'"  . ",";
-            $showing_q .= "'"  . $assoc_array['end_time']                . "'"  . ",";
-            $showing_q .= "\"" . $assoc_array['time_zone']               . "\"" . ",";
-            $showing_q .= "'"  . $assoc_array['is_house_vacant']         . "'"  . ",";
-            $showing_q .= "\""  . $assoc_array['customer_first_name']    . "\"" . ",";
-            $showing_q .= "\""  . $assoc_array['customer_last_name']     . "\"" . ",";
-            $showing_q .= "\""  . $assoc_array['lockbox_code']           . "\"" . ");";
-            
+            $showing_q .= "'"  . $assoc_array['Listings_MLS_number']    . "'"  . ",";
+            $showing_q .= "'"  . $assoc_array['start_time']             . "'"  . ",";
+            $showing_q .= "'"  . $assoc_array['end_time']               . "'"  . ",";
+            $showing_q .= "'"  . $assoc_array['is_house_vacant']        . "'"  . ",";
+            $showing_q .= "\"" . $assoc_array['customer_first_name']    . "\"" . ",";
+            $showing_q .= "\"" . $assoc_array['customer_last_name']     . "\"" . ",";
+            $showing_q .= "\"" . $assoc_array['lockbox_code']           . "\"" . ",";
+            $showing_q .= "\"" . $assoc_array['showing_agent_name']     . "\"" . ",";
+            $showing_q .= "\"" . $assoc_array['showing_agent_company']  . "\"" . ");";
+
             //Insert showing into database
             $result = $this->connection->query($showing_q);
 

@@ -64,8 +64,7 @@
 
             echo "Am I working now? <br/>";
             //Build agency query 
-            $showings_q = "INSERT INTO " . $this->SHOWINGS_FEEDB_TABLE . " VALUES (";
-            $showings_q .= "'" . $assoc_array['idShowing_Feedback']             . "'" . ",";
+            $showings_q = "INSERT INTO " . $this->SHOWINGS_FEEDB_TABLE . "VALUES (NULL,";
             $showings_q .= "'" . $assoc_array['Showings_showing_id']            . "'" . ",";
             $showings_q .= "'" . $assoc_array['customer_interest_level']        . "'" . ",";
             $showings_q .= "'" . $assoc_array['showing_agent_experience_level'] . "'" . ",";
