@@ -7,10 +7,10 @@
     //Instantiated objects are all connected to the database where they can each edit their corresponding tables.
     
     try {
-        //$agencies           = DBTransactorFactory::build("Agencies");
-        //$agents             = DBTransactorFactory::build("Agents");
-        //$listings           = DBTransactorFactory::build("Listings");
-        //$showings           = DBTransactorFactory::build("Showings");
+        $agencies           = DBTransactorFactory::build("Agencies");
+        $agents             = DBTransactorFactory::build("Agents");
+        $listings           = DBTransactorFactory::build("Listings");
+        $showings           = DBTransactorFactory::build("Showings");
         $showings_fb        = DBTransactorFactory::build("Showing_Feedback");
    
     } catch (Exception $e) {
@@ -94,7 +94,7 @@
     echo "Insert complete! <br/>";
 
 */
-
+/*
     $showings_fb->printer($showings_fb->selectAll());
 
     echo "<br/> Testing update showing_fb <br/>";
@@ -106,6 +106,7 @@
     $result = $showings_fb->select(['*'], ['Showings_showing_id' => 2]);
     echo "<br/>";
     var_dump($result);
+  */
 
 /*
     echo "<br/> Testing delete()<br/>";
@@ -130,10 +131,12 @@
         echo $e->getMessage() . "<br/>";
     }
     echo "Done creating agent Dasani <br/>";
-*/
+    
+    $agents->printer($agents->selectAll());
     //echo "Calling insertAgent() <br/>";
     //$agents->insertAgent($agent_id);
-    
+*/
+
 /*
     $set = array('password' => 'haha',
                  'email'    => 'changed@working.com'); 
@@ -155,7 +158,7 @@
     $agents->delete($cond2);
 */
 
-/*
+
     echo "Inserting into listings table... <br/>";
     echo "Calling DBListing insert()...<br/>";
 
@@ -170,7 +173,6 @@
     $listings->printer($a);
 
     echo "<br/>";
-*/
 /*
     //select the MLS number for $listinga
     $result = $listings->select(['MLS_number'], ['address' => '221B Baker Street']);
