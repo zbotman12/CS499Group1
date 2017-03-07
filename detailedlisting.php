@@ -125,10 +125,16 @@
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
           <!-- Indicators -->
           <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
+              <?php
+                    $active_item = "class='active'";
+                    $count = 0;
+                    foreach (GetFilePathArray() as $filepath)
+                    {
+                        echo "<li data-target='#myCarousel' data-slide-to='" . $count . "' " . $active_item . "></li>";
+                        $active_item = "";
+                        $count = $count + 1;
+                    }
+                ?>
           </ol>
 
           <!-- Wrapper for slides -->
