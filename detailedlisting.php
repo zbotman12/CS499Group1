@@ -67,8 +67,13 @@
 
     function GetFilePathArray()
     { 
+        if(!isset($_GET['MLS']))
+        {
+            echo "ERROR: You are trying to view a detailed listing without an MLS number in the URL.";
+            exit();
+        }
         $FilePathArray = null;
-        $dir = "Listing/photos/1/";
+        $dir = "Listing/photos/" .  $_GET['MLS']] . "/";
         if (is_dir($dir))
         {
             if ($dh = opendir($dir))

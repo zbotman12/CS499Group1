@@ -70,7 +70,7 @@
 	<a href="./changepass.php">Change Password</a>
 	<a href="./Listing/inputTest.php">Add A New Listing</a>
 	<form action="./detailedlisting.php" method="get">
-	  <input type="hidden" name="MLS" value="1"><br>
+	  <input type="hidden" name="MLS" value="2"><br>
 	  <input type="submit" value="View A Detailed Listing">
 	</form>
 </body>
