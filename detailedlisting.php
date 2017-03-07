@@ -73,7 +73,7 @@
             exit();
         }
         $FilePathArray = null;
-        $dir = "Listing/photos/" .  $_GET['MLS']] . "/";
+        $dir = "Listing/photos/" .  $_GET['MLS'] . "/";
         if (is_dir($dir))
         {
             if ($dh = opendir($dir))
