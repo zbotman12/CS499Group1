@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<!-- ISSUE: LINE 18, 154 - change listing_mls_number to $_GET['MLS'] --> 
+<!-- ISSUE: LINE 18, 154 - change showing_id to $_GET['showing_id'] --> 
 <head>	
 <link
 	href=formattingFileShowingSchedule.css
@@ -15,7 +15,8 @@ include "../DBTransactor/DBTransactorFactory.php";
 // END CUT from line 11 here. Remember to uncomment 'include' statements
 $conn=DBTransactorFactory::build("Showings");
 $tempArray= array("start_time", "end_time", "is_house_vacant", "customer_first_name", "customer_last_name", "lockbox_code", "showing_agent_name", "showing_agent_company");
-$cond= array("Listings_MLS_number"=> 1);  //We had $_GET['MLS']
+$cond= array("showing_id"=> 1);  //We had $_GET['showing_id']
+
 // Set Listings_MLS_number equal to whatever info we pass in instead of 1
 if ($result = $conn->select($tempArray, $cond)) {
 	foreach ($result as $key => $row){
@@ -151,7 +152,7 @@ or show text field when "other" is selected-->
   Customer First Name:<input type="text" name="fname" value="<?php echo $fname; ?>" /><br>
   Customer Last Name:<input type="text" name="lname" value="<?php echo $lname; ?>" /><br>
   Lock Box Code:<input type="text" name="code" value="<?php echo $code; ?>" /><br>
-  <input type="hidden" name="MLS" value="<?php echo 1; ?>">
+  <input type="hidden" name="showing_id" value="<?php echo 1; ?>">
   <input type="submit" value="Submit" name="Submit" onClick = "valid()">
 </form>
 

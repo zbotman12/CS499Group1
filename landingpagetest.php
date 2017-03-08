@@ -1,7 +1,9 @@
 <?php
-	function Login(){
+    include "./DBTransactor/DBTransactorFactory.php";
+
+    function Login(){
 		//Establish Database Connection
-		include "dbconnect.php";
+        $agents = DBTransactorFactory::build("Agents");
 
 		//Check empty username
 		if(empty($_POST['username'])){
@@ -21,28 +23,21 @@
 
 		//Check if user exists
 		$userExists = false;
+        
+        $arr = Array( "user_login" => $username,
+                      "password"   => $password);
+        
+        $result = $agents->select(['*'], $arr);
 
-		//Check existence in DB
-		$query = "SELECT * FROM " . $TABLE_NAME . " ";
-		$query .= "WHERE user_login = \"" . $username . "\" ";
-		$query .= "AND password = \"" . $password . "\";";
-
-		//echo "Query: " . $query . "<br/>";
-
-		$result = $conn->query($query);
-
-		if ($result) {
-			if ($result->num_rows == 1) {
+		if (!empty($result)) {
+			if (count($result) == 1) {
 				$userExists = true;
 			} else {
 				$userExists = false;
 			}
 		} else {
-			echo $conn->error;
+		   echo("User doesn't exist");
 		}
-
-		//Close db connection
-		$conn->close();
 
 		//Start session
 		if($userExists == true) {
