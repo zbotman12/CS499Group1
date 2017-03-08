@@ -97,101 +97,144 @@
     }
 ?>
 <html>
-    <head>
-        <link href="style/bootstrap.min.css" rel="stylesheet">
-        <link href="style/bootstrap.theme.min.css" rel="stylesheet">
-        <link href="style/bootstrap.css" rel="stylesheet">
-        <script src="js/jquery-1.11.3.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-    </head>
-    <style>
-        pre {
-            display: table;
-            font-family: arial;
-            white-space: pre-wrap;
-            margin: 5px 10px;
-            background-color: white;
-            border: 0px;
-        } 
-    </style>
-    <body>
-        <h1>
+<head>
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+    <link href="style/bootstrap.theme.min.css" rel="stylesheet">
+    <link href="style/bootstrap.css" rel="stylesheet">
+    <link href="style/detailedListing.css" rel="stylesheet">
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="header row">
+        <h1 class="text-center">
             <?php
-                echo GetData('address', 'Listings') . "<br>";
+                echo GetData('address', 'Listings') . ", ";
                 echo GetData('city', 'Listings') . ", " . GetData('state', 'Listings') . ", " . GetData('zip', 'Listings');
             ?>
         </h1>
+    </div>
+    <div class="row topRow">
         <div class="col-md-6">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-          <!-- Indicators -->
-          <ol class="carousel-indicators">
-              <?php
-                    $active_item = "class='active'";
-                    $count = 0;
-                    foreach (GetFilePathArray() as $filepath)
-                    {
-                        echo "<li data-target='#myCarousel' data-slide-to='" . $count . "' " . $active_item . "></li>";
-                        $active_item = "";
-                        $count = $count + 1;
-                    }
-                ?>
-          </ol>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                  <?php
+                        $active_item = "class='active'";
+                        $count = 0;
+                        foreach (GetFilePathArray() as $filepath)
+                        {
+                            echo "<li data-target='#myCarousel' data-slide-to='" . $count . "' " . $active_item . "></li>";
+                            $active_item = "";
+                            $count = $count + 1;
+                        }
+                    ?>
+              </ol>
 
-          <!-- Wrapper for slides -->
-          <div class="carousel-inner" role="listbox">
-              <?php
-                    $active_item = " active";
-                    foreach (GetFilePathArray() as $filepath)
-                    {
-                        echo "<div class='item" . $active_item . "'>";
-                        echo "<img class='d-block center-block' style='' src='" . $filepath . "' alt='HouseImage'></div>";
-                        $active_item = "";
-                    }
-                ?>
-          </div>
-          <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                <span class="carousel-control left" aria-hidden="false"></span>
-                <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                <span class="carousel-control right" aria-hidden="false"></span>
-                <span class="sr-only">Next</span>
-          </a>
-        </div>
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox">
+                  <?php
+                        $active_item = " active";
+                        foreach (GetFilePathArray() as $filepath)
+                        {
+                            echo "<div class='item" . $active_item . "'>";
+                            echo "<img class='d-block center-block CarouselImg' style='' src='" . $filepath . "' alt='HouseImage'></div>";
+                            $active_item = "";
+                        }
+                    ?>
+              </div>
+              <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control left" aria-hidden="false"></span>
+                    <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                    <span class="carousel-control right" aria-hidden="false"></span>
+                    <span class="sr-only">Next</span>
+              </a>
+            </div>
         </div>
 
-        <div class="col-md-6">
+<!-- BASIC INFORMATION PANEL -->
+        <div class="col-md-6 infoPanel">
             Listing Agent:
-            <?php echo GetData('first_name', 'Agents') . " " . GetData('last_name', 'Agents');?>
+            <br>
+            <div  class="textbox">
+                <?php 
+                    echo GetData('first_name', 'Agents') . " " . GetData('last_name', 'Agents') . "<br>";
+                    echo GetData('agent_phone_number', 'Agents') . "<br>";
+                    echo GetData('email', 'Agents') . "<br>";
+                ?>
+            </div>
             <br>
             Listing Company:
-            <?php echo GetData('company_name', 'Agencies');?>
-            <br><br>
+            <br>
+            <div  class="textbox">
+                <?php 
+                    echo GetData('company_name', 'Agencies') . "<br>";
+                    echo GetData('address', 'Agencies') . "<br>";
+                    echo GetData('city', 'Agencies') . ", " . GetData('state', 'Agencies') . ", " . GetData('zip', 'Agencies'). "<br>";
+                    echo GetData('agency_phone_number', 'Agencies');
+                ?>
+            </div>
+            <br>
             Square Footage:
+            <br>
+            <div  class="textbox">
             <?php echo GetData('square_footage', 'Listings');?>
+            </div>
             <br>
             Bedrooms:
+            <br>
+            <div  class="textbox">
             <?php echo GetData('number_of_bedrooms', 'Listings');?>
+            </div>
             <br>
             Bathrooms:
-            <?php echo GetData('number_of_bathrooms', 'Listings');?>
             <br>
+            <div  class="textbox">
+            <?php echo GetData('number_of_bathrooms', 'Listings');?>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+<!-- DESCRIPTION PANEL -->
+        <div class="col-md-6">
             Room Descriptions:
+            <br>
+            <div  class="textbox">
             <?php echo "<pre>" . GetData('room_desc', 'Listings') . "</pre>";?>
+            </div>
             <br>
             Listing Description:
+            <br>
+            <div  class="textbox">
             <?php echo "<pre>" . GetData('listing_desc', 'Listings')  . "</pre>";?>
+            </div>
             <br>
             Additional Info:
-            <?php echo "<pre>" . GetData('additional_info', 'Listings')  . "</pre>";?>
             <br>
+            <div  class="textbox">
+            <?php echo "<pre>" . GetData('additional_info', 'Listings')  . "</pre>";?>
+            </div>
+            <br>
+        </div>
+
+<!-- AGENT ONLY INFO PANEL -->
+        <div class="col-md-6">
             <?php
                 if(!empty($_SESSION['name']))
-                {
-                    echo "Agent Only Info:"; 
+                {   
+                    echo "Agent Only Info:<br>"; 
+                    echo "Alarm Information:<br>";
                     echo "<pre>" . GetData('agent_only_info', 'Listings')  . "</pre>";
+                    echo "Listing Agent Email Adress:<br>";
+                    
                 }
             ?>
         </div>
-    </body> 
+    </div>
+</div>
+</body> 
 </html>
