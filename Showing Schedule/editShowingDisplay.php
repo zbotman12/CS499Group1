@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<!-- ISSUE: LINE 18, 154 - change listing_mls_number to $_GET['MLS'] --> 
 <head>	
 <link
 	href=formattingFileShowingSchedule.css
@@ -8,24 +9,16 @@
 <!-- <meta charset="UTF-8"> -->
 <title></title>
 <?php 
-//Cut line 11-26 and uncomment above 'include' statements when adding to server
-//$DB_LOCATION = 'localhost:8889';  //Server URL
-//$DB_USERNAME = 'root';//'nick';       //Database access username use 'root' for testing
-//nick is our username
-//$DB_PW       = 'root';//diliberti';  //Database access password use 'root' for testing
-// diliberti is our password
-//$DB_NAME     = 'showing';//'ParagonMLS';    //Name of database to be accessed use 'test' for testing
 
-//$conn = new mysqli($DB_LOCATION, $DB_USERNAME, $DB_PW, $DB_NAME);
-
+include "../DBTransactor/DBTransactorFactory.php";
 
 // END CUT from line 11 here. Remember to uncomment 'include' statements
 $conn=DBTransactorFactory::build("Showings");
 $tempArray= array("start_time", "end_time", "is_house_vacant", "customer_first_name", "customer_last_name", "lockbox_code", "showing_agent_name", "showing_agent_company");
-$cond= array("Listings_MLS_number"=>$_GET['MLS']);
+$cond= array("Listings_MLS_number"=> 1);  //We had $_GET['MLS']
 // Set Listings_MLS_number equal to whatever info we pass in instead of 1
 if ($result = $conn->select($tempArray, $cond)) {
-	while ($row = $result->fetch_array()){
+	foreach ($result as $key => $row){
 		$fname = $row["customer_first_name"];
 		$lname = $row["customer_last_name"];
 		$occupied = $row["is_house_vacant"];
@@ -82,7 +75,7 @@ if ($result = $conn->select($tempArray, $cond)) {
 <body>
 
 <!-- action_page.php is a php file that handles the submitted input --> 
-<form action="editShowingHandle.php" method="post">
+<form action="editShowingDataHandle.php" method="post">
 Start Time:<select name='startHour'>
 	<option value="<?php echo $startHour; ?>"><?php echo $startHour; ?></option>
 	<option value="1">1</option>
@@ -158,6 +151,7 @@ or show text field when "other" is selected-->
   Customer First Name:<input type="text" name="fname" value="<?php echo $fname; ?>" /><br>
   Customer Last Name:<input type="text" name="lname" value="<?php echo $lname; ?>" /><br>
   Lock Box Code:<input type="text" name="code" value="<?php echo $code; ?>" /><br>
+  <input type="hidden" name="MLS" value="<?php echo 1; ?>">
   <input type="submit" value="Submit" name="Submit" onClick = "valid()">
 </form>
 

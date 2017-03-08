@@ -2,8 +2,9 @@
 // ISSUE: Line 40. Fix this.
 // ISSUE: Line 47-56. Issues in DB_Showing.php- Remove time-zone entry
 // ISSUE: Line 47-56. Figure out DB_Showing.php Update() function
+// ISSUE: LINE 50     Change hardcoded 1 to MLS variable.
 
-//include "./../DBTransactorFactory.php
+include "../DBTransactor/DBTransactorFactory.php";
 //include './../sessioncheck.php";
 
 handleShowingData();
@@ -44,12 +45,10 @@ function handleShowingData(){
 	// I am assuming that listing info will be passed into this for Listing_MLS_number
 	// and Agents_showing_agent_id. Can just cut these two test variables after
 	// proper data is assigned in INSERT statement
-	
-	
 
 	// After this is put on the server, switch table name to Showings from test2
-	$sql = "UPDATE test2 SET start_time= STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s'), end_time= STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s'), is_house_vacant= '$occupy',
-	customer_first_name= '$fname', customer_last_name= '$lname', lockbox_code= '$code', showing_agent_name='$SAname', showing_agent_company='$SAcompany' WHERE Listings_MLS_number = 1";
+	$sql = "UPDATE Showings SET start_time= STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s'), end_time= STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s'), is_house_vacant= '$occupy',
+	customer_first_name= '$fname', customer_last_name= '$lname', lockbox_code='$code', showing_agent_name='$SAname', showing_agent_company='$SAcompany' WHERE Listings_MLS_number = 1";
 
 	$showings->updateShowing($sql);	
 }
