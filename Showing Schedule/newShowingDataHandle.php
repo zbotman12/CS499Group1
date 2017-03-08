@@ -55,11 +55,13 @@ function handleShowingData(){
 	//VALUES ('$tempMLS', '$tempAgentId', STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s'), STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s'), '$occupy',
 	//'$fname', '$lname', '$code')";
 	
-	$temp_array= array("Listing_MLS_number"=>$MLS, "Agents_showing_agent_id"=>$AID, "start_time"=>(STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s')),
-			"end_time"=>(STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s')), "is_house_vacant"=>$occupy, "customer_last_name"=>$fname, "customer_first_name"=>$lname, 
-			"lockbox_code"=>$code, "showing_agent_name"=>$SAname, "showing_agent_company"=>$SAcompany);
-	
-	$showings->insert($temp_array);
+	//$temp_array= array("Listing_MLS_number"=>$MLS, "Agents_showing_agent_id"=>$AID, "start_time"=>(STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s')),
+		//	"end_time"=>(STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s')), "is_house_vacant"=>$occupy, "customer_last_name"=>$fname, "customer_first_name"=>$lname, 
+		//	"lockbox_code"=>$code, "showing_agent_name"=>$SAname, "showing_agent_company"=>$SAcompany);
+	$sql = "INSERT INTO Showings(Listings_MLS_number, Agents_showing_agent_id, start_time, end_time, is_house_vacant, customer_first_name, customer_last_name, lockbox_code)
+	VALUES ('$tempMLS', '$tempAgentId', STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s'), STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s'), '$occupy',
+	'$fname', '$lname', '$code')";
+	$showings->insertPlus($sql);
 	
 }
 
