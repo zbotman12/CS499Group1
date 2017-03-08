@@ -84,7 +84,18 @@
                 return false;
             }
         }
+        
+        public function insertPlus($str) {
+            $result = $this->connection->query($str);
+            if ($result) {
+                return true;
+            }
+            else {
+                throw new Exception ($this->connection->error);
+                //return false;
+            }
 
+        }
         public function update($set_array, $where_array)  : bool {
             
             if(empty($set_array)) {

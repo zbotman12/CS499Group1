@@ -1,9 +1,9 @@
 <?php
-// ISSUE: Line 40. Fix this.
-// ISSUE: Line 47-56. Issues in DB_Showing.php- Remove time-zone entry
+// ISSUE: Line 31. Remove hardcoded $MLS.
+// ISSUE: Check for duplicate entries in database
 
 //include './../sessioncheck.php"; -- Possible remove this. talk to Michael
-//include './../DBTransactorFactory.php";
+include "../DBTransactor/DBTransactorFactory.php";
 
 handleShowingData();
 // ADD FILE NAME FOR RYANS LISTING FILE into header to redirect back to listings
@@ -28,7 +28,7 @@ function handleShowingData(){
 		$fname = test_input($_POST["fname"]);
 		$lname = test_input($_POST["lname"]);
 		$code = test_input($_POST["code"]);
-		$MLS=$_POST['MLS'];
+		$MLS= $_POST['MLS'];
 		$SAname=test_input($_POST["SAname"]);
 		$SAcompany=test_input($_POST["SAcompany"]);
 	}
@@ -41,28 +41,19 @@ function handleShowingData(){
 	$finalStartFormat = $date." ".$startHour.$startMin.":00";
 	$finalEndFormat = $date." ".$endHour.$endMin.":00";
 
-	// I am assuming that listing info will be passed into this for Listing_MLS_number
-	// and Agents_showing_agent_id. Can just cut these two test variables after
-	// proper data is assigned in INSERT statement name will be $_GET['MLS']
-
-	
-	$listing = DBTransactorFactory::build("Listings");
-	$AID = $listing->select(array("Agents_listing_agent_id"), array('MLS_number'=>$MLS));
-	
-	
-	// After this is put on the server, switch table name to Showings from test2
-	//$sql = "INSERT INTO test2(Listings_MLS_number, Agents_showing_agent_id, start_time, end_time, is_house_vacant, customer_first_name, customer_last_name, lockbox_code)
-	//VALUES ('$tempMLS', '$tempAgentId', STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s'), STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s'), '$occupy',
-	//'$fname', '$lname', '$code')";
 	
 	//$temp_array= array("Listing_MLS_number"=>$MLS, "Agents_showing_agent_id"=>$AID, "start_time"=>(STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s')),
 		//	"end_time"=>(STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s')), "is_house_vacant"=>$occupy, "customer_last_name"=>$fname, "customer_first_name"=>$lname, 
 		//	"lockbox_code"=>$code, "showing_agent_name"=>$SAname, "showing_agent_company"=>$SAcompany);
-	$sql = "INSERT INTO Showings(Listings_MLS_number, Agents_showing_agent_id, start_time, end_time, is_house_vacant, customer_first_name, customer_last_name, lockbox_code)
-	VALUES ('$tempMLS', '$tempAgentId', STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s'), STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s'), '$occupy',
-	'$fname', '$lname', '$code')";
-	$showings->insertPlus($sql);
-	
+	$sql = "INSERT INTO Showings(Listings_MLS_number, start_time, end_time,is_house_vacant, customer_first_name, customer_last_name, lockbox_code, showing_agent_name, showing_agent_company)
+	VALUES ('$MLS', STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s'), STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s'), '$occupy',
+	'$fname', '$lname', '$code', '$SAname', '$SAcompany')";
+    
+    try {
+      $showings->insertPlus($sql);
+	} catch (Exception $e) {
+      echo $e->getMessage() . "<br/>";  
+    }
 }
 
 // Sets 1-12 hour to 0-23 hour format
