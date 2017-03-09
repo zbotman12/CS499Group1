@@ -1,100 +1,5 @@
 <?php
-    session_start();
-    include "DBTransactor/DBTransactorFactory.php";
-
-    function GetListingArray()
-    { 
-        if(!isset($_GET['MLS']))
-        {
-            echo "ERROR: You are trying to view a detailed listing without an MLS number in the URL.";
-            exit();
-        }
-
-        $listings = DBTransactorFactory::build("Listings");
-
-        if($ListingArray = $listings->select(['*'], ['MLS_number' => $_GET['MLS']]))
-        {
-            return $ListingArray[$_GET['MLS']];
-        } else {
-            echo "Error: Could not find MLS number in database. <br>" . mysqli_error($conn);
-            return null;
-        }
-    }
-
-    function GetAgentArray()
-    { 
-        $listingArray = GetListingArray();
-        $Agents = DBTransactorFactory::build("Agents");
-
-        if($agentArray = $Agents->select(['*'], ['agent_id' => $listingArray['Agents_listing_agent_id']]))
-        {
-            return $agentArray[$listingArray['Agents_listing_agent_id']];
-        } else {
-            echo "Error: Could not find listing agent in database. <br>" . mysqli_error($conn);
-            return null;
-        }
-    }
-
-    function GetAgencyArray()
-    { 
-        $agentArray = GetAgentArray();
-        $Agencies = DBTransactorFactory::build("Agencies");
-
-        if($agencyArray = $Agencies->select(['*'], ['agency_id' => $agentArray['Agencies_agency_id']]))
-        {
-            return $agencyArray[$agentArray['Agencies_agency_id']];
-        } else {
-            echo "Error: Could not find MLS number in database. <br>" . mysqli_error($conn);
-            return null;
-        }
-    }
-
-    function GetData($index, $table)
-    {
-        switch ($table) 
-        {   
-            case 'Listings' : $Array = GetListingArray(); break;
-            case 'Agents'   : $Array = GetAgentArray(); break;
-            case 'Agencies' : $Array = GetAgencyArray(); break;
-            default         : return null;
-        }
-
-        if($Array != null && count($Array) > 0)
-        {
-            return $Array[$index];
-        } 
-    }
-
-    function GetFilePathArray()
-    { 
-        if(!isset($_GET['MLS']))
-        {
-            echo "ERROR: You are trying to view a detailed listing without an MLS number in the URL.";
-            exit();
-        }
-        $FilePathArray = null;
-        $dir = "Listing/photos/" .  $_GET['MLS'] . "/";
-        if (is_dir($dir))
-        {
-            if ($dh = opendir($dir))
-            {
-                while (($file = readdir($dh)) !== false)
-                {
-                    if(!is_dir($dir . $file) && exif_imagetype($dir . $file))
-                    {
-                        if($FilePathArray == null)
-                        {
-                            $FilePathArray = array($dir . $file);
-                        } else {
-                            array_push($FilePathArray, $dir . $file);
-                        }
-                    }
-                }
-                closedir($dh);
-                return $FilePathArray;
-            }
-        }
-    }
+    include "dataretriever.php";
 ?>
 <html>
 <head>
@@ -198,9 +103,9 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row bottomRow">
 <!-- DESCRIPTION PANEL -->
-        <div class="col-md-6">
+        <div class="col-md-6 infoPanel">
             Room Descriptions:
             <br>
             <div  class="textbox">
@@ -222,15 +127,19 @@
         </div>
 
 <!-- AGENT ONLY INFO PANEL -->
-        <div class="col-md-6">
+        <div class="col-md-6 infoPanel">
             <?php
                 if(!empty($_SESSION['name']))
-                {   
-                    echo "Agent Only Info:<br>"; 
+                {  
+                    echo "<div class='panel panel-default'>";
+                    echo "<div class='panel-heading'>Agent Only Info:</div><br>";
+                    echo "<div class='textbox'>";
                     echo "Alarm Information:<br>";
                     echo "<pre>" . GetData('agent_only_info', 'Listings')  . "</pre>";
                     echo "Listing Agent Email Adress:<br>";
-                    
+                    echo "<a class='btn btn-default' href='./showings.php?MLS=" . $_GET['MLS'] . "'>View Showings</a>";
+                    echo "</div>";
+                    echo "</div>";
                 }
             ?>
         </div>
