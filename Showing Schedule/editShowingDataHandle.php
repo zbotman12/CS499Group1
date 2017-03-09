@@ -2,7 +2,7 @@
 // ISSUE: Line 40. Fix this.
 // ISSUE: Line 47-56. Issues in DB_Showing.php- Remove time-zone entry
 // ISSUE: Line 47-56. Figure out DB_Showing.php Update() function
-// ISSUE: LINE 50     Change hardcoded 1 to MLS variable.
+// ISSUE: LINE 50     Change hardcoded 1 to showing_id variable.
 
 include "../DBTransactor/DBTransactorFactory.php";
 //include './../sessioncheck.php";
@@ -32,6 +32,7 @@ function handleShowingData(){
 		$code = test_input($_POST["code"]);
 		$SAname = test_input($_POST["SAname"]);
 		$SAcompany = test_input($_POST["SAcompany"]);
+        $showing_id = $_POST["showing_id"];
 	}
 
 	// Lines 37,38 are just used to set an hour time to 0-23 for formatting
@@ -48,7 +49,9 @@ function handleShowingData(){
 
 	// After this is put on the server, switch table name to Showings from test2
 	$sql = "UPDATE Showings SET start_time= STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s'), end_time= STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s'), is_house_vacant= '$occupy',
-	customer_first_name= '$fname', customer_last_name= '$lname', lockbox_code='$code', showing_agent_name='$SAname', showing_agent_company='$SAcompany' WHERE Listings_MLS_number = 1";
+	customer_first_name= '$fname', customer_last_name= '$lname',
+    lockbox_code='$code', showing_agent_name='$SAname',
+    showing_agent_company='$SAcompany' WHERE showing_id = 1";
 
 	$showings->updateShowing($sql);	
 }
