@@ -52,6 +52,17 @@
             catch (BadMethodCallException $e) {
                 throw $e;
             }
+            
+            //Check if passwords match
+            if (strcmp($assoc_array['password'], $assoc_array['confirm_pass']) != 0) {
+                throw new BadMethodCallException ("Could not create agent. Passwords do not match!");
+            }
+
+            // SALTS
+            $ops = ['cost' => 10];
+            $v = password_hash($assoc_array['password'], PASSWORD_DEFAULT, $ops);
+            $assoc_array['password'] = $v;
+            unset($v);
 
             //Build query to check existence of Agency  
             $query  = "SELECT * FROM " . $this->AGENCIES_TABLE . " ";
@@ -387,27 +398,6 @@
             if($this->hasEmptyFields($assoc_array)) {
                 throw new BadMethodCallException ("Fields cannot be empty!");
             } 
-
-            //Check if passwords match
-            if (strcmp($assoc_array['password'], $assoc_array['confirm_pass']) != 0) {
-                throw new BadMethodCallException ("Could not create agent. Passwords do not match!");
-            }
- 
-        	// SALTS
-
-            $ops = ['cost' => 10];
-            $v = password_hash($assoc_array['password'], PASSWORD_DEFAULT, $ops);
-            $assoc_array['password'] = $v;
-            unset($v);
-
-            //var_dump($assoc_array['password']);
-            //echo "<br/>";
-
-            /*  (2) To Validate a Password
-				Retrieve the user's salt and hash from the database.
-				Prepend the salt to the given password and hash it using the same hash function.
-				Compare the hash of the given password with the hash from the database. If they match, the password is correct. Otherwise, the password is incorrect.
-			*/
             return $assoc_array;
         }
         
