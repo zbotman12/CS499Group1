@@ -392,7 +392,29 @@
             if (strcmp($assoc_array['password'], $assoc_array['confirm_pass']) != 0) {
                 throw new BadMethodCallException ("Could not create agent. Passwords do not match!");
             }
+ 
+        	// SALTS
+            /* 
+            	(1) To Store a Password
+				Generate a long random salt using a CSPRNG.
+				Prepend the salt to the password and hash it with a standard password hashing function like Argon2, bcrypt, scrypt, or PBKDF2.
+				Save both the salt and the hash in the user's database record.
+            */
+			
+            //Generate long random salt.
+            $salt = random_bytes(100);
 
+            $hash = $salt . $assoc_array['password'];
+            
+            //Hash password along with salt
+            $hash = $salt . ":" . password_hash($hash);
+
+            $assoc_array['password'] = $hash;
+			/*  (2) To Validate a Password
+				Retrieve the user's salt and hash from the database.
+				Prepend the salt to the given password and hash it using the same hash function.
+				Compare the hash of the given password with the hash from the database. If they match, the password is correct. Otherwise, the password is incorrect.
+			*/
             return $assoc_array;
         }
         
