@@ -270,14 +270,6 @@
                 throw new BadMethodCallException("\$set_array cannot be empty");
             }
             
-            //Quarantine Zone
-            try {
-                $assoc_array = $this->q_zone($assoc_array);
-            }
-            catch (BadMethodCallException $e) {
-                throw $e;
-            }
-
             $ignore = ['submitted', 'Submit'];
             
             $columns     = $this->conditionBuilder($set_array, ",", $ignore);
