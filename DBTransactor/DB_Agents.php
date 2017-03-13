@@ -394,8 +394,15 @@
             }
  
         	// SALTS
-            $assoc_array['password'] = password_hash($assoc_array['password']);
-			
+
+            $ops = ['cost' => 10];
+            $v = password_hash($assoc_array['password'], PASSWORD_DEFAULT, $ops);
+            $assoc_array['password'] = $v;
+            unset($v);
+
+            //var_dump($assoc_array['password']);
+            //echo "<br/>";
+
             /*  (2) To Validate a Password
 				Retrieve the user's salt and hash from the database.
 				Prepend the salt to the given password and hash it using the same hash function.

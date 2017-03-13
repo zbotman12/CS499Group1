@@ -4,7 +4,8 @@ include 'dbconnect.php';
    
 if ($result = $conn->query("SELECT * FROM agents")) {
     while ($row = $result->fetch_array()){
-		echo $row["user_login"] . " " . $row["password"];
+        // Update this to include hash
+        echo $row["user_login"] . " " . $row["password"];
 		echo "<br />";
 	}
 } else {

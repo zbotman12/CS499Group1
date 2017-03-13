@@ -24,21 +24,29 @@
 		//Check if user exists
 		$userExists = false;
         
-        $arr = Array( "user_login" => $username,
-                      "password"   => $password);
+        $arr = Array("user_login" => $username);
         
         $result = $agents->select(['*'], $arr);
 
 		if (!empty($result)) {
 			if (count($result) == 1) {
-				$userExists = true;
+                $hash = $agents->select(['password'], ['user_login' => $username]);
+                //var_dump($hash);
+                foreach($hash as $key => $val) {
+                    if(password_verify($password, $val['password'])) {
+                        $userExists = true;
+                    } else {
+                        $userExists = false;
+                    }
+                }
 			} else {
 				$userExists = false;
 			}
 		} else {
 		   echo("User doesn't exist");
 		}
-
+        
+        unset($password);
 		//Start session
 		if($userExists == true) {
 			session_start();
