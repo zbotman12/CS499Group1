@@ -8,10 +8,14 @@
 <?php
     function changePassword(){
         //Establish Database Connection 
-        include "dbconnect.php";
+        include './DBTransactor/DBTransactorFactory.php';
+        $agents = DBTransactorFactory::build("Agents");
+
         //Resume session. If no session found, rout to login page
         include "sessioncheck.php";
-
+        
+        $_POST = array_map("sanitizer", $_POST);
+        
         //Obtain Agent ID and Username.
         if(isset($_SESSION['name'])) {
             $username = $_SESSION['name'];  //Username for this agent. Must obtain this from session.
@@ -20,52 +24,48 @@
             $username = $_POST['username'];
         }
 
-        //Quarantine Zone
-        $password    = sanitizer($_POST['currentPass']);
-        $newPass     = sanitizer($_POST['newPass']);
-        $confirmPass = sanitizer($_POST['updatedPass']);
+        $password    = $_POST['currentPass'];
+        $newPass     = $_POST['newPass'];
+        $confirmPass = $_POST['updatedPass'];
 
-        //Build Query
-        $query = "SELECT * FROM " . $TABLE_NAME . " ";
-        $query .= "WHERE user_login = \"" . $username . "\" ";
-        $query .= "AND password = \"" . $password . "\";";
+        $result = $agents->select(['*'], ["user_login" => $username]);
 
-        //Query database for username. This also checks if passwords match. If
-        //not, query fails. User doesn't "exist" in the sense that it's not that
-        //agent that's login in.
-        $result = $conn->query($query);
-           
-        //Check if user exists
         $userExists = false;
 
-        if ($result) {
-            if ($result->num_rows == 1) {
-                $userExists = true;
+        if (!empty($result)) {
+            if (count($result == 1)) {
+                //Verify password against database.
+                $hash = $agents->select(['password'], ['user_login' => $username]);
+
+                foreach($hash as $key => $val) {
+                    if(password_verify($password, $val['password'])) {
+                        $userExists = true;
+                    }
+                    else {
+                        $userExists = false;
+                    }
+                }
             } else {
                 $userExists = false;
             }
-        } else {
-            echo $conn->error;
-        }
-        
-        mysqli_free_result($result);
+        } 
+
 
         if ($userExists == true) {
             //Check if new passwords match
             if (strcmp($newPass, $confirmPass) != 0) {
                 echo "Could not change your password. Passwords entered do not match!<br/>";
             } else {
-                $query = "UPDATE " . $TABLE_NAME . " SET password=" . "'" . $confirmPass . "'" . " WHERE user_login=" . "'" . $username . "'";
-                
-                //Talk to database and update this agents table entry
-                if (mysqli_query($conn, $query)) {
+
+                //Update password
+                $ops = ['cost' => 10];
+                $hash = password_hash($newPass, PASSWORD_DEFAULT, $ops);
+
+                if ($agents->update(['password' => $hash], ['user_login' => $username])) {
                     echo "Password successfully changed! <br/>"; 
                     //$conn->close();
                 } else {
                     echo "Could not change your password. SQL Error.<br/>";
-                    echo $conn->error;
-                    //$conn->close();
-                    //exit();
                 }
             }
         } else {
@@ -74,8 +74,9 @@
             echo "Could not change your password. Agent does not exist in database. Please input your password or contact your system administrator.<br/>";
         }
 
-        //Close database connection
-        $conn->close();
+        unset($password);
+        unset($newPass);
+        unset($confirmPass);
     }
 
     function sanitizer($data) {
