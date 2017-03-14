@@ -78,7 +78,7 @@
             $listings_q .= "\"" . $assoc_array['room_desc']                . "\"" . ",";
             $listings_q .= "\"" . $assoc_array['listing_desc']             . "\"" . ",";
             $listings_q .= "\"" . $assoc_array['additional_info']          . "\"" . ",";
-            $listings_q .= "\"" . $assoc_array['agent_only_info']          . "\"" . ",DEFAULT, DEFAULT);";
+            $listings_q .= "\"" . $assoc_array['agent_only_info']          . "\"" . ", DEFAULT, DEFAULT);";
             
             //Insert listing into database
             $result = $this->connection->query($listings_q);

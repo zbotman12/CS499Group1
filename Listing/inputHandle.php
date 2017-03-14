@@ -49,7 +49,7 @@ $sql = "INSERT INTO Listings(Agents_listing_agent_id, price, city,
 state, zip, address, square_footage, number_of_bedrooms, number_of_bathrooms,
 room_desc, listing_desc, additional_info) 
 VALUES ('$agent_id', '$price', '$city', '$state', '$zip', 
-'$address', '$footage', '$num_bedrooms', '$num_bathrooms', '$roomDesc', '$desc', '$localDesc')";
+\"$address\", '$footage', '$num_bedrooms', '$num_bathrooms', \"$roomDesc\", \"$desc\", \"$localDesc\")";
 
 if (mysqli_query($conn, $sql)) {
 
