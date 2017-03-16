@@ -2,3 +2,4 @@
 Listing/photos/*
 .settings/*
 DBTransactor/config.ini
+config.ini

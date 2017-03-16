@@ -1,6 +1,6 @@
 <?php
-include "./../dbconnect.php";
 include "./../sessioncheck.php";
+include "./../dbconnect.php";
 
 // define variables and set to empty values
 $price = $desc = $address = $footage = $roomDesc = $localDesc =

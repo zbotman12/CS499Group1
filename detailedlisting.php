@@ -67,7 +67,7 @@
             <div  class="textbox">
                 <?php 
                     echo GetData('first_name', 'Agents') . " " . GetData('last_name', 'Agents') . "<br>";
-                    echo GetData('agent_phone_number', 'Agents') . "<br>";
+                    echo GetData('phone_number', 'Agents') . "<br>";
                     echo GetData('email', 'Agents') . "<br>";
                 ?>
             </div>
@@ -79,7 +79,7 @@
                     echo GetData('company_name', 'Agencies') . "<br>";
                     echo GetData('address', 'Agencies') . "<br>";
                     echo GetData('city', 'Agencies') . ", " . GetData('state', 'Agencies') . ", " . GetData('zip', 'Agencies'). "<br>";
-                    echo GetData('agency_phone_number', 'Agencies');
+                    echo GetData('phone_number', 'Agencies');
                 ?>
             </div>
             <br>
