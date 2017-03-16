@@ -6,13 +6,14 @@
 
 <!-- PHP Functions -->
 <?php
+    //Resume session. If no session found, rout to login page
+    include "sessioncheck.php";
+
     function changePassword(){
+
         //Establish Database Connection 
         include './DBTransactor/DBTransactorFactory.php';
         $agents = DBTransactorFactory::build("Agents");
-
-        //Resume session. If no session found, rout to login page
-        include "sessioncheck.php";
         
         $_POST = array_map("sanitizer", $_POST);
         

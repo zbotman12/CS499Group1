@@ -1,4 +1,5 @@
 <?php
+	// Always include this file at the beginning of any code to avoid PHP warnings
 	function getNumber() {
 		session_start();
 		if(isset($_SESSION['number'])){

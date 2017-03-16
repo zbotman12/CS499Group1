@@ -1,3 +1,4 @@
 #Ignore the listing photos
 Listing/photos/*
 .settings/*
+DBTransactor/config.ini

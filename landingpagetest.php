@@ -1,7 +1,10 @@
 <?php
+	session_start();
     include "./DBTransactor/DBTransactorFactory.php";
 
     function Login(){
+    	//Start session
+
 		//Establish Database Connection
         $agents = DBTransactorFactory::build("Agents");
 
@@ -49,7 +52,7 @@
         unset($password);
 		//Start session
 		if($userExists == true) {
-			session_start();
+			//session_start(); //PHP gives a warning if session_start() isn't declared at the top. Commented for now.
 
 			$_SESSION['name'] = $username;
 			echo "You have been logged in.<br/>Hello, " . $username ."!<br/>";
