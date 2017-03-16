@@ -4,7 +4,7 @@
     *NOTE* you must call $conn->close(); when you finish your database operations.
 -->
 <?php
-        $config = parse_ini_file('config.ini');
+        $config = parse_ini_file('../../config.ini');
         $DB_LOCATION = $config['dblocation'];  //Server URL
         $DB_USERNAME = $config['username'];    //Database access username
         $DB_PW       = $config['password'];    //Database access password
