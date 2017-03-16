@@ -38,6 +38,7 @@
         <th>Address</th>
         <th>City</th>
         <th>State</th>
+        <th>View</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
@@ -53,13 +54,29 @@
           $delListing   = "<td>" . "<form method='post' action='deleteListing.php' class='inline'>";
           $delListing1  = "<button type='submit' name='MLS_number' value='";
           $delListing2  = "'>Delete</button></form></td>";
+           
+          $view  = "<td>" . "<form method='get' action='../detailedlisting.php' class 'inline'>";
+          $view1 = "<button type='submit' name='MLS' value='";
+          $view2 = "'>View</a></form></td>";
 
+          /*
+          $view  = "<td>" . "<a class='btn btn-default' href='../detailedlisting.php?MLS='";
+          $view1 = "'>View</a></td>"; */
+          
+          /*
+          $view  = "<td>" . "<a class='button' href='../detailedlisting.php?MLS='";
+          $view1 = "' target='_blank'>View</a></td>";
+          */          
           foreach($listingInfo as $mls => $array) {
               echo "<tr>";
               echo "<td>" . $array['address'] . "</td>";
               echo "<td>" . $array['city']    . "</td>";
               echo "<td>" . $array['state']   . "</td>";
-              
+
+              //View Listing
+              //echo "<td>" . "<a class='btn btn-default' href='../detailedlisting.php?MLS='" . $_GET['MLS'] . "'>View</a></td>";
+              echo $view . $view1 . $mls . $view2; 
+
               //Edit Listing
               echo $editListing . $editListing1 . $mls . $editListing2;
 
