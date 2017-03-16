@@ -8,6 +8,7 @@
     // ADD FILE NAME FOR RYANS LISTING FILE to redirect back to listings or showings
     //header('location: RYANS LISTING FILE NAME.php');
 
+    //(MICHAEL) :: Must update this to use MLS number from listing selected.
     function handleListingData(){
         
         $showings=DBTransactorFactory::build("Listings");
