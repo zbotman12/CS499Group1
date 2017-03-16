@@ -32,6 +32,9 @@
 
 <div class="container-fluid">
   <h2>Listings for <?php echo $agent['user_login']; ?></h2>            
+  <form action='inputTest.php' class='inline'>
+    <button type='submit' class='link-button'>Add New Listing</button>
+  </form>
   <table class="table table-hover  table-responsive">
     <thead>
       <tr>
