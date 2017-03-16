@@ -19,10 +19,8 @@
 
             $listings = DBTransactorFactory::build("Listings");
 
-            //$cond= array("showing_id"=> 1);  //We had $_GET['showing_id']
             $data = null;
-            // Set Listings_MLS_number equal to whatever info we pass in instead of 1
-            if ($result = $listings->select(['*'], ["MLS_number" => 1])) { //$_GET['MLS']
+            if ($result = $listings->select(['*'], ["MLS_number" => $_POST['MLS_number']])) {
                 if (count($result) == 1) {
                     $data = current($result);
                 }
@@ -34,7 +32,7 @@
 
     <body>
         <!-- action_page.php is a php file that handles the submitted input --> 
-        <form action="editListingDataHandle.php" method="post" enctype="multipart/form-data">
+        <form action="editListing.php" method="post" enctype="multipart/form-data">
             <fieldset>
             <legend>Listing Information</legend> <br><br>
 
@@ -74,6 +72,7 @@
             <label class= "field" for="agent_only_info">Alarm Information:</label><br>
             <input type="text" name="agent_only_info" value="<?php echo $data['agent_only_info']; ?>"><br><br>
             
+            <input type="hidden" name = "MLS_number" value=" <?php echo $data['MLS_number'];?>"><br><br>
             <input type="submit" value="Continue">
             <input type="reset">
             </fieldset>

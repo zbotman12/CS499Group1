@@ -9,19 +9,19 @@
     include "./../sessioncheck.php";
     include "../DBTransactor/DBTransactorFactory.php";
 
-    handleListingData();
+    updateListingData();
 
     // ADD FILE NAME FOR RYANS LISTING FILE to redirect back to listings or showings
     //header('location: RYANS LISTING FILE NAME.php');
 
     //(MICHAEL) :: Must update this to use MLS number from listing selected.
-    function handleListingData(){
+    function updateListingData(){
         
         $listings=DBTransactorFactory::build("Listings");
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             try {
-                $listings->update($_POST, ["MLS_number" => 1]);
+                $listings->update($_POST, ["MLS_number" => $_POST['MLS_number']]);
             } catch(Exception $e) {
                 echo $e->getMessage() . "<br\>";
             }

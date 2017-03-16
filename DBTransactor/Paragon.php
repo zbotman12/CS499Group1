@@ -35,7 +35,7 @@
             returns a new mysql object and authenticates to the server using credentials from Paragon.
         */
         protected function getConn() {
-            $config = parse_ini_file('../../config.ini');
+            $config = parse_ini_file('/var/www/config.ini');
             //$config = parse_ini_file('config.ini');
             $o = new mysqli($config['dblocation'], $config['username'], $config['password'], $config['dbname']);
             return $o;

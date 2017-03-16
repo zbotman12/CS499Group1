@@ -45,9 +45,6 @@
     <tbody>
       <tr>
       <?php
-          //(RYAN): We may want to format these dates and times better.
-    		  //echo "<td>" . GetShowingData('start_time', $count) . "</td>";
-    		  //echo "<td><a href='./Showing Schedule/editShowingDisplay.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $count) . "'>[pencil]</a></td>";
 
           $editListing  = "<td>" . "<form method='post' action='editListingDisplay.php' class='inline'>";
           $editListing1 = "<button type='submit' name='MLS_number' value='";
@@ -58,6 +55,7 @@
           $delListing2  = "'>Delete</button></form></td>";
 
           foreach($listingInfo as $mls => $array) {
+              echo "<tr>";
               echo "<td>" . $array['address'] . "</td>";
               echo "<td>" . $array['city']    . "</td>";
               echo "<td>" . $array['state']   . "</td>";
@@ -67,6 +65,7 @@
 
               //Delete Listing
               echo $delListing . $delListing1 . $mls . $delListing2;
+              echo "</tr>";
           }
       ?>
       </tr>
