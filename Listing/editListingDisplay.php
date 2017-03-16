@@ -1,3 +1,8 @@
+<!--
+    File: editListingDisplay.php
+    HTML form to edit Listing currently selected.
+-->
+
 <!DOCTYPE html>
 <html>
     <!-- ISSUE: LINE 18, 154 - change showing_id to $_GET['showing_id'] --> 
@@ -12,12 +17,12 @@
         <?php 
             include "../DBTransactor/DBTransactorFactory.php";
 
-            $showings = DBTransactorFactory::build("Listings");
+            $listings = DBTransactorFactory::build("Listings");
 
             //$cond= array("showing_id"=> 1);  //We had $_GET['showing_id']
             $data = null;
             // Set Listings_MLS_number equal to whatever info we pass in instead of 1
-            if ($result = $showings->select(['*'], ["MLS_number" => 1])) { //$_GET['MLS']
+            if ($result = $listings->select(['*'], ["MLS_number" => 1])) { //$_GET['MLS']
                 if (count($result) == 1) {
                     $data = current($result);
                 }

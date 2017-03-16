@@ -1,3 +1,9 @@
+<!--
+    File: editListingDataHandle.php
+    editListingDisplay data handler. Updates listing based on MLS number.
+    Throws exception if MLS number is not in the database. 
+-->
+
 <?php
 
     include "./../sessioncheck.php";
@@ -11,11 +17,11 @@
     //(MICHAEL) :: Must update this to use MLS number from listing selected.
     function handleListingData(){
         
-        $showings=DBTransactorFactory::build("Listings");
+        $listings=DBTransactorFactory::build("Listings");
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             try {
-                $showings->update($_POST, ["MLS_number" => 1]);
+                $listings->update($_POST, ["MLS_number" => 1]);
             } catch(Exception $e) {
                 echo $e->getMessage() . "<br\>";
             }
