@@ -135,7 +135,7 @@
             }
             
             //Delete pictures, then delete listing.
-            if(rmdir('../Listing/photos/' . $key_array['MLS_number'])) {
+            if(rrmdir('../Listing/photos/' . $key_array['MLS_number'])) {
 
                 $condition = $this->conditionBuilder($key_array, " AND ", []);
 
@@ -152,6 +152,25 @@
             } else {
               throw new Exception("Could not delete pictures from database");  
             }
+        }
+
+        /* Recursively removes directory. 
+        */
+        private function rrmdir($src) {
+            $dir = opendir($src);
+            while(false !== ( $file = readdir($dir)) ) {
+                if (( $file != '.' ) && ( $file != '..' )) {
+                    $full = $src . '/' . $file;
+                    if ( is_dir($full) ) {
+                        rrmdir($full);
+                    }
+                    else {
+                        unlink($full);
+                    }
+                }
+            }
+            closedir($dir);
+            return rmdir($src);
         }
 
         /* select($array) -> Selects an entry and returns an associative array of values obtained.
