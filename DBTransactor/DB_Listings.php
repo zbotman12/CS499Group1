@@ -133,18 +133,24 @@
             if (empty($key_array)) {
                 throw new BadMethodCallException("Nothing to delete.");
             }
+            
+            //Delete pictures, then delete listing.
+            if(rmdir('../Listing/photos/' . $key_array['MLS_number'])) {
 
-            $condition = $this->conditionBuilder($key_array, " AND ", []);
+                $condition = $this->conditionBuilder($key_array, " AND ", []);
 
-            $query = "DELETE FROM " . $this->LISTINGS_TABLE . " WHERE " . $condition . ";";
+                $query = "DELETE FROM " . $this->LISTINGS_TABLE . " WHERE " . $condition . ";";
 
-            $results = $this->connection->query($query);
+                $results = $this->connection->query($query);
 
-            if ($results) {
-                return true;
-            }
-            else {
-                return false;
+                if ($results) {
+                    return true;
+                }
+                else {
+                  return false;
+                }
+            } else {
+              throw new Exception("Could not delete pictures from database");  
             }
         }
 
