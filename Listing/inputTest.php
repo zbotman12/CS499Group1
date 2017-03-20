@@ -21,31 +21,31 @@
 
     <br><br><label class= "field" for="price">List Price:</label><br>
   	<input type="text" name="price" value=""><br><br>
-  	<label class= "field" for="desc">Description:</label><br>
+  	<label class= "field" for="desc">Description (1000 Character Limit):</label><br>
   	<textarea name="desc" rows="10" cols="30">
   	</textarea><br><br>
    	<label class= "field" for="address">Address:</label><br>
   	<input type="text" name="address" value=""><br><br>
     <label class= "field" for="city">City:</label><br>
   	<input type="text" name="city" value=""><br><br>
-    <label class= "field" for="state">State:</label><br>
+    <label class= "field" for="state">State (Postal Code):</label><br>
   	<input type="text" name="state" value=""><br><br>
     <label class= "field" for="zip">Zip:</label><br>
   	<input type="text" name="zip" value=""><br><br>
     <label class= "field" for="footage">Square Footage:</label><br>
   	<input type="text" name="footage" value=""><br><br>
-    <label class= "field" for="roomDesc">Room Descriptions:</label><br>
+    <label class= "field" for="roomDesc">Room Descriptions (1000 Character Limit): </label><br>
     <textarea name="roomDesc" rows="10" cols="30">
 	</textarea><br>
 	<label class= "field" for="num_bedrooms">Number of Rooms:</label><br>
   	<input type="text" name="num_bedrooms" value=""><br><br>
     <label class= "field" for="num_bathrooms">Number of Bathrooms:</label><br>
   	<input type="text" name="num_bathrooms" value=""><br><br>
-  	<label class= "field" for="localDesc">Location Description:</label><br>
+  	<label class= "field" for="localDesc">Location Description (1000 Character Limit): </label><br>
     <textarea name="localDesc" rows="10" cols="30">
 	</textarea><br><br>
-   	<label class= "field" for="alarm">Alarm Information:</label><br>
-  	<input type="text" name="alarm" value=""><br><br>
+   	<label class= "field" for="agent_only_info">Agent Information (300 Character Limit): </label><br>
+  	<input type="text" name="agent_only_info" value=""><br><br>
   	
   	<input type="submit" value="Continue">
    	<input type="reset">

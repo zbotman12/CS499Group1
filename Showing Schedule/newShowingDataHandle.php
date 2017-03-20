@@ -1,13 +1,12 @@
 <?php
 // ISSUE: Line 31. Remove hardcoded $MLS.
 // ISSUE: Check for duplicate entries in database
-
+header('location: ./../showings.php?MLS=' . $_POST['MLS']);
 //include './../sessioncheck.php"; -- Possible remove this. talk to Michael
 include "../DBTransactor/DBTransactorFactory.php";
 
 handleShowingData();
 // ADD FILE NAME FOR RYANS LISTING FILE into header to redirect back to listings
-//header('location: RYANS LISTING FILE NAME.php');
 
 function handleShowingData(){
 	

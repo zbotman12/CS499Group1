@@ -4,7 +4,7 @@ include "./../dbconnect.php";
 
 // define variables and set to empty values
 $price = $desc = $address = $footage = $roomDesc = $localDesc =
-$alarm = $agency = $agent = $city = $state = $zip = $num_bathrooms = 
+$agent_only_info = $agency = $agent = $city = $state = $zip = $num_bathrooms = 
 $num_bedrooms = "";
 
 //clean and set all the inputs
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$footage = test_input($_POST["footage"]);
 	$roomDesc = test_input($_POST["roomDesc"]);
 	$localDesc = test_input($_POST["localDesc"]);
-	$alarm = test_input($_POST["alarm"]);
+	$agent_only_info = test_input($_POST["agent_only_info"]);
 	$city = test_input($_POST["city"]);
 	$state = test_input($_POST["state"]);
 	$zip = test_input($_POST["zip"]);
@@ -47,9 +47,9 @@ if(!empty(mysqli_query($conn, "SELECT MLS_number FROM Listings WHERE address='$a
 //Query to put a new house into the database
 $sql = "INSERT INTO Listings(Agents_listing_agent_id, price, city,
 state, zip, address, square_footage, number_of_bedrooms, number_of_bathrooms,
-room_desc, listing_desc, additional_info) 
+room_desc, listing_desc, additional_info, agent_only_info) 
 VALUES ('$agent_id', '$price', '$city', '$state', '$zip', 
-\"$address\", '$footage', '$num_bedrooms', '$num_bathrooms', \"$roomDesc\", \"$desc\", \"$localDesc\")";
+\"$address\", '$footage', '$num_bedrooms', '$num_bathrooms', \"$roomDesc\", \"$desc\", \"$localDesc\", \"$agent_only_info\")";
 
 if (mysqli_query($conn, $sql)) {
 

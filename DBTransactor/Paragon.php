@@ -36,11 +36,12 @@
         */
         protected function getConn() {
             if(file_exists("./../dbconnect.php")){
-                include_once "./../dbconnect.php";
+                include "./../dbconnect.php";
+                return $conn;
             }else{
-                include_once "dbconnect.php";
+                include "dbconnect.php";
+                return $conn;
             }
-            return Connect();
         }
 
         /*
