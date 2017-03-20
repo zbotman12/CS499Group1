@@ -35,7 +35,11 @@
             returns a new mysql object and authenticates to the server using credentials from Paragon.
         */
         protected function getConn() {
-            include_once "dbconnect.php";
+            if(file_exists("./../dbconnect.php")){
+                include_once "./../dbconnect.php";
+            }else{
+                include_once "dbconnect.php";
+            }
             return Connect();
         }
 

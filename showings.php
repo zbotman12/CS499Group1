@@ -15,7 +15,8 @@
 <body>
 
 <div class="container-fluid">
-  <h2>Showings for <?php echo GetData('address', 'Listings') . ", " . GetData('city', 'Listings') . ", " . GetData('state', 'Listings');?></h2>            
+  <h2>Showings for <?php echo GetData('address', 'Listings') . ", " . GetData('city', 'Listings') . ", " . GetData('state', 'Listings');?></h2>
+  <a class="btn btn-default" href="./Showing Schedule/newShowingDisplay.php?MLS=<?php echo $_GET['MLS']; ?>">Add A Showing</a>    
   <table class="table table-hover  table-responsive">
     <thead>
       <tr>
