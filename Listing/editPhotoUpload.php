@@ -8,7 +8,7 @@
 </head>
 <body>
 	<!-- action_page.php is a php file that handles the submitted input -->
-	<form action="editPhotoHandle.php" method="get" enctype="multipart/form-data" >
+	<form action="editPhotoHandle.php" method="post" enctype="multipart/form-data" >
 		<fieldset>
 		<legend>Listing Photos</legend>
 		 Select image to upload:<br>
@@ -33,7 +33,7 @@
 	</form>
 <?php 
 function checkExist($location)
-{   $files = GetFilePathArray();
+{   $files = GetFilePathArrayVer2();
     //var_dump($files[$location]);
 	if(isset($files[$location]))
     {

@@ -7,10 +7,11 @@ define("IMAGES_URL",SITE_PATH."/images/"); //constant for image directory
 
 
 $upload_base_dir= "photos/";//"/var/www/html/pics/";
-$temp = $_POST['MLS'];
-$upload_time_dir=$_SESSION['$temp']."/"; // setup directory name
+$temp = intval($_POST['MLS']);
+//var_dump($temp);
+$upload_time_dir=$temp."/"; // setup directory name
 $upload_dir = $upload_base_dir.$upload_time_dir;
-
+//var_dump($upload_dir);
 if (!file_exists($upload_dir)) {
 	echo "called";
 	mkdir($upload_dir, 0777, true);  //create directory if not exist
