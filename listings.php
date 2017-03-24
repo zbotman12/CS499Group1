@@ -71,10 +71,19 @@
 	        i;
 	    reverse = -((+reverse) || -1);
 	    tr = tr.sort(function (a, b) { // sort rows
-	        return reverse // `-1 *` if want opposite order
-	            * (a.cells[col].textContent.trim() // using `.textContent.trim()` for test
-	                .localeCompare(b.cells[col].textContent.trim())
+			arg1 = a.cells[col].textContent.trim();
+			arg2 = b.cells[col].textContent.trim();
+			if (!isNaN(parseInt(arg1)) && !isNaN(parseInt(arg2))) {
+				arg1 = parseInt(arg1);
+				arg2 = parseInt(arg2);
+				return reverse // `-1 *` if want opposite order
+	            * (arg1 <= arg2);
+			} else {
+				return reverse // `-1 *` if want opposite order
+	            * (arg1 // using `.textContent.trim()` for test
+	                .localeCompare(arg2)
 	               );
+			}
 	    });
 	    for(i = 0; i < tr.length; ++i) tb.appendChild(tr[i]); // append each row in order
 	}
