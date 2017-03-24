@@ -19,9 +19,12 @@
         
         $listings=DBTransactorFactory::build("Listings");
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
             try {
-                $listings->update($_POST, ["MLS_number" => $_POST['MLS_number']]);
+                $listings->update($_GET, ["MLS_number" => $_GET['MLS']]);
+                $v = $_GET['MLS'];
+                $y = intval($v);
+                header("location: editPhotoUpload.php?MLS=$y");
             } catch(Exception $e) {
                 echo $e->getMessage() . "<br\>";
             }

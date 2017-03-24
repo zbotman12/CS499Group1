@@ -51,8 +51,8 @@
       <tr>
       <?php
 
-          $editListing  = "<td>" . "<form method='post' action='editListingDisplay.php' class='inline'>";
-          $editListing1 = "<button type='submit' name='MLS_number' value='";
+          $editListing  = "<td>" . "<form method='get' action='editListingDisplay.php' class='inline'>";
+          $editListing1 = "<button type='submit' name='MLS' value='";
           $editListing2 = "' class='link-button'>Edit</button></form></td>";
 
           $delListing   = "<td>" . "<form method='post' action='deleteListing.php' class='inline'>";
