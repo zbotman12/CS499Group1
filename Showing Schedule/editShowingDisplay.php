@@ -153,6 +153,7 @@ or show text field when "other" is selected-->
   Customer Last Name:<input type="text" name="lname" value="<?php echo $lname; ?>" /><br>
   Lock Box Code:<input type="text" name="code" value="<?php echo $code; ?>" /><br>
   <input type="hidden" name="showing_id" value="<?php echo 1; ?>">
+  <input type="hidden" name="MLS" value="<?php echo $_GET['MLS']; ?>">
   <input type="submit" value="Submit" name="Submit" onClick = "valid()">
 </form>
 

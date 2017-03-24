@@ -3,13 +3,11 @@
 // ISSUE: Line 47-56. Issues in DB_Showing.php- Remove time-zone entry
 // ISSUE: Line 47-56. Figure out DB_Showing.php Update() function
 // ISSUE: LINE 50     Change hardcoded 1 to showing_id variable.
-
+header('location: ./../showings.php?MLS=' . $_POST['MLS']);
 include "../DBTransactor/DBTransactorFactory.php";
 //include './../sessioncheck.php";
 
 handleShowingData();
-// ADD FILE NAME FOR RYANS LISTING FILE to redirect back to listings or showings
-//header('location: RYANS LISTING FILE NAME.php');
 
 function handleShowingData(){
 	

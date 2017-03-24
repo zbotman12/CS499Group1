@@ -21,4 +21,5 @@
 	<a href="./sessiontest.php">Session test</a> <br/>
 	<a href="./logintest.php">Login</a><br/>
 	<a href="./changepass.php">Change Password</a> <br/>
+	<a href="./createagent.php">Create New Agent</a> <br/>
 </body>

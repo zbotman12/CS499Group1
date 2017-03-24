@@ -1,5 +1,5 @@
 <?php
-    include "dataretriever.php";
+  include "dataretriever.php";
 ?>
 
 <!DOCTYPE html>
@@ -15,46 +15,51 @@
 <body>
 
 <div class="container-fluid">
-  <h2>Showings for <?php echo GetData('address', 'Listings') . ", " . GetData('city', 'Listings') . ", " . GetData('state', 'Listings');?></h2>            
-  <table class="table table-hover  table-responsive">
+  <h2>Showings for <?php echo GetData('address', 'Listings') . ", " . GetData('city', 'Listings') . ", " . GetData('state', 'Listings');?></h2>
+  <table class="table table-hover table-responsive">
     <thead>
       <tr>
-        <th>Start Time</th>
-        <th>End Time</th>
-        <th>Vacant</th>
-        <th>Customer Name</th>
-        <th>Showing Agent</th>
-        <th>Showing Agency</th>
-        <th>Lockbox Code</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th class="text-center">Date</th>
+        <th class="text-center">Start Time</th>
+        <th class="text-center">End Time</th>
+        <th class="text-center">Vacant</th>
+        <th class="text-center">Customer Name</th>
+        <th class="text-center">Showing Agent</th>
+        <th class="text-center">Showing Agency</th>
+        <th class="text-center">Lockbox Code</th>
+        <th class="text-center">Edit</th>
+        <th class="text-center">Leave Feedback</th>
+        <th class="text-center">Delete</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
       <?php
-      $count = 1;
-        while ($count <= GetShowingsCount())
+        foreach (GetShowingsArrays() as $key => $value)
         {
-        	//(RYAN): We may want to format these dates and times better.
-    		echo "<td>" . GetShowingData('start_time', $count) . "</td>";
-    		echo "<td>" . GetShowingData('end_time', $count) . "</td>";
-    		if( GetShowingData('is_house_vacant', $count) == 1){
-    			echo "<td>True</td>";
-    		}else{
-    			echo "<td>False</td>";
-    		}
-    		echo "<td>" . GetShowingData('customer_first_name', $count) . " " . GetShowingData('customer_last_name', $count) . "</td>";
-    		echo "<td>" . GetShowingData('showing_agent_name', $count) . "</td>";
-    		echo "<td>" . GetShowingData('showing_agent_company', $count) . "</td>";
-    		echo "<td>" . GetShowingData('lockbox_code', $count) . "</td>";
-    		echo "<td><a href='./Showing Schedule/editShowingDisplay.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $count) . "'>[pencil]</a></td>";
-    		$count = $count + 1;
+          	//(RYAN): We may want to format these dates and times better.
+          echo "<tr>";
+          echo "<td class='text-center'>" . date( "F dS\\, Y", strtotime(GetShowingData('start_time', $key))) . "</td>";
+      		echo "<td class='text-center'>" . date( "g\\:i A", strtotime(GetShowingData('start_time', $key))) . "</td>";
+      		echo "<td class='text-center'>" . date( "g\\:i A", strtotime(GetShowingData('end_time', $key))) . "</td>";
+      		if( GetShowingData('is_house_vacant', $key) == 1){
+      			echo "<td class='text-center'>True</td>";
+      		}else{
+      			echo "<td class='text-center'>False</td>";
+      		}
+      		echo "<td class='text-center'>" . GetShowingData('customer_first_name', $key) . " " . GetShowingData('customer_last_name', $key) . "</td>";
+      		echo "<td class='text-center'>" . GetShowingData('showing_agent_name', $key) . "</td>";
+      		echo "<td class='text-center'>" . GetShowingData('showing_agent_company', $key) . "</td>";
+      		echo "<td class='text-center'>" . GetShowingData('lockbox_code', $key) . "</td>";
+      		echo "<td class='text-center'><a href='./Showing Schedule/editShowingDisplay.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'>[pencil]</a></td>";
+          echo "<td class='text-center'><a href=''>[notepad]</a></td>";
+          echo "<td class='text-center'><a href='./Showing Schedule/deleteShowingHandle.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'>[x]</a></td>";
+          echo "</tr>";
         }
         ?>
-      </tr>
     </tbody>
   </table>
+  <a class="btn btn-default" href="./Showing Schedule/newShowingDisplay.php?MLS=<?php echo $_GET['MLS']; ?>">Add A Showing</a>
+  <a class="btn btn-default" href="./detailedListing.php?MLS=<?php echo $_GET['MLS']; ?>">View Listing</a>
 </div>
 
 </body>

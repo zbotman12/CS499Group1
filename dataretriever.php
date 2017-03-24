@@ -27,7 +27,7 @@
     {
         if(!isset($_GET['MLS']))
         {
-            echo "ERROR: You are trying to view a detailed listing without an MLS number in the URL.";
+            echo "ERROR: You are trying to view a detailed listing without an MLS number.";
             exit();
         }
         
@@ -37,7 +37,7 @@
         {
             return $ShowingArrays;
         } else {
-            echo "Error: Could not find any showings for this house. <br>"; //. mysqli_error($conn);
+            echo "No showings currently scheduled for this listing.<br>"; //. mysqli_error($conn);
             return null;
         }
     }
