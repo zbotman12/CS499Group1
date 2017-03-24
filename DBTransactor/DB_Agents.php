@@ -1,4 +1,5 @@
-<!--
+<?php
+    /*
     File: DB_Agents.php
     Class to create Agent database transactions in ParagonMLS database.
     
@@ -6,11 +7,7 @@
     connection to the ParagonMLS database.
     
     Once you are done with the object, you do not have to call the destructor implicitly.
-    PHP calls it at the end of the script.
-
--->
-
-<?php
+    PHP calls it at the end of the script. */
 
     class DB_Agents extends Paragon implements DBTransactor {
         

@@ -1,4 +1,4 @@
-<!--
+<?php /*
     File: DB_Listings.php
     Class to create Listings database transactions in ParagonMLS database.
     
@@ -6,11 +6,7 @@
     connection to the ParagonMLS database.
     
     Once you are done with the object, you do not have to call the destructor implicitly.
-    PHP calls it at the end of the script.
-
--->
-
-<?php
+    PHP calls it at the end of the script. */
 
     class DB_Listings extends Paragon implements DBTransactor {
 

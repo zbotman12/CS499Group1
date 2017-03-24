@@ -1,5 +1,7 @@
-<!-- DBTransactorFactory.php
-     This is the Factory class you must use to create objects that interact with the database!
+<?php
+    /*
+    DBTransactorFactory.php
+    This is the Factory class you must use to create objects that interact with the database!
     
     Description:
         Factory Pattern for database transactions.
@@ -11,8 +13,7 @@
 
     Note: 
         include_once is a better choice. Consider it in the future.         
--->
-<?php
+    */
 
     require_once('Paragon.php') ;
     require_once('DBTransactor.php');

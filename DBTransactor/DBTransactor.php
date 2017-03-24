@@ -1,4 +1,5 @@
-<!--
+<?php
+    /*
     File: DBTransactor.php
     Interface to create database transactions classes in ParagonMLS database.
     
@@ -18,10 +19,8 @@
         SQL statements, INSERT, UPDATE, DELETE, DROP, etc, mysql_query() returns TRUE on success or FALSE on error.
     
         $conn->query() Returns FALSE on failure. For successful SELECT, SHOW, DESCRIBE or EXPLAIN queries mysqli_query() will return a mysqli_result object. 
-        For other successful queries mysqli_query() will return TRUE.
--->
-
-<?php
+        For other successful queries mysqli_query() will return TRUE
+    */
 
     interface DBTransactor {
 

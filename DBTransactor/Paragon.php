@@ -1,4 +1,6 @@
-<!-- File: Paragon.php
+<?php
+    /*
+    File: Paragon.php
      Constants used for database connection. Initializes a database connection. 
      If your class extends Paragon, you may
 
@@ -7,10 +9,7 @@
     
     * Password could be made more complicated and harder to guess instead of empty. 
     * Disabling root login to mysql server and creating a harder to guess username for mysql is helpful.
-    
--->
-
-<?php
+  
     
     /** Paragon Utility Class
     * Protected credentials used to authenticate to the database to be used throughout code.
