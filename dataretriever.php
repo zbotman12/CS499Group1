@@ -131,4 +131,37 @@
             }
         }
     }
+
+    //USED FOR editPhotoUpload.
+//This function returns an array of the filepaths to all photos for a listing with MLS number $_GET['MLS']
+    function GetFilePathArrayVer2()
+    { 
+        if(!isset($_GET['MLS']))
+        {
+            echo "ERROR: You are trying to view a detailed listing without an MLS number in the URL.";
+            exit();
+        }
+        $FilePathArray = null;
+        $dir = "photos/" .  $_GET['MLS'] . "/";
+        if (is_dir($dir))
+        {
+            if ($dh = opendir($dir))
+            {
+                while (($file = readdir($dh)) !== false)
+                {
+                    if(!is_dir($dir . $file) && exif_imagetype($dir . $file))
+                    {
+                        if($FilePathArray == null)
+                        {
+                            $FilePathArray = array($dir . $file);
+                        } else {
+                            array_push($FilePathArray, $dir . $file);
+                        }
+                    }
+                }
+                closedir($dh);
+                return $FilePathArray;
+            }
+        }
+    }
 ?>
