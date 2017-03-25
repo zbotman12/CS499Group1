@@ -1,11 +1,7 @@
-<!-- 
-    File: createagent.php
-    Makes an agent entry in database.    
--->
-
-<!-- HTML code -->
 <html>
-
+    <!-- File: createagent.php
+         Makes an agent entry in database.
+    -->
     <head><h1>Create an agent account</h1></head>
     <body>
         <form id="createagent" action="createagenttest.php" method="post">

@@ -1,9 +1,10 @@
-<!-- 
-    File: dbconnect.php
-    Include this file in your functions that require a database connection.
-    *NOTE* you must call $conn->close(); when you finish your database operations.
--->
 <?php
+    /*
+        File: dbconnect.php
+        Include this file in your functions that require a database connection.
+        *NOTE* you must call $conn->close(); when you finish your database
+        operations.
+    */
     //Find the first .ini file on the system from this list and use that
     $filepaths = array('/var/www/config.ini','D:\wamp64\www\config.ini');
     $config = null;

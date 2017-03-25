@@ -1,11 +1,8 @@
-<!-- 
-    File: createagenttest.php
-    Makes an agent and agency entry in database.    
--->
-
-<!-- PHP code -->
 <?php
-    
+    /*
+        File createagenttest.php
+        Makes an agent and agency entry in database.
+    */
     // Include a factory whenever you need a database connection.
     //include './DBTransactor/DBTransactorFactory.php';
 

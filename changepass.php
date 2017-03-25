@@ -1,12 +1,6 @@
-<!-- 
-    File: changepass.php
-    Change password form.  
-    Given an agent's username, communicates with database to update agent's password. 
--->
-<!-- HTML code -->
-
 <html>
-    <head><h1>The hottest place to change your password</h1></head>
+
+    <head><h1>Change your password</h1></head>
     <body>
         <form id="changepass" action="changepasstest.php" method="post">
             <input type='hidden' name='submitted' id='submitted' value='1'/>

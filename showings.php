@@ -34,11 +34,7 @@
     </thead>
     <tbody>
       <?php
-        //Why is this throwing an error.
-        $array = GetShowingsArrays();
-        var_dump($array);
-        foreach ($array as $key => $value)
-        //foreach ((GetShowingsArrays()) as $key => $value)
+        foreach (GetShowingsArrays() as $key => $value)
         {
           	//(RYAN): We may want to format these dates and times better.
           echo "<tr>";

@@ -1,11 +1,10 @@
-<!-- 
-    File: changepasstest.php
-    Change password code.
-    Given an agent's username, communicates with database to update agent's password. 
--->
-
-<!-- PHP Functions -->
 <?php
+    /* 
+        File: changepasstest.php
+        Change password code.
+        Given an agent's username, communicates with database to update agent's
+        password.
+    */
     //Resume session. If no session found, rout to login page
     include "sessioncheck.php";
 
