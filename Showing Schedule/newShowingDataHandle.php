@@ -10,8 +10,13 @@ handleShowingData();
 
 function handleShowingData(){
 	
-	$showings=DBTransactorFactory::build("Showings");
-	
+    $showings = null;
+	try {
+      $showings=DBTransactorFactory::build("Showings");
+	} catch (Exception $e) {
+      echo $e->getMessage();
+    }
+
 	$startHour=$startMin=$startTime=$endHour=$endMin=$endTime=$date=$occupy=
 	$fname=$lname=$code=$MLS="";
 
@@ -27,7 +32,7 @@ function handleShowingData(){
 		$fname = test_input($_POST["fname"]);
 		$lname = test_input($_POST["lname"]);
 		$code = test_input($_POST["code"]);
-		$MLS= $_POST['MLS'];
+		$MLS= intval($_POST['MLS']);
 		$SAname=test_input($_POST["SAname"]);
 		$SAcompany=test_input($_POST["SAcompany"]);
 	}
@@ -45,7 +50,7 @@ function handleShowingData(){
     //echo "<br/>";
     //var_dump($finalEndFormat);
     //echo "<br/>";
-    var_dump($occupy); 
+    //var_dump($occupy); 
     $array = Array( "Listings_MLS_number"   => $MLS,
                     "start_time"            => "STR_TO_DATE('" . $finalStartFormat . "', '%m/%d/%Y %H:%i:%s')",
                     "end_time"              => "STR_TO_DATE('" . $finalEndFormat   . "', '%m/%d/%Y %H:%i:%s')",
@@ -68,7 +73,8 @@ function handleShowingData(){
     try {
       //$showings->insertPlus($sql);
 	  $showings->insert($array);
-
+      //var_dump($showings);
+      //header('location: ./../showings.php?MLS=' . $_POST['MLS']);
     } catch (Exception $e) {
       echo $e->getMessage() . "<br/>";  
     }

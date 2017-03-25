@@ -1,4 +1,5 @@
 <?php
+    /*
     include 'DBTransactorFactory.php';
     try {
         $agencies = DBTransactorFactory::build("Agencies");
@@ -24,5 +25,5 @@
     
     echo "Printing Showings Feedback <br/>";
     $showings_FB->printer($showings_FB->selectAll());
-
+    */
 ?>

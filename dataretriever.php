@@ -17,7 +17,7 @@
         {
             return $ListingArray[$_GET['MLS']];
         } else {
-            echo "Error: Could not find MLS number in database. <br>" . mysqli_error($conn);
+            echo "Error: Could not find MLS number in database. <br>"; //. mysqli_error($conn);
             return null;
         }
     }

@@ -34,7 +34,11 @@
     </thead>
     <tbody>
       <?php
-        foreach (GetShowingsArrays() as $key => $value)
+        //Why is this throwing an error.
+        $array = GetShowingsArrays();
+        var_dump($array);
+        foreach ($array as $key => $value)
+        //foreach ((GetShowingsArrays()) as $key => $value)
         {
           	//(RYAN): We may want to format these dates and times better.
           echo "<tr>";
@@ -59,7 +63,7 @@
     </tbody>
   </table>
   <a class="btn btn-default" href="./Showing Schedule/newShowingDisplay.php?MLS=<?php echo $_GET['MLS']; ?>">Add A Showing</a>
-  <a class="btn btn-default" href="./detailedListing.php?MLS=<?php echo $_GET['MLS']; ?>">View Listing</a>
+  <a class="btn btn-default" href="./detailedlisting.php?MLS=<?php echo $_GET['MLS']; ?>">View Listing</a>
 </div>
 
 </body>
