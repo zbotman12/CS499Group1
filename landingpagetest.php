@@ -76,5 +76,5 @@
 	<a href="./changepass.php">Change Password</a>
 	<a href="./Listing/inputTest.php">Add A New Listing</a>
 	<br>
-	<a class='btn btn-default' href="./detailedlisting.php?MLS=2">View A detailed Listing</a>
+	<a class='btn btn-default' href="./detailedlisting.php?MLS=2">View A detailed Listing</a> <a class='btn btn-default' href="./Listing/listings.php">View your listings</a>
 </body>
