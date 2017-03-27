@@ -1,4 +1,5 @@
 <?php
+
 // ISSUE: Line 40. Fix this.
 // ISSUE: Line 47-56. Issues in DB_Showing.php- Remove time-zone entry
 // ISSUE: Line 47-56. Figure out DB_Showing.php Update() function
@@ -49,7 +50,7 @@ function handleShowingData(){
 	$sql = "UPDATE Showings SET start_time= STR_TO_DATE('$finalStartFormat','%m/%d/%Y %H:%i:%s'), end_time= STR_TO_DATE('$finalEndFormat', '%m/%d/%Y %H:%i:%s'), is_house_vacant= '$occupy',
 	customer_first_name= '$fname', customer_last_name= '$lname',
     lockbox_code='$code', showing_agent_name='$SAname',
-    showing_agent_company='$SAcompany' WHERE showing_id = 1";
+    showing_agent_company='$SAcompany' WHERE showing_id = '$showing_id'";
 
 	$showings->updateShowing($sql);	
 }

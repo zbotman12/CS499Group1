@@ -29,7 +29,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<?php include "../header.php" ?>
 <div class="container-fluid">
   <h2>Listings for <?php echo $agent['user_login']; ?></h2>            
   <form method='post' action='inputTest.php' class='inline'>
@@ -93,6 +93,6 @@
     </tbody>
   </table>
 </div>
-
+<?php include "../footer.php" ?>
 </body>
 </html>

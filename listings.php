@@ -3,28 +3,27 @@
     session_start();
     include "DBTransactor/DBTransactorFactory.php";
 
-	//Function to get listings
+	//Function to display listings
 	function displayListingsTable() {
 		$listings = DBTransactorFactory::build("Listings");
 		$ListingArray = $listings->select(['*']);
 
-		echo "<table class=\"table table-bordered\">";
+		echo "<table class=\"table table-hover table-responsive table-bordered\">";
 		echo "<thead><tr>";
 
 		echo "<th>MLS#</th>";
-		echo "<th>Agent ID</th>";
+		//echo "<th>Agent ID</th>";
 		echo "<th>Price</th>";
 		echo "<th>City</th>";
 		echo "<th>State</th>";
 		echo "<th>ZIP</th>";
 		echo "<th>Address</th>";
 		echo "<th>Square Footage</th>";
-		echo "<th># of Bedrooms</th>";
-		echo "<th># of Bathrooms</th>";
+		echo "<th>Beds</th>";
+		echo "<th>Baths</th>";
 		echo "<th>Room Description</th>";
 		echo "<th>Listing Description</th>";
 		echo "<th>Additional Info</th>";
-		echo "<th></th>"; //TODO: Hide this column
 		echo "<th>Addidtional Details</th>";
 
 		echo "</thead></tr><tbody>";
@@ -39,17 +38,29 @@
 			if ($rowIsGood) {
 				echo "<tr>";
 
-				foreach ($listing as $attribute) {
-					echo "<td>";
-					echo $attribute;
-					echo "</td>";
+				//var_dump($listing);
+				//TODO: Refactor into "in" keyword
+				foreach ($listing as $key => $attribute) {
+					if ($key == "Agents_listing_agent_id" || $key == "agent_only_info" || $key == "daily_hit_count" || $key == "hit_count") {
+					} elseif($key == "room_desc" || $key == "listing_desc" || $key == "additional_info") {
+						echo "<td><div>";
+						echo substr($attribute, 0, 90);
+						echo "...";
+						echo "</div></td>";
+					} else {
+						echo "<td><div>";
+						echo $attribute;
+						echo "</div></td>";
+					}
+					
+					
 				}
 
-				echo "<td><a href=\"detailedlisting.php?MLS=";
+				echo "<td><center><a class=\"btn btn-default\" href=\"detailedlisting.php?MLS=";
 				echo $listing["MLS_number"];
 				echo "\">";
 				echo "Link";
-				echo "</td></a>";
+				echo "</td></center></a>";
 
 				echo "</tr>";
 			}
@@ -60,9 +71,6 @@
 
 ?>
 <head>
-	<!-- Include bootstrap for table -->
-	<link rel="stylesheet" href="./style/bootstrap.min.css" >
-
 	<!--Include javascript to make table sortable-->
 	<script type="text/javascript">
 		//taken from http://jsfiddle.net/zscQy/
@@ -120,7 +128,19 @@
 	<title>
 		Listings
 	</title>
+	<style>
+		td > div {
+			max-height: 125px;
+			overflow: overlay;
+		}
+	</style>
 </head>
 <body>
-	<?php displayListingsTable(); ?>
+	<?php include "header.php"; ?>
+	<div class="container-fluid">
+		<h2>Listings</h2>
+		<hr/>
+		<?php displayListingsTable(); ?>
+	</div>	
+	<?php include "footer.php"; ?>
 </body>

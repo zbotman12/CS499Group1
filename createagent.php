@@ -2,8 +2,12 @@
     <!-- File: createagent.php
          Makes an agent entry in database.
     -->
-    <head><h1>Create an agent account</h1></head>
+    <head></head>
     <body>
+        <?php include "header.php"; ?>
+
+        <h1>Create an agent account</h1>
+
         <form id="createagent" action="createagenttest.php" method="post">
             <input type='hidden' name='submitted' id='submitted' value='1'/>
             
@@ -53,8 +57,14 @@
             <input type='text' name='agent_phone_number' id='agent_phone_number' maxlength="14"/><br/>
 
             <input type='submit' name='Submit' value='Submit' /> <br/>
-            <a href="./logintest.php"> Login</a><br/>
-            <a href="./changepass.php"> Change Your Password</a><br/>
+            <br/>
+            <a href="./changepass.php">
+                <button class="btn">
+                    Change Password
+                </button>
+            </a>
         </form>
+
+        <?php include "footer.php"; ?>
     </body>    
 </html>

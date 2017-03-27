@@ -55,14 +55,14 @@
 			//session_start(); //PHP gives a warning if session_start() isn't declared at the top. Commented for now.
 
 			$_SESSION['name'] = $username;
-			echo "You have been logged in.<br/>Hello, " . $username ."!<br/>";
+			//echo "You have been logged in.<br/>Hello, " . $username ."!<br/>";
 
 
 			$_SESSION['number'] = rand(1, 10);
-			echo "Your number is " . $_SESSION['number'] . "!<br/>";
+			//echo "Your number is " . $_SESSION['number'] . "!<br/>";
 
 		} else {
-			echo "User does not exist.  You have not been logged in.<br/>";
+			//echo "User does not exist.  You have not been logged in.<br/>";
 		}
 	}
 ?>
@@ -71,10 +71,42 @@
 </head>
 <body>
 	<?php Login(); ?>
-	<a href="./sessiontest.php">Session test</a> <br/>
-	<a href="./logout.php">Logout</a>
-	<a href="./changepass.php">Change Password</a>
-	<a href="./Listing/inputTest.php">Add A New Listing</a>
-	<br>
-	<a class='btn btn-default' href="./detailedlisting.php?MLS=2">View A detailed Listing</a> <a class='btn btn-default' href="./Listing/listings.php">View your listings</a>
+	<?php include "header.php"; ?>
+	<div class="container-fluid">
+		<h2>Login</h2>
+		<hr/>
+		
+		<?php if(isset($_SESSION['name'])) { 
+			echo "You have been logged in.<br/>Hello, " . $_SESSION['name'] ."!<br/>";
+			echo "Your number is " . $_SESSION['number'] . "!";
+		} else { 
+			echo "User does not exist.  You have not been logged in.";
+		} ?>
+		<br/>
+		<br/>
+		
+		<?php if(isset($_SESSION['name'])) { ?> 
+			<!--Display these options only if user is logged in-->
+			<a href="./Listing/inputTest.php" class="btn btn-default">
+				Add A New Listing
+			</a>
+			<a href="./Listing/listings.php" class='btn btn-default'>
+				View your listings
+			</a>
+		<?php } else { ?>
+			<!--Display these options only if user is not logged in-->
+			<a href="http://207.98.161.214/login.php" class="btn btn-default">
+				Retry
+			</a>
+		<?php } ?>
+		
+		<a href="./sessiontest.php" class="btn btn-default">
+			Session Test
+		</a>
+		<a href="./changepass.php" class="btn btn-default">
+			Change Password
+		</a>
+	</div>
+	<br/>
+	<?php include "footer.php"; ?>
 </body>

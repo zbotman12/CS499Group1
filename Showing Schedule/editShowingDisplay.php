@@ -15,7 +15,7 @@ include "../DBTransactor/DBTransactorFactory.php";
 // END CUT from line 11 here. Remember to uncomment 'include' statements
 $conn=DBTransactorFactory::build("Showings");
 $tempArray= array("start_time", "end_time", "is_house_vacant", "customer_first_name", "customer_last_name", "lockbox_code", "showing_agent_name", "showing_agent_company");
-$cond= array("showing_id"=> 1);  //We had $_GET['showing_id']
+$cond= array("showing_id"=> $_GET['showing_id']);  //We had $_GET['showing_id']
 
 // Set Listings_MLS_number equal to whatever info we pass in instead of 1
 if ($result = $conn->select($tempArray, $cond)) {

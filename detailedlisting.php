@@ -4,13 +4,18 @@
 <html>
 <head>
     <link href="style/bootstrap.min.css" rel="stylesheet">
-    <link href="style/bootstrap.theme.min.css" rel="stylesheet">
     <link href="style/bootstrap.css" rel="stylesheet">
     <link href="style/detailedListing.css" rel="stylesheet">
     <script src="js/jquery-1.11.3.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <style>
+        div .bottomRow {
+            margin-bottom: 0px;
+        }
+    </style>
 </head>
 <body>
+<?php include "header.php"; ?>
 <div class="container-fluid">
     <div class="header row">
         <h1 class="text-center">
@@ -44,7 +49,7 @@
                         foreach (GetFilePathArray() as $filepath)
                         {
                             echo "<div class='item" . $active_item . "'>";
-                            echo "<img class='d-block center-block CarouselImg' style='' src='" . $filepath . "' alt='HouseImage'></div>";
+                            echo "<img class='d-block center-block CarouselImg' src='" . $filepath . "' alt='HouseImage'></div>";
                             $active_item = "";
                         }
                     ?>
@@ -145,5 +150,6 @@
         </div>
     </div>
 </div>
+<?php //include "footer.php"; ?>
 </body> 
 </html>
