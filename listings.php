@@ -1,146 +1,196 @@
 <?php
-	//Setup
-    session_start();
     include "DBTransactor/DBTransactorFactory.php";
 
-	//Function to display listings
-	function displayListingsTable() {
+    //Stolen and adapted from dataretriver.php
+	function GetFilePathArrayVer2($MLS)
+    {
+        $FilePathArray = null;
+        $dir = "Listing/photos/" .  $MLS . "/";
+        if (is_dir($dir))
+        {
+            if ($dh = opendir($dir))
+            {
+                while (($file = readdir($dh)) !== false)
+                {
+                    if(!is_dir($dir . $file) && exif_imagetype($dir . $file))
+                    {
+                        if($FilePathArray == null)
+                        {
+                            $FilePathArray = array($dir . $file);
+                        } else {
+                            array_push($FilePathArray, $dir . $file);
+                        }
+                    }
+                }
+                closedir($dh);
+                return $FilePathArray;
+            }
+        }
+    }
+
+    function getPic($MLS) {
+    	$directories = GetFilePathArrayVer2($MLS);
+	    echo "<img class=\"houseImg\" src=\"/";
+
+    	if ($directories != null) {
+	    	echo $directories[0]; //Use first picture
+    	} else {
+    		echo "Listing/noimage.png"; //Use filler picture
+    	}
+
+	    echo "\"</img>";
+    }
+
+    function getPrice($MLS) {
+    	$listings = DBTransactorFactory::build("Listings");
+		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
+		return $ListingArray[$MLS]["price"];
+    }
+
+    function getAgent($MLS) {
+    	$listings = DBTransactorFactory::build("Listings");
+    	$agents = DBTransactorFactory::build("Agents");
+
+		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
+		$id = $ListingArray[$MLS]["Agents_listing_agent_id"];
+		$AgentArray = $agents->select(["*"], ["agent_id" => $id]);
+
+		return $AgentArray[$id]["first_name"] . " " . $AgentArray[$MLS]["last_name"];
+    }
+
+    function getAddress($MLS) {
+    	$listings = DBTransactorFactory::build("Listings");
+		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
+		return $ListingArray[$MLS]["address"];
+    }
+
+    //TODO: Refactor this
+    function getCompany($MLS) {
+    	$listings = DBTransactorFactory::build("Listings");
+    	$agents = DBTransactorFactory::build("Agents");
+        $Agencies = DBTransactorFactory::build("Agencies");
+
+		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
+		$agentID = $ListingArray[$MLS]["Agents_listing_agent_id"];
+		$AgentArray = $agents->select(["*"], ["agent_id" => $agentID]);
+		$agencyID = $AgentArray[$agentID]["Agencies_agency_id"];
+		$AgenciesArray = $Agencies->select(["*"], ["agency_id" => $agencyID]);
+
+		return $AgenciesArray[$agencyID]["company_name"];
+	}
+
+    function getSqFootage($MLS) {
+    	$listings = DBTransactorFactory::build("Listings");
+		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
+		return $ListingArray[$MLS]["square_footage"];
+    }
+
+    function getDetailsLink($MLS) {
+    	$toReturn = "";
+    	$toReturn .= "<a class=\"btn btn-default\" href=\"detailedlisting.php?MLS=";
+		$toReturn .= $MLS;
+		$toReturn .= "\">";
+		$toReturn .= "Details</a>";
+		return $toReturn;
+    }
+
+    function createRow($MLS) {
+    	echo "<div class=\"listing\">";
+		echo getPic($MLS);
+		echo "<div class=\"listing-text\">";
+		echo "<div class=\"row\">";
+		echo "<p class=\"left\">";
+		echo getPrice($MLS);
+		echo "</p>";
+		echo "<p class=\"right\">";
+		echo getAgent($MLS);
+		echo "</p>";
+		echo "</div>";
+		echo "<div class=\"row\">";
+		echo "<p class=\"left\">";
+		echo getAddress($MLS);
+		echo "</p>";
+		echo "<p class=\"right\">";
+		echo getCompany($MLS);
+		echo "</p>";
+		echo "</div>";
+		echo "<div class=\"row\">";
+		echo "<p class=\"left\">";
+		echo getSqFootage($MLS);
+		echo " sq. ft.";
+		echo "</p>";
+		echo "<p class=\"right\">";
+		echo getDetailsLink($MLS);
+		echo "</p>";
+		echo "</div></div></div>";
+    }
+
+    function createAllRows() {
 		$listings = DBTransactorFactory::build("Listings");
 		$ListingArray = $listings->select(['*']);
 
-		echo "<table class=\"table table-hover table-responsive table-bordered\">";
-		echo "<thead><tr>";
-
-		echo "<th>MLS#</th>";
-		//echo "<th>Agent ID</th>";
-		echo "<th>Price</th>";
-		echo "<th>City</th>";
-		echo "<th>State</th>";
-		echo "<th>ZIP</th>";
-		echo "<th>Address</th>";
-		echo "<th>Square Footage</th>";
-		echo "<th>Beds</th>";
-		echo "<th>Baths</th>";
-		echo "<th>Room Description</th>";
-		echo "<th>Listing Description</th>";
-		echo "<th>Additional Info</th>";
-		echo "<th>Addidtional Details</th>";
-
-		echo "</thead></tr><tbody>";
-
 		foreach ($ListingArray as $listing) {
-			//TODO: refactor into continue
-			$rowIsGood = true; 
-			if ($listing["price"] == "") {
-				$rowIsGood = false; 
-			}
-
-			if ($rowIsGood) {
-				echo "<tr>";
-
-				//var_dump($listing);
-				//TODO: Refactor into "in" keyword
-				foreach ($listing as $key => $attribute) {
-					if ($key == "Agents_listing_agent_id" || $key == "agent_only_info" || $key == "daily_hit_count" || $key == "hit_count") {
-					} elseif($key == "room_desc" || $key == "listing_desc" || $key == "additional_info") {
-						echo "<td><div>";
-						echo substr($attribute, 0, 90);
-						echo "...";
-						echo "</div></td>";
-					} else {
-						echo "<td><div>";
-						echo $attribute;
-						echo "</div></td>";
-					}
-					
-					
-				}
-
-				echo "<td><center><a class=\"btn btn-default\" href=\"detailedlisting.php?MLS=";
-				echo $listing["MLS_number"];
-				echo "\">";
-				echo "Link";
-				echo "</td></center></a>";
-
-				echo "</tr>";
-			}
-			
+			createRow($listing["MLS_number"]);
 		}
-		echo "</tbody></table>";
-	}
-
+    }
 ?>
+
 <head>
-	<!--Include javascript to make table sortable-->
-	<script type="text/javascript">
-		//taken from http://jsfiddle.net/zscQy/
-		function sortTable(table, col, reverse) {
-			var tb = table.tBodies[0], // use `<tbody>` to ignore `<thead>` and `<tfoot>` rows
-				tr = Array.prototype.slice.call(tb.rows, 0), // put rows into array
-				i;
-			reverse = -((+reverse) || -1);
-			tr = tr.sort(function (a, b) { // sort rows
-				arg1 = a.cells[col].textContent.trim();
-				arg2 = b.cells[col].textContent.trim();
-				
-				num1 = parseInt(arg1);
-				num2 = parseInt(arg2);
-				
-				//Sort as numbers if both are numbers
-				if (!(isNaN(num1) || isNaN(num2))) {
-					if (num1 < num2) {
-						return reverse * -1;
-					} else if (num1 == num2) {
-						return reverse * 0;
-					} else {
-						return reverse * 1;
-					}
-				}
-			
-				//Otherwise, sort as strings
-				return reverse // `-1 *` if want opposite order
-					* arg1.localeCompare(arg2);// using `.textContent.trim()` for test
-			});
-			for(i = 0; i < tr.length; ++i) tb.appendChild(tr[i]); // append each row in order
-		}
-
-		function makeSortable(table) {
-			var th = table.tHead, i;
-			th && (th = th.rows[0]) && (th = th.cells);
-			if (th) i = th.length;
-			else return; // if no `<thead>` then do nothing
-			while (--i >= 0) (function (i) {
-				var dir = 1;
-				th[i].addEventListener('click', function () {sortTable(table, i, (dir = 1 - dir))});
-			}(i));
-		}
-
-		function makeAllSortable(parent) {
-			parent = parent || document.body;
-			var t = parent.getElementsByTagName('table'), i = t.length;
-			while (--i >= 0) makeSortable(t[i]);
-		}
-
-		window.onload = function () {makeAllSortable();};
-
-	</script>
-	<!--Page title-->
-	<title>
-		Listings
-	</title>
 	<style>
-		td > div {
-			max-height: 125px;
-			overflow: overlay;
+		.listing {
+			overflow: hidden;
+			height: 300px;
+			margin: 10px;
 		}
+
+		.listing:hover {
+			background-color: #eee;
+		}
+
+		.houseImg {
+			height: 100%;
+			display: inline;
+			float: left;
+		}
+
+		.listing-text {
+			width: 65%;
+			height: 100%;
+			display: block;
+			float: right;
+			padding: 10px;
+		}
+
+		.row {
+			overflow: hidden;
+			height: 30%;    
+			margin: 10px;
+			margin-top: 0px;
+    		padding: 5px;
+    		padding-right: 10px;
+		}
+
+		.left .right {
+			width: 50%;
+		}
+
+		.left {
+			float: left;
+		}
+
+		.right {
+			float: right;
+		}
+
 	</style>
 </head>
+
 <body>
-	<?php include "header.php"; ?>
+	<?php include "header.php"; ?>	
 	<div class="container-fluid">
 		<h2>Listings</h2>
 		<hr/>
-		<?php displayListingsTable(); ?>
-	</div>	
+		<?php createAllRows(); ?>
+	</div>
 	<?php include "footer.php"; ?>
 </body>
