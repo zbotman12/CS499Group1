@@ -98,6 +98,65 @@
             }
 
         }
+        
+        public function insert_return_ID($assoc_array)
+        {
+            //Quarantine Zone
+            try {
+                $assoc_array = $this->q_zone($assoc_array);
+            } catch (BadMethodCallException $e) {
+                throw $e;
+            } 
+            //var_dump($assoc_array);
+
+            //Check for duplicate entries
+            $dup_query  = "SELECT * FROM " . $this->SHOWINGS_TABLE . " WHERE ";
+            $dup_query .= "start_time="          . $assoc_array['start_time']                 . " AND ";
+            $dup_query .= "end_time="            . $assoc_array['end_time']                   . " AND ";
+            $dup_query .= "Listings_MLS_number=" . "'"  . $assoc_array['Listings_MLS_number'] . "';";
+
+            $dup_results = $this->connection->query($dup_query);
+            
+            //var_dump($dup_results);
+            
+            if ($dup_results) {
+              if ($dup_results->num_rows == 1) {
+                  throw new Exception("Showing already exists! Cannot create showing.");
+              } 
+            } else {
+                throw new Exception($this->connection->error);
+            }
+
+            //Build showing query 
+            $showing_q  = "INSERT INTO " . $this->SHOWINGS_TABLE . " (";
+            $showing_q .= "Listings_MLS_number, start_time, end_time, is_house_vacant, customer_first_name, customer_last_name,";
+            $showing_q .= "lockbox_code, showing_agent_name, showing_agent_company) VALUES (";
+            $showing_q .= "'"  . $assoc_array['Listings_MLS_number']    . "'"  . ",";
+            $showing_q .=        $assoc_array['start_time']                    . ",";
+            $showing_q .=        $assoc_array['end_time']                      . ",";
+            $showing_q .= "'"  . $assoc_array['is_house_vacant']        . "'"  . ",";
+            $showing_q .= "\"" . $assoc_array['customer_first_name']    . "\"" . ",";
+            $showing_q .= "\"" . $assoc_array['customer_last_name']     . "\"" . ",";
+            $showing_q .= "\"" . $assoc_array['lockbox_code']           . "\"" . ",";
+            $showing_q .= "\"" . $assoc_array['showing_agent_name']     . "\"" . ",";
+            $showing_q .= "\"" . $assoc_array['showing_agent_company']  . "\"" . ");";
+        
+            $showing_id = "SELECT showing_id FROM $this->SHOWING_TABLE WHERE id = SCOPE_IDENTITY()";
+                
+            var_dump($showing_q);
+            
+            
+            //Insert showing into database
+            $result = $this->connection->query($showing_q);
+            
+            //Check results. $results is either true or false
+            if($result) {
+                return $this->connection->query($showing_id);
+            } else {
+                return false;
+            }
+        }
+        
         public function update($set_array, $where_array)  : bool {
             
             if(empty($set_array)) {
