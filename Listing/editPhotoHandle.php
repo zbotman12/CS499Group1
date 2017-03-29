@@ -24,7 +24,14 @@ for($i = 1; $i <= 6; $i++)
 }// upload file
 ?>
 <head>
+	<title>Listing Edit</title>
 </head>
 <body>
-	<a href="./../landingpagetest.php">Home</a> <br/>
+	<?php include "../header.php"; ?>
+	<div class="container-fluid">
+		<h2>Listing Edit</h2>
+		<hr/>
+		<p>Edit successful</p>
+	</div>
+	<?php include "../footer.php"; ?>
 </body>

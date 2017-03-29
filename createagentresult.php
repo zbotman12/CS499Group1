@@ -56,7 +56,6 @@
 			ob_start();
 			createAgent(); 
 		?>
-		<a href="./logintest.php">Login</a><br/>
 	</div>
 	<?php include "footer.php" ?>
 </body>
