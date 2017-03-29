@@ -2,16 +2,18 @@
     <!-- File: createagent.php
          Makes an agent entry in database.
     -->
-    <head></head>
+    <head>
+		<title>Create An Agent Account</title>
+	</head>
     <body>
         <?php include "header.php"; ?>
 
-        <h1>Create an agent account</h1>
+        <h2>Create An Agent Account</h2>
 
         <form id="createagent" action="createagentresult.php" method="post">
             <input type='hidden' name='submitted' id='submitted' value='1'/>
             
-            <legend><b class="bold">Enter company information</b></legend><br/>
+            <legend><b class="bold">Enter company information</b></legend>
             
             <label for="company_name">Company Name:</label>
             <input type='text' name='company_name' id='company_name' maxlength='100'/> <br/>
@@ -31,7 +33,7 @@
             <label for="agency_phone_number">Phone Number: </label>
             <input type='text' name='agency_phone_number' id='agency_phone_number' maxlength='14'/> <br/> <br/>
             
-            <legend><b class='bold'> Create your agent credentials</b></legend> <br/>
+            <legend><b class='bold'> Create your agent credentials</b></legend>
             
             <label for ='user_loginname'>Username: </label>
             <input type='text' name='user_login' id='user_login' maxlength='50'/><br/>
@@ -42,7 +44,7 @@
             <label for='confirm_pass'>Confirm Password:</label>
             <input type='password' name='confirm_pass' id='confirm_pass' maxlength="25"/><br/> <br/>
 
-            <legend><b class='bold'>Enter your agent information</b></legend> <br/>
+            <legend><b class='bold'>Enter your agent information</b></legend>
             
             <label for='first_name'> First name: </label>
             <input type="text" name="first_name" id='first_name' maxlength="50"/> <br/>
@@ -57,7 +59,6 @@
             <input type='text' name='agent_phone_number' id='agent_phone_number' maxlength="14"/><br/>
 
             <input type='submit' name='Submit' value='Submit' /> <br/>
-            <br/>
         </form>
 
         <?php include "footer.php"; ?>
