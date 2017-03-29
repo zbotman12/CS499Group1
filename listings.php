@@ -129,6 +129,7 @@
 		$listings = DBTransactorFactory::build("Listings");
 		$ListingArray = $listings->select(['*']);
 
+		//var_dump($ListingArray);
 		foreach ($ListingArray as $listing) {
 			createRow($listing["MLS_number"]);
 		}

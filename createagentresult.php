@@ -48,10 +48,15 @@
 ?>
 
 <body>
-    <?php
-        ob_start();
-        createAgent(); 
-    ?>
-    <a href="./logintest.php">Login</a><br/>
+	<?php include "header.php" ?>
+	<div class="container-fluid">
+		<h2>Agent Creation</h2>
+		<hr/>
+		<?php
+			ob_start();
+			createAgent(); 
+		?>
+		<a href="./logintest.php">Login</a><br/>
+	</div>
+	<?php include "footer.php" ?>
 </body>
-
