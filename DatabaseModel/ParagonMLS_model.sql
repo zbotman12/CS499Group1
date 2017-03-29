@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `ParagonMLS`.`Agents` (
   `agent_id` INT NOT NULL AUTO_INCREMENT,
   `Agencies_agency_id` INT NOT NULL,
   `user_login` VARCHAR(50) NOT NULL,
-  `password` VARCHAR(25) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
   `first_name` VARCHAR(50) NOT NULL,
   `last_name` VARCHAR(50) NOT NULL,
   `email` VARCHAR(255) NOT NULL,

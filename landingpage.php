@@ -46,7 +46,7 @@
 				$userExists = false;
 			}
 		} else {
-		   echo("User doesn't exist");
+		   //echo("User doesn't exist");
 		}
         
         unset($password);

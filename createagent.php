@@ -8,7 +8,7 @@
 
         <h1>Create an agent account</h1>
 
-        <form id="createagent" action="createagenttest.php" method="post">
+        <form id="createagent" action="createagentresult.php" method="post">
             <input type='hidden' name='submitted' id='submitted' value='1'/>
             
             <legend><b class="bold">Enter company information</b></legend><br/>
@@ -58,11 +58,6 @@
 
             <input type='submit' name='Submit' value='Submit' /> <br/>
             <br/>
-            <a href="./changepass.php">
-                <button class="btn">
-                    Change Password
-                </button>
-            </a>
         </form>
 
         <?php include "footer.php"; ?>
