@@ -31,8 +31,8 @@ pre
 
 .panel-default
 {
-    background-color: rgb(255, 204, 0);
-    border-color: black;
+    background-color: rgb(255, 204, 0) !important;
+    border-color: black !important;
 }
 
 .panel-heading

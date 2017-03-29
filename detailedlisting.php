@@ -88,20 +88,19 @@
                 ?>
             </div>
             <br>
+            Price:
+            <div  class="textbox">
+            <?php echo GetData('price', 'Listings');?>
+            </div>
             Square Footage:
-            <br>
             <div  class="textbox">
             <?php echo GetData('square_footage', 'Listings');?>
             </div>
-            <br>
             Bedrooms:
-            <br>
             <div  class="textbox">
             <?php echo GetData('number_of_bedrooms', 'Listings');?>
             </div>
-            <br>
             Bathrooms:
-            <br>
             <div  class="textbox">
             <?php echo GetData('number_of_bathrooms', 'Listings');?>
             </div>
@@ -139,9 +138,8 @@
                     echo "<div class='panel panel-default'>";
                     echo "<div class='panel-heading'>Agent Only Info:</div><br>";
                     echo "<div class='textbox'>";
-                    echo "Alarm Information:<br>";
+                    echo "Agent Information:<br>";
                     echo "<pre>" . GetData('agent_only_info', 'Listings')  . "</pre><br>";
-                    echo "Listing Agent Email Adress:<br>";
                     echo "<a class='btn btn-default' href='./showings.php?MLS=" . $_GET['MLS'] . "'>View Showings</a>";
                     echo "</div>";
                     echo "</div>";
