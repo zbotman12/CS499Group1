@@ -138,7 +138,7 @@
                     echo "<div class='panel panel-default'>";
                     echo "<div class='panel-heading'>Agent Only Info:</div><br>";
                     echo "<div class='textbox'>";
-                    echo "Alarm Information:<br>";
+                    echo "Agent Information:<br>";
                     echo "<pre>" . GetData('agent_only_info', 'Listings')  . "</pre><br>";
                     echo "<a class='btn btn-default' href='./showings.php?MLS=" . $_GET['MLS'] . "'>View Showings</a>";
                     echo "</div>";
