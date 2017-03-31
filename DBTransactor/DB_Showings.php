@@ -50,8 +50,9 @@
 
             $dup_results = $this->connection->query($dup_query);
             
-            var_dump($dup_query);
-            echo "Checking duplicate entries <br> <br>";
+            //Test
+            //var_dump($dup_query);
+            //echo "Checking duplicate entries <br> <br>";
 			
             if ($dup_results) {
               if ($dup_results->num_rows == 1) {
@@ -74,8 +75,9 @@
             $showing_q .= "\"" . $assoc_array['lockbox_code']           . "\"" . ",";
             $showing_q .= "'"  . $assoc_array['showing_agent_id']       . "'"  . ");";
             
-			echo "Printing actual showings query <br> <br>";
-			var_dump($showing_q);
+            //Test
+			//echo "Printing actual showings query <br> <br>";
+			//var_dump($showing_q);
             
             
             //Insert showing into database
@@ -144,8 +146,9 @@
             $showing_q .= "\"" . $assoc_array['showing_agent_company']  . "\"" . ");";
         
             $showing_id = "SELECT showing_id FROM $this->SHOWING_TABLE WHERE id = SCOPE_IDENTITY()";
-                
-            var_dump($showing_q);
+            
+            //Test
+            //var_dump($showing_q);
             
             
             //Insert showing into database
@@ -249,12 +252,16 @@
             // Make string acceptable for SQL command
             $s = implode(",", $array);
 
-			var_dump($s);
+            //Test
+			//var_dump($s);
 			
             // If condition is empty. Just select all columns given.
             if (empty($cond)) {
               $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_TABLE . ";";
-			  var_dump($query);
+			  
+              //Test
+              //var_dump($query);
+              
               $results = $this->connection->query($query);
 
               $result_array = $this->resultToArray($results, $this->index);
@@ -262,8 +269,10 @@
             } else { //Else, select based on given conditions
               $c = $this->conditionBuilder($cond, " AND ", []);
 			  
-			  echo "Condition <br>";
-			  var_dump($c);
+              //Test
+			  //echo "Condition <br>";
+			  //var_dump($c);
+              
               $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_TABLE . " WHERE " . $c . ";";
               
               $results = $this->connection->query($query);
