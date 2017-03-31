@@ -5,7 +5,7 @@
 	{
 		unset($_SESSION);
 		session_destroy();
-		header("Location:logintest.php");
+		header("Location:login.php");
 		exit();
 	}
 ?>

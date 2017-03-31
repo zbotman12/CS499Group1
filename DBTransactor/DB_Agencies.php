@@ -176,6 +176,11 @@
               
               $results = $this->connection->query($query);
 
+			  //If results is false, return empty array.
+			  if ($results == false) {
+				return array();
+			  }
+			  
               $result_array = $this->resultToArray($results, $this->index);
             }
 

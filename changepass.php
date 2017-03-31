@@ -1,14 +1,15 @@
 <html>
     <head>
+		<title>Change Your Password</title>
     </head>
     <body>
         <?php include "header.php";?>
 		<div class="container-fluid">
 			<h2>
-				Change your password
+				Change Your Password
 			</h2>
 			<hr/>
-			<form id="changepass" action="changepasstest.php" method="post">
+			<form id="changepass" action="changepassresult.php" method="post">
 				<input type='hidden' name='submitted' id='submitted' value='1'/>
 				<?php
 					//Resume session. If no session found,Let the user specify there username

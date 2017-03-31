@@ -1,4 +1,5 @@
 <head>
+	<title>Login</title>
 	<style>
 		a .btn .btn-default {
 			display: inline;

@@ -19,6 +19,7 @@
 
     echo "DBTransactors created succesfully <br/>";
 
+	/*
     //Test insertion by creating associative arrays of data.
     $agent_id = array('agency_id'           => '1',
                       'user_login'          => 'dasani',
@@ -63,9 +64,49 @@
                       'listing_desc'            => 'close to cinema',
                       'additional_info'         => null,
                       'agent_only_info'         => '33321');
-    
+    */
     // Time Zone Codes (PT, MT, CT, ET)
     // Time format for mktime(hours, minutes, seconds, month, day, year);
+	// Lines 37,38 are just used to set an hour time to 0-23 for formatting
+	$startHour=$startMin=$startTime=$endHour=$endMin=$endTime=$date=$occupy=
+	$fname=$lname=$code="";
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		$startHour = test_input($_POST["startHour"]);
+		$startMin = test_input($_POST["startMin"]);
+		$startTime = test_input($_POST["startTime"]);
+		$endHour = test_input($_POST["endHour"]);
+		$endMin = test_input($_POST["endMin"]);
+		$endTime = test_input($_POST["endTime"]);
+		$date = test_input($_POST["date"]);
+		$occupy = $_POST["occupy"];
+		$fname = test_input($_POST["fname"]);
+		$lname = test_input($_POST["lname"]);
+		$code = test_input($_POST["code"]);
+		$MLS= 2;
+		$complete_info=test_input($_POST["SAgent"]);
+	
+	}
+	
+	$startHour = fixTimeFormat($startTime, $startHour);
+	$endHour = fixTimeFormat($endTime, $endHour);
+
+	// lines 41,42 set up variables for str to date conversions
+	$finalStartFormat = $date." ".$startHour.$startMin.":00";
+	$finalEndFormat = $date." ".$endHour.$endMin.":00";
+	
+	$array = Array( "Listings_MLS_number"   => $MLS,
+                    "start_time"            => "STR_TO_DATE('" . $finalStartFormat . "', '%m/%d/%Y %H:%i:%s')",
+                    "end_time"              => "STR_TO_DATE('" . $finalEndFormat   . "', '%m/%d/%Y %H:%i:%s')",
+                    "is_house_vacant"       => $occupy,
+                    "customer_first_name"   => $fname,
+                    "customer_last_name"    => $lname,
+                    "lockbox_code"          => $code,
+                    "showing_agent_id"      => 3);
+    
+	var_dump($array);
+	echo "<br> <br> <br>";
+	
+	/*
     $showinf = array('Listings_MLS_number'     => '1',
                      'Agents_showing_agent_id' => '1',
                      'start_time'              => date("Y-m-d H:i:s", mktime(10, 30, 0, 10, 27, 1994)),
@@ -74,14 +115,15 @@
                      'is_house_vacant'         => 1,
                      'customer_first_name'     => 'Jason',
                      'customer_last_name'      => 'Bourne',
-                     'lockbox_code'            => null);
+                     'lockbox_code'            => null); */
 
+						/*
     $s = array('idShowing_Feedback'              => '2',
                'Showings_showing_id'             => '2',
                'customer_interest_level'         => '5',
                'showing_agent_experience_level'  => '10',
                'customer_price_opinion'          => "This house is marvelous!",
-               'additional_notes'                => "Customer says house is too expensive but says it's a nice house."); 
+               'additional_notes'                => "Customer says house is too expensive but says it's a nice house."); */
 /*
 
     echo "Testing showing_fb->insert() <br/>";
@@ -158,7 +200,7 @@
     $agents->delete($cond2);
 */
 
-
+/*
     echo "Inserting into listings table... <br/>";
     echo "Calling DBListing insert()...<br/>";
 
@@ -173,6 +215,7 @@
     $listings->printer($a);
 
     echo "<br/>";
+*/
 /*
     //select the MLS number for $listinga
     $result = $listings->select(['MLS_number'], ['address' => '221B Baker Street']);
@@ -215,15 +258,15 @@
     $listings->printer($listings->selectAll());
     echo "<br/>";
 */ 
-/*
     echo "Calling Showings insert() <br/>";
     try {
-      $showings->insert($showinf);
+      $showings->insert($array);
     } catch (Exception $e) {
       echo $e->getMessage() . "<br/>";
     }
     $showings->printer($showings->selectAll());
-*/
+
+	echo "<br> <br> <br>";
 /*
     $showings->printer($showings->selectAll());
 
@@ -234,15 +277,14 @@
     $showings->printer($showings->selectAll());
 */
 
-/*
     echo "Testing select() <br/>";
 
-    $result = $showings->select(['*'], ['showing_id' => 1]);
+    $result = $showings->select(['showing_id'], $array);
     echo "<br/>";
     var_dump($result);
     echo "<br/>";
-    
-*/
+
+
 /*
     echo "Testing showing_fb->insert() <br/>";
     try {
@@ -277,5 +319,25 @@
     // Print all entries in table
     //$agencies->printer($agencies->selectAll());
     //$agents->printer($agents->selectAll());
+	// Sets 1-12 hour to 0-23 hour format
+function fixTimeFormat($temp, $temp2)
+{
+	if($temp == "PM")
+	{
+		$temp2 = $temp2+12;
+		if($temp2 == 24)
+		{
+			$temp2 = 00;
+		}
+	}
+	return $temp2;
+}
+// test for proper input
+function test_input($data) {
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
+}
     echo "Done! Test complete. <br/>";
 ?>

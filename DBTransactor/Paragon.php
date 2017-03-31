@@ -163,7 +163,12 @@
             $s = '';
 
             foreach ($array as $key => $value) {
-                $s = $key . '=' . "'" . $value . "'";
+				//This is what was failing with selecting Showings.
+				if ($key == "start_time" || $key == "end_time") {
+					$s = $key . '=' . $value;
+				} else {
+					$s = $key . '=' . "'" . $value . "'";				
+				}
                 array_push($a, $s);
                 //echo $s;
             }

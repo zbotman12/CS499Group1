@@ -3,7 +3,6 @@
 <?php
     include "dataFormat.php";
 ?>
-
 <html>
 <head>	
 <link
@@ -77,15 +76,21 @@ or show text field when "other" is selected-->
   	</select>
   	<br/>
     <!-- possibly auto fill the name and company with listing agent info -->
-  	Select Showing Agent:
-  	<select id="selectSAgent" name='SAgent'>
-	    <?php
-	    	foreach($formatted_info as $agent)
+  	Company:<!--onchange=updateSelectionAgent(<script>document.getElementById("selectCompany").value</script>)-->
+  	<select id="selectCompany" name='SAcompany'  required>
+	    <?php 
+	    
+	    	foreach($agency_name_array as $company)
 	    	{
-	    		echo "<option value=\"".$agent."\">".$agent."</option>";
+	    		echo "<option value=".$company["company_name"].">".$company["company_name"]."</option>";
 	    	}
-	    ?>  
-	</select><br>
+	    	
+	    	
+	    ?>
+	    
+	</select>
+  	Showing Agent Name (First Last):<input type="text" name="SAname"><br>
+  	Company of Showing Agent:<input type="text" name="SAcompany"><br>
   	Customer First Name:<input type="text" name="fname"><br>
   	Customer Last Name:<input type="text" name="lname"><br>
   	Lock Box Code:<input type="text" name="code"><br>

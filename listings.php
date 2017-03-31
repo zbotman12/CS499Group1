@@ -28,64 +28,63 @@
         }
     }
 
-    function getPic($MLS) {
+	//Returns <img class="houseImg"> of the first pic in the listing's pic folder
+    function createPic($MLS) {
     	$directories = GetFilePathArrayVer2($MLS);
-	    echo "<img class=\"houseImg\" src=\"/";
+		$toReturn = ""; 
+	    $toReturn .= "<img class=\"houseImg\" src=\"/";
 
     	if ($directories != null) {
-	    	echo $directories[0]; //Use first picture
+	    	$toReturn .= $directories[0]; //Use first picture
     	} else {
-    		echo "Listing/noimage.png"; //Use filler picture
+    		$toReturn .= "Listing/noimage.png"; //Use filler picture
     	}
 
-	    echo "\"</img>";
+	    $toReturn .= "\"</img>";
+		
+		return $toReturn;
     }
 
-    function getPrice($MLS) {
-    	$listings = DBTransactorFactory::build("Listings");
+	//Returns the text of the listing's price
+    function getPrice($MLS, $listings) {
 		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
 		return $ListingArray[$MLS]["price"];
     }
 
-    function getAgent($MLS) {
-    	$listings = DBTransactorFactory::build("Listings");
-    	$agents = DBTransactorFactory::build("Agents");
-
+	//Returns the first + last name of the listing's associated agnent
+    function getAgent($MLS, $listings, $agents) {
 		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
 		$id = $ListingArray[$MLS]["Agents_listing_agent_id"];
 		$AgentArray = $agents->select(["*"], ["agent_id" => $id]);
 
 		return $AgentArray[$id]["first_name"] . " " . $AgentArray[$MLS]["last_name"];
     }
-
-    function getAddress($MLS) {
-    	$listings = DBTransactorFactory::build("Listings");
+	
+	//Returns the address of the listing
+    function getAddress($MLS, $listings) {
 		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
 		return $ListingArray[$MLS]["address"];
     }
 
-    //TODO: Refactor this
-    function getCompany($MLS) {
-    	$listings = DBTransactorFactory::build("Listings");
-    	$agents = DBTransactorFactory::build("Agents");
-        $Agencies = DBTransactorFactory::build("Agencies");
-
+    //Returns the company associated with the listing's agent
+    function getCompany($MLS, $listings, $agents, $agencies) {
 		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
 		$agentID = $ListingArray[$MLS]["Agents_listing_agent_id"];
 		$AgentArray = $agents->select(["*"], ["agent_id" => $agentID]);
 		$agencyID = $AgentArray[$agentID]["Agencies_agency_id"];
-		$AgenciesArray = $Agencies->select(["*"], ["agency_id" => $agencyID]);
+		$AgenciesArray = $agencies->select(["*"], ["agency_id" => $agencyID]);
 
 		return $AgenciesArray[$agencyID]["company_name"];
 	}
 
-    function getSqFootage($MLS) {
-    	$listings = DBTransactorFactory::build("Listings");
+	//Returns the square footage of the listing
+    function getSqFootage($MLS, $listings) {
 		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
 		return $ListingArray[$MLS]["square_footage"];
     }
 
-    function getDetailsLink($MLS) {
+	//Returns <a class="btn btn-default"> linking to the listing's detail page
+    function createDetailsLink($MLS) {
     	$toReturn = "";
     	$toReturn .= "<a class=\"btn btn-default\" href=\"detailedlisting.php?MLS=";
 		$toReturn .= $MLS;
@@ -93,96 +92,38 @@
 		$toReturn .= "Details</a>";
 		return $toReturn;
     }
-
-    function createRow($MLS) {
-    	echo "<div class=\"listing\">";
-		echo getPic($MLS);
-		echo "<div class=\"listing-text\">";
-		echo "<div class=\"row\">";
-		echo "<p class=\"left\">";
-		echo getPrice($MLS);
-		echo "</p>";
-		echo "<p class=\"right\">";
-		echo getAgent($MLS);
-		echo "</p>";
-		echo "</div>";
-		echo "<div class=\"row\">";
-		echo "<p class=\"left\">";
-		echo getAddress($MLS);
-		echo "</p>";
-		echo "<p class=\"right\">";
-		echo getCompany($MLS);
-		echo "</p>";
-		echo "</div>";
-		echo "<div class=\"row\">";
-		echo "<p class=\"left\">";
-		echo getSqFootage($MLS);
-		echo " sq. ft.";
-		echo "</p>";
-		echo "<p class=\"right\">";
-		echo getDetailsLink($MLS);
-		echo "</p>";
-		echo "</div></div></div>";
-    }
-
-    function createAllRows() {
-		$listings = DBTransactorFactory::build("Listings");
-		$ListingArray = $listings->select(['*']);
-
-		//var_dump($ListingArray);
-		foreach ($ListingArray as $listing) {
-			createRow($listing["MLS_number"]);
-		}
-    }
+	
+	
 ?>
 
 <head>
+	<title>Listings</title>
 	<style>
 		.listing {
-			overflow: hidden;
-			height: 300px;
 			margin: 10px;
 		}
-
+		
 		.listing:hover {
 			background-color: #eee;
 		}
-
+		
 		.houseImg {
-			height: 100%;
-			display: inline;
-			float: left;
+			height: 300px;
+			max-width: 100%;
 		}
-
+		
 		.listing-text {
-			width: 65%;
-			height: 100%;
-			display: block;
-			float: right;
-			padding: 10px;
+			padding-bottom: 0;
 		}
-
-		.row {
-			overflow: hidden;
-			height: 30%;    
-			margin: 10px;
-			margin-top: 0px;
-    		padding: 5px;
-    		padding-right: 10px;
+		
+		.listing-row {
+			height: 100px;
+			padding:10px;
 		}
-
-		.left .right {
-			width: 50%;
+		
+		.listing-p {
+			height: 50px;
 		}
-
-		.left {
-			float: left;
-		}
-
-		.right {
-			float: right;
-		}
-
 	</style>
 </head>
 
@@ -191,7 +132,53 @@
 	<div class="container-fluid">
 		<h2>Listings</h2>
 		<hr/>
-		<?php createAllRows(); ?>
+		<!--Listings display loop-->
+		<?php
+			//Create DB Accessors
+			$listings = DBTransactorFactory::build("Listings");
+			$agents = DBTransactorFactory::build("Agents");
+			$agencies = DBTransactorFactory::build("Agencies");
+			
+			//Begin iteration through all MLS numbers
+			$ListingArray = $listings->select(['MLS_number']);
+			foreach($ListingArray as $listing) {
+				$MLS = $listing["MLS_number"]
+		?>
+		<div class="container-fluid listing">
+			<div class="col-md-4">
+				<?php echo createPic($MLS); ?>
+			</div>
+			<div class="col-md-8 listing-text">
+				<div class="container-fluid listing-row">
+					<div class="col-sm-6 listing-p">
+						<?php echo getPrice($MLS, $listings); ?>
+					</div>
+					<div class="col-sm-6 listing-p">
+						<?php echo getAgent($MLS, $listings, $agents); ?>
+					</div>
+				</div>
+				<div class="container-fluid listing-row">
+					<div class="col-sm-6 listing-p">
+						<?php echo getAddress($MLS, $listings); ?>
+					</div>
+					<div class="col-sm-6 listing-p">
+						<?php echo getCompany($MLS, $listings, $agents, $agencies); ?>
+					</div>
+				</div>
+				<div class="container-fluid listing-row">
+					<div class="col-sm-6 listing-p">
+						<?php echo getSqFootage($MLS, $listings); ?> sq. ft. 
+					</div>
+					<div class="col-sm-6 listing-p">
+						<?php echo createDetailsLink($MLS); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php 
+			} //End iteration
+		?>
+		<!--End listings display loop-->
 	</div>
 	<?php include "footer.php"; ?>
 </body>

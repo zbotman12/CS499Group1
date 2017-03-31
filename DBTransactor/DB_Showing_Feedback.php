@@ -173,7 +173,10 @@
               $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_FEEDB_TABLE . " WHERE " . $c . ";";
               
               $results = $this->connection->query($query);
-
+			  //If results is false, return empty array.
+			  if ($results == false) {
+				return array();
+			  }
               $result_array = $this->resultToArray($results, $this->index);
             }
 

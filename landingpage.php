@@ -68,6 +68,7 @@
 ?>
 
 <head>
+	<title>Login Result</title>
 </head>
 <body>
 	<?php Login(); ?>
@@ -78,11 +79,10 @@
 		
 		<?php if(isset($_SESSION['name'])) { 
 			echo "You have been logged in.<br/>Hello, " . $_SESSION['name'] ."!<br/>";
-			echo "Your number is " . $_SESSION['number'] . "!";
+			//echo "Your number is " . $_SESSION['number'] . "!";
 		} else { 
 			echo "User does not exist.  You have not been logged in.";
 		} ?>
-		<br/>
 		<br/>
 		
 		<?php if(isset($_SESSION['name'])) { ?> 

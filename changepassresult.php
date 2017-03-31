@@ -85,9 +85,16 @@
 ?>
 
 <head>
+	<title>Change Your Password</title>
 </head>
 <body>
-    <?php changePassword(); ?>
-    <a href="./sessiontest.php">Session test</a> <br/>
-    <a href="./logouttest.php">Logout</a>
+	<?php include "header.php"; ?>
+	<div class="container-fluid">
+		<h2>Change Your Password</h2>
+		<hr/>
+		<?php changePassword(); ?>
+		<a href="./sessiontest.php" class="btn btn-default">Session test</a>
+		<a href="./logout.php" class="btn btn-default">Logout</a>
+	</div>
+	<?php include "footer.php"; ?>
 </body>

@@ -205,8 +205,13 @@
               $query = "SELECT " . $s . " FROM " . $this->LISTINGS_TABLE . " WHERE " . $c . ";";
               
               $results = $this->connection->query($query);
-
-              $result_array = $this->resultToArray($results, $this->index);
+			  
+			  //If results is false, return empty array.
+			  if ($results == false) {
+				return array();
+			  }
+              
+			  $result_array = $this->resultToArray($results, $this->index);
             }
 
             //If agent_id was supplied as value in $array, just return the array.

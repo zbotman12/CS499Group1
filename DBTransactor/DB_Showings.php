@@ -46,12 +46,13 @@
             $dup_query  = "SELECT * FROM " . $this->SHOWINGS_TABLE . " WHERE ";
             $dup_query .= "start_time="          . $assoc_array['start_time']                 . " AND ";
             $dup_query .= "end_time="            . $assoc_array['end_time']                   . " AND ";
-            $dup_query .= "Listings_MLS_number=" . "'"  . $assoc_array['Listings_MLS_number'] . "';";
+            $dup_query .= "Listings_MLS_number=" . $assoc_array['Listings_MLS_number'] . ";";
 
             $dup_results = $this->connection->query($dup_query);
             
-            //var_dump($dup_results);
-            
+            var_dump($dup_query);
+            echo "Checking duplicate entries <br> <br>";
+			
             if ($dup_results) {
               if ($dup_results->num_rows == 1) {
                   throw new Exception("Showing already exists! Cannot create showing.");
@@ -63,17 +64,18 @@
             //Build showing query 
             $showing_q  = "INSERT INTO " . $this->SHOWINGS_TABLE . " (";
             $showing_q .= "Listings_MLS_number, start_time, end_time, is_house_vacant, customer_first_name, customer_last_name,";
-            $showing_q .= "lockbox_code, showing_agent_name, showing_agent_company) VALUES (";
-            $showing_q .= "'"  . $assoc_array['Listings_MLS_number']    . "'"  . ",";
+            $showing_q .= " lockbox_code, showing_agent_id) VALUES (";
+            $showing_q .= "'" .  $assoc_array['Listings_MLS_number']  . "'"    . ",";
             $showing_q .=        $assoc_array['start_time']                    . ",";
             $showing_q .=        $assoc_array['end_time']                      . ",";
             $showing_q .= "'"  . $assoc_array['is_house_vacant']        . "'"  . ",";
             $showing_q .= "\"" . $assoc_array['customer_first_name']    . "\"" . ",";
             $showing_q .= "\"" . $assoc_array['customer_last_name']     . "\"" . ",";
             $showing_q .= "\"" . $assoc_array['lockbox_code']           . "\"" . ",";
-            $showing_q .= "\"" . $assoc_array['showing_agent_name']     . "\"" . ",";
-            $showing_q .= "\"" . $assoc_array['showing_agent_company']  . "\"" . ");";
-            var_dump($showing_q);
+            $showing_q .= "'"  . $assoc_array['showing_agent_id']       . "'"  . ");";
+            
+			echo "Printing actual showings query <br> <br>";
+			var_dump($showing_q);
             
             
             //Insert showing into database
@@ -247,19 +249,29 @@
             // Make string acceptable for SQL command
             $s = implode(",", $array);
 
+			var_dump($s);
+			
             // If condition is empty. Just select all columns given.
             if (empty($cond)) {
-              $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_TABLE . ";"; 
+              $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_TABLE . ";";
+			  var_dump($query);
               $results = $this->connection->query($query);
 
               $result_array = $this->resultToArray($results, $this->index);
 
             } else { //Else, select based on given conditions
               $c = $this->conditionBuilder($cond, " AND ", []);
+			  
+			  echo "Condition <br>";
+			  var_dump($c);
               $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_TABLE . " WHERE " . $c . ";";
               
               $results = $this->connection->query($query);
-
+			  //If results is false, return empty array.
+			  if ($results == false) {
+				return array();
+			  }
+			  
               $result_array = $this->resultToArray($results, $this->index);
             }
 

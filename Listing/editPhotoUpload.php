@@ -16,7 +16,7 @@
 
 <html>
 <head>		
-	<title>"Edit Listing Photos"</title>
+	<title>Edit Listing Photos</title>
 	<?php  //var_dump($_GET);
 		include "../dataretriever.php";
 	?>

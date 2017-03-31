@@ -17,7 +17,7 @@
 </head>
 <body>
 <!-- action_page.php is a php file that handles the submitted input --> 
-<form name="scheduleForm" action="newShowingDataHandle.php" method="post">
+<form name="scheduleForm" action="DBTransactorTest.php" method="post">
 	Start Time:<select name='startHour'>
  		<option value="1">1</option>
   	 	<option value="2">2</option>
@@ -82,7 +82,7 @@ or show text field when "other" is selected-->
 	    <?php
 	    	foreach($formatted_info as $agent)
 	    	{
-	    		echo "<option value=\"".$agent."\">".$agent."</option>";
+	    		echo "<option value=". $agent .">" . $agent . "</option>";
 	    	}
 	    ?>  
 	</select><br>
