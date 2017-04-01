@@ -77,27 +77,26 @@ function handleShowingData(){
                     "showing_agent_id"    => $SA_id);
     
     //Lines 69-72 are used to check if the showing is already scheduled
-   // $test_exist_var= array("showing_id");
-    //$test_exist_already=$showings->select($test_exist_var, $array);
-    //if(empty($test_exist_already))
-    //{
+    //$test_exist_var= array("showing_id");
+   // $test_exist_already=$showings->select($test_exist_var, $array);
+    
     try {
       $showings->insert($array);
-   
-      //$return_name= array("showing_id");
-     // $showing_info= $showings->select($return_name, $array);
+      
+      $return_name= array("showing_id");
+      $showing_info= $showings->select($return_name, $array);
       
       
-	 /* $feedback_array = Array("Showings_showing_id"=>$showing_info[1]["showing_id"],
+	  $feedback_array = Array("Showings_showing_id"=>$showing_info[1]["showing_id"],
 	  						  "customer_interest_level"=>2,
 	  						  "showing_agent_experience_level"=>2,
 	  						  "customer_price_option"=>2,
 	  						  "additional_notes"=>"");
 	  $feedback->insert($feedback_array);
-	  */
+	  
 	
       //var_dump($showings);
-      //header('location: ./../showings.php?MLS=' . $_POST['MLS']);
+      header('location: ./../showings.php?MLS=' . $_POST['MLS']);
      } catch (Exception $e) {
       echo $e->getMessage() . "<br/>";  
     }
@@ -110,8 +109,8 @@ function handleShowingData(){
             </script>
         ";
     }*/
-    //mysql_close($showings);
-    //mysql_close($feedback_array);
+    mysql_close($showings);
+    mysql_close($feedback_array);
     
 }
 
