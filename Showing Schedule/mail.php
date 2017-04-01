@@ -95,7 +95,6 @@
 
         // Return either true or false if email was sent.
         return mail($to, $subject, $message, implode("\r\n", $headers));
-
     }
 
 ?>
