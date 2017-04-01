@@ -74,7 +74,7 @@ function handleShowingData(){
                     "customer_first_name"   => $fname,
                     "customer_last_name"    => $lname,
                     "lockbox_code"          => $code,
-                    "showing_agent_id"    => $SA_id);
+                    "showing_agent_id"      => $SA_id);
     
     //Lines 69-72 are used to check if the showing is already scheduled
     //$test_exist_var= array("showing_id");

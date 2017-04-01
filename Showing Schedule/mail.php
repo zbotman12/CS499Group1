@@ -1,7 +1,9 @@
 <?php
     
     include "../DBTransactor/DBTransactorFactory.php";
-    send_mail($showing) {
+
+    // Throws exception. Make sure to catch the exception.
+    function send_mail($showing) {
 
         //Create transactors
         $agentsTable   = DBTransactorFactory::build("Agents");
@@ -15,7 +17,7 @@
         
         // Get listing information
         $sel = ['Agents_listing_agent_id', 'address', 'city', 'state', 'zip'];
-        $result  = $listingsTable->select($sel, ["MLS_number" => $showing['Listings_MLS_numbe']);
+        $result  = $listingsTable->select($sel, ["MLS_number" => $showing['Listings_MLS_number']]);
         
         // Check if we actually got something.
         if (empty($result)) {
@@ -29,8 +31,8 @@
 
         // Get Agent information
         $sel = ['first_name', 'last_name', 'email', 'Agencies_agency_id'];
-        $result = $agentsTable->select($sel, ["agent_id" => $listing['Agents_listing_agent_id']])
-
+        $result = $agentsTable->select($sel, ["agent_id" => $listing['Agents_listing_agent_id']]);
+        
         // Check if we actually got something.
         if (empty($result)) {
             throw new Exception("Could not fetch agent info. Contact system administrator.");
