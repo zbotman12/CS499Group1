@@ -61,30 +61,29 @@
         $to = $agent['email'];
         $subject = "NEW SHOWING:" . " " . $listing['address'] . " " . "has a new showing.";
 
-        //This needs to be changed to have proper start_time and end_time. 
         $message = "<html>
                         <head>
                             <title>ParagonMLS</title>
                         </head>
                         <body>
-                            <p> Dear" . $agent['first_name'] . " " . $agent['last_name'] . ", <br>" . "
-                            <p> Your listing at the following address has a new showing available: </p><br>" . 
-                            "<p>" . $listing['address'] . "<br>" . $listing['city'] . "," . $listing['state'] . " " . $listing['zip'] . "</p>" . 
+                            <p> Dear" . " " . $agent['first_name'] . " " . $agent['last_name'] . " <br>" . "
+                            <p> Your listing at the following address has a new showing available: </p><br>" . $listing['address'] . "<br>" . $listing['city'] . "," . $listing['state'] . " " . $listing['zip'] . "</p>" . 
                             "<p> <table>
                                       <tr>
-                                        <th>Customer First Name</th>
-                                        <th>Customer Last Name</th> 
+                                        <th>Customer Name</th> 
                                         <th>Start Time</th>
                                         <th>End Time</th>
                                         <th>Lockbox Code </th>
                                       </tr>
                                       <tr>
-                                        <td>" . $showing['customer first_name'] . "</td>
-                                        <td>" . $showing['customer_last_name'] . "</td>
+                                        <td>" . $showing['customer_first_name'] . " " . $showing['customer_last_name'] . "</td>
                                         <td>" . $showing['start_time'] . "</td>
                                         <td>" . $showing['end_time'] . "</td>
                                         <td>" . $showing['lockbox_code'] . "</td></tr>
-                                  </table>" . "<br> <p> This is an automated email from ParagonMLS.</p>" . "
+                                  </table>" . "<br> <p> This is an automated
+                                  email from ParagonMLS. <br> CS499 Team 1. <a
+                                  href=\"207.98.161.214\" target=\"_blank\">
+                                  ParagonMLS</a></p>" . "
                         </body>
                     </html>";
 
