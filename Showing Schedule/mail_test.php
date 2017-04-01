@@ -5,8 +5,6 @@
 
     echo "Hello world <br>";      
     
-
-
     $array = Array( "Listings_MLS_number"   => 6,
                     "start_time"            => "9:00am",
                     "end_time"              => "10:00am",
