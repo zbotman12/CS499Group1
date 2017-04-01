@@ -83,12 +83,8 @@
             //Insert showing into database
             $result = $this->connection->query($showing_q);
 
-            //Check results. $results is either true or false
-            if($result) {
-                return true;
-            } else {
-                return false;
-            }
+            //Return results
+            return $result;
         }
         
         public function insertPlus($str) {
@@ -184,23 +180,13 @@
 
             $results = $this->connection->query($query);
 
-            if ($results) {
-                return true;
-            }
-            else {
-                return false;   
-            }
+            return $results;
         }
 
         public function updateShowing($query) {
           $results = $this->connection->query($query);
           
-          if ($results) {
-              return true;
-          }
-          else {
-              return false;
-          }
+          return $results;
         }
 
         /* delete()           -> Deletes an entry from the database
@@ -220,12 +206,7 @@
 
             $results = $this->connection->query($query);
 
-            if ($results) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return $results;
         }
 
         /* select($array) -> Selects an entry and returns an associative array of values obtained.
@@ -263,7 +244,12 @@
               //var_dump($query);
               
               $results = $this->connection->query($query);
-
+              
+              //If results is false, return empty array.
+              if ($results == false) {
+                return array();
+              }
+              
               $result_array = $this->resultToArray($results, $this->index);
 
             } else { //Else, select based on given conditions
@@ -276,7 +262,8 @@
               $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_TABLE . " WHERE " . $c . ";";
               
               $results = $this->connection->query($query);
-			  //If results is false, return empty array.
+			  
+              //If results is false, return empty array.
 			  if ($results == false) {
 				return array();
 			  }

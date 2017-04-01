@@ -163,8 +163,9 @@
             $s = '';
 
             foreach ($array as $key => $value) {
-				//This is what was failing with selecting Showings.
-				if ($key == "start_time" || $key == "end_time") {
+				//This is what was failing with select Showings.
+				//If statement corrects date syntax for Showings.
+                if ($key == "start_time" || $key == "end_time") {
 					$s = $key . '=' . $value;
 				} else {
 					$s = $key . '=' . "'" . $value . "'";				

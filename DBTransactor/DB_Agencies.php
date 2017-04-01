@@ -68,12 +68,8 @@
             //Insert agency into database
             $result = $this->connection->query($agency_q);
 
-            //Check results. $results is either true or false
-            if($results) {
-                return true;
-            } else {
-                return false;
-            }
+            //Return results
+            return $result;
         }
         
         /** update() -> Updates a table entry in database
@@ -105,14 +101,9 @@
             
             $query = "UPDATE " . $this->AGENCIES_TABLE . " SET " . $columns . " WHERE " . $condition . ";";
 
-            $results = $this->connection->query($query);
+            $result = $this->connection->query($query);
 
-            if ($results) {
-                return true;
-            }
-            else {
-                return false;   
-            }
+            return $result;
         }
         
         /*  delete()           -> Deletes an entry from the database
@@ -130,14 +121,9 @@
             $condition = $this->conditionBuilder($key_array, " AND ", []);
 
             $query = "DELETE FROM " . $this->AGENCIES_TABLE . " WHERE " . $condition . ";";
-            $results = $this->connection->query($query);
+            $result = $this->connection->query($query);
             
-            if ($results) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return $result;
         }
         
         /* select($array) -> select($array) -> Selects an entry and returns an associative array of values obtained.

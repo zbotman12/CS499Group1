@@ -43,7 +43,7 @@
                 throw $e;
             }
 
-            echo "Am I working? <br/>";
+            //echo "Am I working? <br/>";
             //Check for duplicate entries
             $dup_query  = "SELECT * FROM " . $this->SHOWINGS_FEEDB_TABLE . " WHERE ";
             $dup_query .= "idShowing_Feedback="  . "'" . $assoc_array['idShowing_Feedback']  . "' AND ";
@@ -59,7 +59,7 @@
                 throw new Exception($this->connection->error);
             }
 
-            echo "Am I working now? <br/>";
+            //echo "Am I working now? <br/>";
             //Build agency query 
             $showings_q = "INSERT INTO " . $this->SHOWINGS_FEEDB_TABLE . "VALUES (NULL,";
             $showings_q .= "'" . $assoc_array['Showings_showing_id']            . "'" . ",";
@@ -102,14 +102,7 @@
             $query = "UPDATE " . $this->SHOWINGS_FEEDB_TABLE . " SET " . $columns . " WHERE " . $condition . ";";
 
             $results = $this->connection->query($query);
-
-            if ($results) {
-                return true;
-            }
-            else {
-
-                return false;   
-            }
+            return $results;
         }
 
         /* delete()           -> Deletes an entry from the database
@@ -130,12 +123,7 @@
 
             $results = $this->connection->query($query);
 
-            if ($results) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return $results;
         }
 
         /* select($array) -> Selects an entry and returns an associative array of values obtained.
@@ -173,10 +161,12 @@
               $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_FEEDB_TABLE . " WHERE " . $c . ";";
               
               $results = $this->connection->query($query);
-			  //If results is false, return empty array.
+			  
+              //If results is false, return empty array.
 			  if ($results == false) {
 				return array();
 			  }
+
               $result_array = $this->resultToArray($results, $this->index);
             }
 

@@ -36,6 +36,7 @@ class DB_Agents extends Paragon implements DBTransactor {
 	*  @throws Exception, BadMethodCallException
 	*/
 	public function insert($assoc_array) : bool {
+		
 		//Quarantine Zone
 		try {
 			$assoc_array = $this->q_zone($assoc_array);
@@ -48,11 +49,13 @@ class DB_Agents extends Paragon implements DBTransactor {
 		if (strcmp($assoc_array['password'], $assoc_array['confirm_pass']) != 0) {
 			throw new BadMethodCallException ("Could not create agent. Passwords do not match!");
 		}
+		
 		// SALTS
 		$ops = ['cost' => 10];
 		$v = password_hash($assoc_array['password'], PASSWORD_DEFAULT, $ops);
 		$assoc_array['password'] = $v;
 		unset($v);
+		
 		//Build query to check existence of Agency
 		$query  = "SELECT * FROM " . $this->AGENCIES_TABLE . " ";
 		$query .= "WHERE company_name = \"" . $assoc_array['company_name'] . "\" ";
@@ -60,6 +63,7 @@ class DB_Agents extends Paragon implements DBTransactor {
 		//Query the database
 		$agency_results = $this->connection->query($query);
 		$agency_exists = false;
+
 		//Check if agency exists. TODO: Remove echo statements. Throw exceptions.
 		if ($agency_results) {
 			if ($agency_results->num_rows == 1) {
@@ -72,6 +76,7 @@ class DB_Agents extends Paragon implements DBTransactor {
 		} else { // Something happened. Could not create agent.
 			throw new Exception($this->connection->error);
 		}
+
 		//TODO: Once DB_Agencies is implemented. Just initialize object of that class here.
 		if ($agency_exists) { //Agency exists. Get its agency ID. Create agent and assign agency ID obtained.
 
@@ -131,6 +136,7 @@ class DB_Agents extends Paragon implements DBTransactor {
 
 			//Insert agency into database
 			$result = $this->connection->query($agency_q);
+
 			//Check results of insertion
 			if ($result) {
 				echo "Created Agency Successfully! <br/>";
@@ -149,11 +155,14 @@ class DB_Agents extends Paragon implements DBTransactor {
 					throw new Exception($this->connection->error);
 					//return false;
 				}
+				
 				//Build agent entry as username is unique
 				$query = "SELECT agency_id FROM " . $this->AGENCIES_TABLE . " WHERE company_name=" . "\"" . $assoc_array['company_name'] . "\"" .";";
 				$r = $this->connection->query($query);
 				$row = $r->fetch_assoc();
+
 				//echo $row['agency_id'] . "<br/>";
+				
 				//Build insert agent query
 				$agent_query = "INSERT INTO " . $this->AGENTS_TABLE . " VALUES (NULL,";
 				$agent_query .= "'" . $row['agency_id']                   . "'" . ",";
@@ -164,6 +173,7 @@ class DB_Agents extends Paragon implements DBTransactor {
 				$agent_query .= "\"" . $assoc_array['email']              . "\"" . ",";
 				$agent_query .= "\"" . $assoc_array['agent_phone_number'] . "\"" . ");";
 				//echo $agent_query . "<br/>";
+				
 				//Insert agent into database
 				$results = $this->connection->query($agent_query);
 
@@ -246,12 +256,8 @@ class DB_Agents extends Paragon implements DBTransactor {
 
 		$query = "UPDATE " . $this->AGENTS_TABLE . " SET " . $columns . " WHERE " . $condition . ";";
 		$results = $this->connection->query($query);
-		if ($results) {
-			return true;
-		}
-		else {
-			return false;
-		}
+
+		return $results;
 	}
 	/* delete()           -> Deletes an entry from the database
 	 @param $key_array -> A single valued associative array where ["column_name"] = value_to_delete;
@@ -267,12 +273,8 @@ class DB_Agents extends Paragon implements DBTransactor {
 		$condition = $this->conditionBuilder($key_array, " AND ", []);
 		$query = "DELETE FROM " . $this->AGENTS_TABLE . " WHERE " . $condition . ";";
 		$results = $this->connection->query($query);
-		if ($results) {
-			return true;
-		}
-		else {
-			return false;
-		}
+
+		return $results;
 	}
 	/* select($array) -> Selects an entry and returns an associative array of values obtained.
 	 *  @param $array -> Regular list. Just give a list of column names to select.
@@ -349,12 +351,24 @@ class DB_Agents extends Paragon implements DBTransactor {
 		if (empty($cond)) {
 			$query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . " ORDER BY last_name ASC;";
 			$results = $this->connection->query($query);
+
+			//If results is false, return empty array.
+			if ($results == false) {
+				return array();
+			}
+
 			$result_array = $this->resultToArray($results, 'agent_id');
 		} else { //Else, select based on given conditions
 			$c = $this->conditionBuilder($cond, " AND ", []);
 			$query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . " WHERE " . $c . " ORDER BY last_name ASC;";
 	
 			$results = $this->connection->query($query);
+	
+			//If results is false, return empty array.
+			if ($results == false) {
+				return array();
+			}
+
 			$result_array = $this->resultToArray($results, $this->index);
 		}
 		//If agent_id was supplied as value in $array, just return the array.

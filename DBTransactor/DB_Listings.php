@@ -41,7 +41,7 @@
             catch (BadMethodCallException $e) {
                 throw $e;
             }
-            //echo "Does it crash here? <br/>";
+
             //Check for duplicate entries
             $dup_query  = "SELECT * FROM "           . $this->LISTINGS_TABLE . " WHERE ";
             $dup_query .= "address="                 . "\"" . $assoc_array['address']                 . "\" AND ";
@@ -78,13 +78,9 @@
             
             //Insert listing into database
             $result = $this->connection->query($listings_q);
-            //echo "Am I failing here?";
+            
             //Check results. $results is either true or false
-            if($result) {
-                return true;
-            } else {
-                return false;
-            }
+            return $result;
         }
 
         public function update($set_array, $where_array) : bool {
@@ -110,12 +106,7 @@
 
             $results = $this->connection->query($query);
 
-            if ($results) {
-                return true;
-            }
-            else {
-                return false;   
-            }
+            return $results;
         }
 
         /* delete()           -> Deletes an entry from the database
@@ -138,13 +129,7 @@
                 $query = "DELETE FROM " . $this->LISTINGS_TABLE . " WHERE " . $condition . ";";
 
                 $results = $this->connection->query($query);
-
-                if ($results) {
-                    return true;
-                }
-                else {
-                  return false;
-                }
+                return $results;
             } else {
               throw new Exception("Could not delete pictures from database");  
             }
