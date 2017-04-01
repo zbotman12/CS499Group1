@@ -31,7 +31,6 @@
         $sel = ['first_name', 'last_name', 'email', 'Agencies_agency_id'];
         $result = $agentsTable->select($sel, ["agent_id" => $listing['Agents_listing_agent_id']])
 
-
         // Check if we actually got something.
         if (empty($result)) {
             throw new Exception("Could not fetch agent info. Contact system administrator.");
@@ -83,7 +82,7 @@
                                         <td>" . $showing['start_time'] . "</td>
                                         <td>" . $showing['end_time'] . "</td>
                                         <td>" . $showing['lockbox_code'] . "</td></tr>
-                                  </table>" . "<br> <p> This is an automated email from ParagonMLS</p>" . "
+                                  </table>" . "<br> <p> This is an automated email from ParagonMLS.</p>" . "
                         </body>
                     </html>";
 
@@ -95,7 +94,6 @@
 
         // Return either true or false if email was sent.
         return mail($to, $subject, $message, implode("\r\n", $headers));
-
 
     }
 
