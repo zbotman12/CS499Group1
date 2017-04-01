@@ -12,13 +12,18 @@
 			<form id="changepass" action="changepassresult.php" method="post">
 				<input type='hidden' name='submitted' id='submitted' value='1'/>
 				<?php
-					//Resume session. If no session found,Let the user specify there username
+                    include "sessioncheck.php";
+                    
+                    //Resume session. If no session found,Let the user specify there username
 					session_start();
-					//If the user is not logged in, provide a username field.
+					
+                    //If the user is not logged in, provide a username field.
 					if(!isset($_SESSION['name']))
 					{
-						echo "<label for ='currentPass'>Username: </label>
-						<input type='text' name='username' id='currentPass' maxlength='25'/><br/>";
+                        //Take them to the header instead.
+                        header("./listings.php");
+						//echo "<label for ='currentPass'>Username: </label>
+						//<input type='text' name='username' id='currentPass' maxlength='25'/><br/>";
 					} else {
 						echo "Currently logged in as " . $_SESSION['name'] . "</br>";
 					}
