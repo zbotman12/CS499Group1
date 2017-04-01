@@ -1,14 +1,21 @@
 <?php
-    
+
+    /* mail.php
+       Functions to send mail.
+
+    */
+
     include "../DBTransactor/DBTransactorFactory.php";
 
-    // Throws exception. Make sure to catch the exception.
-    function send_mail($showing) {
+    class Mail {
+        
+        // Throws exception. Make sure to catch the exception.
+        function send_mail($showing) {
 
-        //Create transactors
-        $agentsTable   = DBTransactorFactory::build("Agents");
-        $agencyTable   = DBTransactorFactory::build("Agencies");
-        $listingsTable = DBTransactorFactory::build("Listings");
+            //Create transactors
+            $agentsTable   = DBTransactorFactory::build("Agents");
+            $agencyTable   = DBTransactorFactory::build("Agencies");
+            $listingsTable = DBTransactorFactory::build("Listings");
 
         //Arrays of the listing, agent, and agency info to email.
         $listing = null;
