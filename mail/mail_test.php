@@ -16,8 +16,9 @@
 
     //Sending email
     echo "Sending test email to agent <br>";
-
-    if (send_mail($array)) {
+    
+    $mail = new Mail;
+    if ($mail->send_mail($array)) {
     	echo "Email send succesfully! <br>";
     } else {
     	echo "Email was not sent";
