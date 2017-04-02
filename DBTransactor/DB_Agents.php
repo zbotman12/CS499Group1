@@ -385,7 +385,7 @@ class DB_Agents extends Paragon implements DBTransactor {
 			$result_array = $this->resultToArray($results, 'agent_id');
 		} else { //Else, select based on given conditions
 			$c = $this->conditionBuilder($cond, " AND ", []);
-			$query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . " WHERE NOT" . $c . " ORDER BY last_name ASC;";
+			$query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . " WHERE NOT " . $c . " ORDER BY last_name ASC;";
 
 			$results = $this->connection->query($query);
 
