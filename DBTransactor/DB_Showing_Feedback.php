@@ -46,7 +46,6 @@
             //echo "Am I working? <br/>";
             //Check for duplicate entries
             $dup_query  = "SELECT * FROM " . $this->SHOWINGS_FEEDB_TABLE . " WHERE ";
-            $dup_query .= "idShowing_Feedback="  . "'" . $assoc_array['idShowing_Feedback']  . "' AND ";
             $dup_query .= "Showings_showing_id=" . "'" . $assoc_array['Showings_showing_id'] . "';";
 
             $dup_results = $this->connection->query($dup_query);
