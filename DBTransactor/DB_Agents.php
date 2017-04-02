@@ -387,6 +387,63 @@ class DB_Agents extends Paragon implements DBTransactor {
 			return $result_array;
 		}
 	}
+	
+	public function select_where_not($array, $cond) {
+		$isThere = false;
+		$result_array = Array();
+		// Check if $array is empty.
+		if (empty($array)) {
+			throw new Exception ("Nothing to select");
+		}
+		// Check if agent_id is in the query to be requested.
+		if (in_array($this->index, $array) || $array == ['*']) {
+			$isThere = true;
+		}
+		else {
+			array_push($array, $this->index);
+		}
+	
+		$s = implode(",", $array);
+		// If condition is empty. Just select all columns given.
+		if (empty($cond)) {
+			$query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . " ORDER BY last_name ASC;";
+			$results = $this->connection->query($query);
+
+			//If results is false, return empty array.
+			if ($results == false) {
+				return array();
+			}
+
+			$result_array = $this->resultToArray($results, 'agent_id');
+		} else { //Else, select based on given conditions
+			$c = $this->conditionBuilder($cond, " AND ", []);
+			$query = "SELECT " . $s . " FROM " . $this->AGENTS_TABLE . " WHERE NOT" . $c . " ORDER BY last_name ASC;";
+	
+			$results = $this->connection->query($query);
+	
+			//If results is false, return empty array.
+			if ($results == false) {
+				return array();
+			}
+
+			$result_array = $this->resultToArray($results, $this->index);
+		}
+		//If agent_id was supplied as value in $array, just return the array.
+		if($isThere){
+			return $result_array;
+		}
+		else { //Otherwise, filter the arrays that have the values.
+			$noID = array();
+			foreach ($result_array as $agid => $value) {
+				foreach ($value as $k => $v) {
+					if ($k == $this->index) {
+						unset($result_array[$agid][$k]);
+					}
+				}
+			}
+			return $result_array;
+		}
+	}
 	// Do not know how this should be implemented
 	/* public function search($assoc_rray) {
 	throw new Exception("Search function not yet implemented for Agents");
