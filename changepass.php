@@ -3,19 +3,22 @@
 		<title>Change Your Password</title>
     </head>
     <body>
-        <?php include "header.php";?>
+		<?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php"; ?>
 		<div class="container-fluid">
 			<h2>
 				Change Your Password
 			</h2>
 			<hr/>
-			<form id="changepass" action="changepassresult.php" method="post">
+			<form id="changepass" action="/Helpers/changePassHandle.php" method="post">
 				<input type='hidden' name='submitted' id='submitted' value='1'/>
 				<?php
-                    include "sessioncheck.php";
+                     include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessioncheck.php";
                     
                     //Resume session. If no session found,Let the user specify there username
-					session_start();
+					if(session_id() == null)
+					{
+						session_start();
+					}
 					
                     //If the user is not logged in, provide a username field.
 					if(!isset($_SESSION['name']))
@@ -45,6 +48,6 @@
 				</a> 
 			</form>
 		</div>
-        <?php include "footer.php";?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php"; ?>
     </body>    
 </html>

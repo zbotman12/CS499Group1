@@ -15,7 +15,7 @@
         <title>Edit Listing</title>
 
         <?php 
-            include "../DBTransactor/DBTransactorFactory.php";
+              include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 
             $listings = DBTransactorFactory::build("Listings");
 
@@ -33,10 +33,10 @@
     </head>
 
     <body>
-        <?php include "../header.php" ?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php" ?>
         <!-- action_page.php is a php file that handles the submitted input --> 
 		<div class="container-fluid">
-			<form action="editListing.php" method="get" enctype="multipart/form-data">
+			<form action="/Helpers/Listing/editListingHandle.php" method="get" enctype="multipart/form-data">
 				<fieldset>
 				<h2>Listing Information</h2>
 				<hr/>
@@ -83,6 +83,6 @@
 			</form>
 		</div>
 		<br/>
-        <?php include "../footer.php" ?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php" ?>
     </body>
 </html>

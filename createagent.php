@@ -6,11 +6,11 @@
 		<title>Create An Agent Account</title>
 	</head>
     <body>
-        <?php include "header.php"; ?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php" ?>
 
         <h2>Create An Agent Account</h2>
 
-        <form id="createagent" action="createagentresult.php" method="post">
+        <form id="createagent" action="/Helpers/createAgentHandle.php" method="post">
             <input type='hidden' name='submitted' id='submitted' value='1'/>
             
             <legend><b class="bold">Enter company information</b></legend>
@@ -61,6 +61,6 @@
             <input type='submit' name='Submit' value='Submit' /> <br/>
         </form>
 
-        <?php include "footer.php"; ?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php" ?>
     </body>    
 </html>

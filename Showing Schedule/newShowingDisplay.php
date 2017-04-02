@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- ISSUES: Line 70-71 True and False values printed as string. Need to handle this.-->
 <?php
-    include "dataFormat.php";
+    include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/dataFormat.php";
 ?>
 
 <html>
@@ -12,12 +12,12 @@
 	rel="stylesheet">
 <!-- <meta charset="UTF-8"> -->
 <title></title>
-<script src="dateFilter.js">
+<script src="/js/dateFilter.js">
 </script>
 </head>
 <body>
 <!-- action_page.php is a php file that handles the submitted input --> 
-<form name="scheduleForm" action="newShowingDataHandle.php" method="post">
+<form name="scheduleForm" action="/Helpers/Showing Schedule/newShowingDataHandle.php" method="post">
 	Start Time:<select name='startHour'>
  		<option value="1">1</option>
   	 	<option value="2">2</option>

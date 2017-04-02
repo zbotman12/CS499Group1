@@ -1,22 +1,31 @@
 <?php 
 	//Start session so as to be able to read variables
 	//TODO: Set relative path root to website base
-	session_start();
+	if(session_id() == null)
+		{
+			session_start();
+		}
 ?>
-
-<!--Declare formatting-->
-<style>
-	.site-header {
-		background-color: rgb(96, 157, 255);
-		padding: 5px;
-	}
-	.site-header > a {
-		background-color: rgb(255, 204, 0);
-	}
-	.site-header > .right {
-		float: right;
-	}
-</style>
+<head>
+	<link href="/style/bootstrap.min.css" rel="stylesheet">
+    <link href="/style/bootstrap.css" rel="stylesheet">
+    <link href="/style/detailedListing.css" rel="stylesheet">
+    <script src="/js/jquery-1.11.3.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+	<!--Declare formatting-->
+	<style>
+		.site-header {
+			background-color: rgb(96, 157, 255);
+			padding: 5px;
+		}
+		.site-header > a {
+			background-color: rgb(255, 204, 0);
+		}
+		.site-header > .right {
+			float: right;
+		}
+	</style>
+</head>
 
 <!--Create header-->
 <div class="site-header">
@@ -37,7 +46,7 @@
 	<?php } else { ?>
 		<!--If session is set-->
 		<a href="http://
-		<?php echo $_SERVER['SERVER_NAME'] . "/Listing/listings.php"; ?>
+		<?php echo $_SERVER['SERVER_NAME'] . "/Listing/agentListingsDisplay.php"; ?>
 		" class="btn">
 			My Listings
 		</a>

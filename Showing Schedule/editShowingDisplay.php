@@ -10,7 +10,7 @@
 <title></title>
 <?php 
 
-include "../DBTransactor/DBTransactorFactory.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 
 // END CUT from line 11 here. Remember to uncomment 'include' statements
 $conn=DBTransactorFactory::build("Showings");
@@ -71,12 +71,12 @@ if ($result = $conn->select($tempArray, $cond)) {
 
 
 ?>
-<script src="dateFilter.js"></script>
+<script src="/js/dateFilter.js"></script>
 </head>
 <body>
 
 <!-- action_page.php is a php file that handles the submitted input --> 
-<form action="editShowingDataHandle.php" method="post">
+<form action="/Helpers/Showing Schedule/editShowingDataHandle.php" method="post">
 Start Time:<select name='startHour'>
 	<option value="<?php echo $startHour; ?>"><?php echo $startHour; ?></option>
 	<option value="1">1</option>

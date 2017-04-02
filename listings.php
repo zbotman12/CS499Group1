@@ -1,5 +1,5 @@
 <?php
-    include "DBTransactor/DBTransactorFactory.php";
+    include "./Helpers/DBTransactor/DBTransactorFactory.php";
 
     //Stolen and adapted from dataretriver.php
 	function GetFilePathArrayVer2($MLS)
@@ -37,7 +37,7 @@
     	if ($directories != null) {
 	    	$toReturn .= $directories[0]; //Use first picture
     	} else {
-    		$toReturn .= "Listing/noimage.png"; //Use filler picture
+    		$toReturn .= "Helpers/Images/noimage.png"; //Use filler picture
     	}
 
 	    $toReturn .= "\"</img>";
@@ -57,7 +57,7 @@
 		$id = $ListingArray[$MLS]["Agents_listing_agent_id"];
 		$AgentArray = $agents->select(["*"], ["agent_id" => $id]);
 
-		return $AgentArray[$id]["first_name"] . " " . $AgentArray[$MLS]["last_name"];
+		return $AgentArray[$id]["first_name"] . " " . $AgentArray[$id]["last_name"];
     }
 	
 	//Returns the address of the listing
@@ -86,7 +86,7 @@
 	//Returns <a class="btn btn-default"> linking to the listing's detail page
     function createDetailsLink($MLS) {
     	$toReturn = "";
-    	$toReturn .= "<a class=\"btn btn-default\" href=\"detailedlisting.php?MLS=";
+    	$toReturn .= "<a class=\"btn btn-default\" href=\"Listing/detailedlistingDisplay.php?MLS=";
 		$toReturn .= $MLS;
 		$toReturn .= "\">";
 		$toReturn .= "Details</a>";
@@ -140,7 +140,7 @@
 			$agencies = DBTransactorFactory::build("Agencies");
 			
 			//Begin iteration through all MLS numbers
-			$ListingArray = $listings->select(['MLS_number']);
+			$ListingArray = $listings->select(['MLS_number'], []);
 			foreach($ListingArray as $listing) {
 				$MLS = $listing["MLS_number"]
 		?>

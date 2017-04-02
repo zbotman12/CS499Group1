@@ -27,9 +27,6 @@
 			
 			<input type='submit' name='Submit' value='Submit' />
 		</form>
-		<a href="./sessiontest.php" class="btn btn-default">
-			Session Test
-		</a>
 		<a href="./changepass.php" class="btn btn-default">
 			Change Password
 		</a>

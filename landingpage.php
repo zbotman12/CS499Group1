@@ -1,6 +1,6 @@
 <?php
 	session_start();
-    include "./DBTransactor/DBTransactorFactory.php";
+  	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 
     function Login(){
     	//Start session
@@ -72,7 +72,7 @@
 </head>
 <body>
 	<?php Login(); ?>
-	<?php include "header.php"; ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php"; ?>
 	<div class="container-fluid">
 		<h2>Login</h2>
 		<hr/>
@@ -87,26 +87,26 @@
 		
 		<?php if(isset($_SESSION['name'])) { ?> 
 			<!--Display these options only if user is logged in-->
-			<a href="./Listing/inputTest.php" class="btn btn-default">
+			<a href="./Listing/createListingDisplay.php" class="btn btn-default">
 				Add A New Listing
 			</a>
-			<a href="./Listing/listings.php" class='btn btn-default'>
+			<a href="./Listing/agentListingDisplay.php" class='btn btn-default'>
 				View your listings
 			</a>
 		<?php } else { ?>
 			<!--Display these options only if user is not logged in-->
-			<a href="http://207.98.161.214/login.php" class="btn btn-default">
+			<a href="/login.php" class="btn btn-default">
 				Retry
 			</a>
 		<?php } ?>
 		
-		<a href="./sessiontest.php" class="btn btn-default">
+		<!--<a href="./sessiontest.php" class="btn btn-default">
 			Session Test
-		</a>
+		</a>-->
 		<a href="./changepass.php" class="btn btn-default">
 			Change Password
 		</a>
 	</div>
 	<br/>
-	<?php include "footer.php"; ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php"; ?>
 </body>

@@ -1,3 +1,7 @@
+<?php
+	header("Location:listings.php");
+?>
+
 <html>
 	<head>
 		<title>Paragon MLS</title>      
