@@ -51,7 +51,7 @@
 				echo "<td class='text-center'>" . GetShowingData('showing_agent_company', $key) . "</td>";
 				echo "<td class='text-center'>" . GetShowingData('lockbox_code', $key) . "</td>";
 				echo "<td class='text-center'><a href='./Showing Schedule/editShowingDisplay.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'>[pencil]</a></td>";
-			  echo "<td class='text-center'><a href=''>[notepad]</a></td>";
+			  echo "<td class='text-center'><a href='./Showing Schedule/Feedback/feedbackDisplay.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'>[notepad]</a></td>";
 			  echo "<td class='text-center'><a href='./Showing Schedule/deleteShowingHandle.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'>[x]</a></td>";
 			  echo "</tr>";
 			}
