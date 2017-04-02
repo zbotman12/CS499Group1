@@ -2,6 +2,7 @@
 <!-- ISSUES: Line 70-71 True and False values printed as string. Need to handle this.-->
 <?php
     include "dataFormat.php";
+    $formatted_info = getAgentInfo();
 ?>
 
 <html>
