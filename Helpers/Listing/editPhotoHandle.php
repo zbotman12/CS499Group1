@@ -24,7 +24,7 @@
 
 	//Get all images.
 	$images = scandir($upload_dir);
-	var_dump($images);
+	//var_dump($images);
 
 	unset($images[0]);
 	unset($images[1]);
