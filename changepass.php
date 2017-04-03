@@ -43,9 +43,11 @@
 				
 				<input type='submit' name='Submit' value='Submit' /> <br/>
 				<br/>
+				<!--We don't really need session test anymore. Uncommented in case we need to test. - Michael
 				<a href="./sessiontest.php" class="btn btn-default">
 					Session Test
-				</a> 
+				</a>
+				--> 
 			</form>
 		</div>
         <?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php"; ?>

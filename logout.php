@@ -22,12 +22,16 @@
 		<hr/>
 		<p style="margin-bottom: 0;">You have been logged out!</p>
 		<br/>
+		<!-- We don't really need session test anymore. Uncommented in case we need to test. - Michael
 		<a href="./sessiontest.php" class="btn btn-default">
 			Session Test
-		</a> 
+		</a>
+		--> 
+		<!-- Change password looks weird after signing out. Uncommented for now. - Michael
 		<a href="./changepass.php" class="btn btn-default">
 			Change Password
 		</a>
+		-->
 	</div>
 	<br/>
 	<?php include "footer.php";?>

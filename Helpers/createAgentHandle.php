@@ -8,7 +8,7 @@
 
     function createAgent() {
 
-        include './DBTransactor/DBTransactorFactory.php';
+        include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 
         //Test
         //print_r($_POST);

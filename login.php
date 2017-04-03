@@ -27,9 +27,10 @@
 			
 			<input type='submit' name='Submit' value='Submit' />
 		</form>
-		<a href="./changepass.php" class="btn btn-default">
+		<!-- Remove change password from login. In this part of login, maybe we could include a forgot your password kind of thing. - Michael
+			<a href="./changepass.php" class="btn btn-default">
 			Change Password
-		</a>
+		</a> -->
 		<a href="./createagent.php" class="btn btn-default">
 			Create New Agent
 		</a>

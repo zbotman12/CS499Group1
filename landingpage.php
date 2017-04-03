@@ -93,6 +93,9 @@
 			<a href="./Listing/agentListingDisplay.php" class='btn btn-default'>
 				View your listings
 			</a>
+			<a href="./changepass.php" class="btn btn-default">
+			Change Password
+			</a> 
 		<?php } else { ?>
 			<!--Display these options only if user is not logged in-->
 			<a href="/login.php" class="btn btn-default">
@@ -100,12 +103,13 @@
 			</a>
 		<?php } ?>
 		
-		<!--<a href="./sessiontest.php" class="btn btn-default">
+		<!-- I've commented these out. We don't need these unless we're testing. - Michael
+		<a href="./sessiontest.php" class="btn btn-default">
 			Session Test
 		</a>-->
-		<a href="./changepass.php" class="btn btn-default">
+		<!-- <a href="./changepass.php" class="btn btn-default">
 			Change Password
-		</a>
+		</a> -->
 	</div>
 	<br/>
 <?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php"; ?>

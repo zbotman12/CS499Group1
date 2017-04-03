@@ -18,14 +18,14 @@
 <head>		
 	<title>Edit Listing Photos</title>
 	<?php  //var_dump($_GET);
-		include $_SERVER['DOCUMENT_ROOT'] . "Helpers/dataRetriever.php";
+		include $_SERVER['DOCUMENT_ROOT'] . "../Helpers/dataRetriever.php";
 	?>
 </head>
 <body>
-	 <?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php" ?>
+	 <?php  include $_SERVER['DOCUMENT_ROOT'] . "../header.php" ?>
 	<div class="container-fluid">
 		<!-- action_page.php is a php file that handles the submitted input -->
-		<form action="/Helpers/Listing/editPhotoHandle.php" method="post" enctype="multipart/form-data" >
+		<form action="../Helpers/Listing/editPhotoHandle.php" method="post" enctype="multipart/form-data" >
 			<fieldset>
 				<h2>Listing Photos</h2>
 				<hr/>
@@ -55,6 +55,6 @@
 			</fieldset>
 		</form>
 	</div>
-	 <?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php" ?>
+	 <?php  include $_SERVER['DOCUMENT_ROOT'] . "../footer.php" ?>
 </body>
 </html>		

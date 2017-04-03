@@ -6,7 +6,7 @@
         operations.
     */
     //Find the first .ini file on the system from this list and use that
-    $filepaths = array('/var/www/config.ini','D:\wamp64\www\config.ini', 'C:\wamp64\www\config.ini');
+    $filepaths = array('/var/www/config.ini','D:\wamp64\www\config.ini', 'C:\wamp64\www\config.ini', $_SERVER['DOCUMENT_ROOT'] . "/config.ini");
     $config = null;
     foreach ($filepaths as $k => $v) {
         if(file_exists($v))

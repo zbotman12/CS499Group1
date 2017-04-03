@@ -34,7 +34,7 @@
 		</thead>
 		<tbody>
 		  <?php
-			foreach (GetShowingsArrays() as $key => $value)
+		  	foreach ((array) GetShowingsArrays() as $key => $value)
 			{
 				//(RYAN): We may want to format these dates and times better.
 			  echo "<tr>";
