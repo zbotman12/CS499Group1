@@ -56,9 +56,10 @@
 
 			$_SESSION['name'] = $username;
 			//echo "You have been logged in.<br/>Hello, " . $username ."!<br/>";
-
-
-			$_SESSION['number'] = rand(1, 10);
+		$getId= $agents->select(['agent_id'],['user_login' => $username]);
+		$id=array_pop($getId);
+			
+		$_SESSION['number'] = $id['agent_id'];
 			//echo "Your number is " . $_SESSION['number'] . "!<br/>";
 
 		} else {
@@ -72,7 +73,7 @@
 </head>
 <body>
 	<?php Login(); ?>
-<?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php"; ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<div class="container-fluid">
 		<h2>Login</h2>
 		<hr/>
@@ -112,5 +113,5 @@
 		</a> -->
 	</div>
 	<br/>
-<?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php"; ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>

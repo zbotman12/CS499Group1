@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include "DBTransactor/DBTransactorFactory.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 
     //This function gets the listing data as an array for a listing with MLS number $_GET['MLS']
     function GetListingArray()
@@ -124,7 +124,7 @@ function GetFilePathArray()
 		exit();
 	}
 	$FilePathArray = null;
-	$dir = "Listing/photos/" .  $_GET['MLS'] . "/";
+	$dir = "./../Listing/photos/" .  $_GET['MLS'] . "/";
 	if (is_dir($dir))
 	{
 		if ($dh = opendir($dir))
@@ -156,7 +156,7 @@ function GetFilePathArray()
             exit();
         }
         $FilePathArray = null;
-        $dir = "photos/" .  $_GET['MLS'] . "/";
+        $dir = "./../Listing/photos/" .  $_GET['MLS'] . "/";
         if (is_dir($dir))
         {
             if ($dh = opendir($dir))

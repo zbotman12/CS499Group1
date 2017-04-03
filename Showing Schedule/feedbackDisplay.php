@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-    include "FeedbackDataRetriever.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/FeedbackDataRetriever.php";
 ?>
 <html>
 <head>
@@ -13,8 +13,9 @@
 
 </head>
 <body>
+	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<!-- action_page.php is a php file that handles the submitted input -->
-	<form action="feedbackHandle.php" method="post" >
+	<form action="/Helpers/Showing Schedule/feedbackHandle.php" method="post" >
 		<fieldset>
 		<legend></legend>
 		Is the customer interested in the property?<br>
@@ -46,6 +47,7 @@
 	<b>Code: <?php echo $info[7]?></b>
 	<b>Customer Name: <?php echo $info[5]." ".$info[6]?></b>
 	<b></b>
+	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 <?php 
 /*function checkExist($location)
 {

@@ -99,11 +99,11 @@
 	<title>Listing Edit</title>
 </head>
 <body>
-	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php" ?>
+	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<div class="container-fluid">
 		<h2>Listing Edit</h2>
 		<hr/>
 		<p>Edit successful</p>
 	</div>
-	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php" ?>
+	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>

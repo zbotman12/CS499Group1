@@ -11,6 +11,19 @@
             href=formattingFileShowingSchedule.css
             type="text/css"
             rel="stylesheet">
+			
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$(".thousandChars").keyup(function(){
+				  $(this).next().text("Characters remaining: " + (1000 - $(this).val().length));
+				});
+				$(".threeHundredChars").keyup(function(){
+				  $(this).next().text("Characters remaining: " + (300 - $(this).val().length));
+				});
+			});
+		</script>
+		
         <!-- <meta charset="UTF-8"> -->
         <title>Edit Listing</title>
 
@@ -33,7 +46,7 @@
     </head>
 
     <body>
-        <?php  include $_SERVER['DOCUMENT_ROOT'] . "../header.php" ?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
         <!-- action_page.php is a php file that handles the submitted input --> 
 		<div class="container-fluid">
 			<form action="../Helpers/Listing/editListingHandle.php" method="get" enctype="multipart/form-data">
@@ -64,17 +77,21 @@
 				<label class= "field" for="number_of_bathrooms">Number of Bathrooms:</label><br>
 				<input type="text" name="number_of_bathrooms" value="<?php echo $data['number_of_bathrooms']; ?>"><br><br>
 				
-				<label class= "field" for="room_desc">Room Descriptions:</label><br>
-				<textarea name="room_desc" rows="10" cols="30"><?php echo $data['room_desc']; ?> </textarea><br>
-				
 				<label class= "field" for="listing_desc">Description:</label><br>
-				<textarea name="listing_desc" rows="10" cols="30"><?php echo $data['listing_desc']; ?> </textarea><br><br>
+				<textarea name="listing_desc" rows="10" cols="30" class="thousandChars"><?php echo $data['listing_desc']; ?></textarea>
+				<p class="remainingChars">Characters remaining: 1000</p>
+				
+				<label class= "field" for="room_desc">Room Descriptions:</label><br>
+				<textarea name="room_desc" rows="10" cols="30" class="thousandChars"><?php echo $data['room_desc']; ?></textarea>
+				<p class="remainingChars">Characters remaining: 1000</p>
 				
 				<label class= "field" for="additional_info">Location Description:</label><br>
-				<textarea name="additional_info" rows="10" cols="30"><?php echo $data['additional_info']; ?> </textarea><br><br>
+				<textarea name="additional_info" rows="10" cols="30" class="thousandChars"><?php echo $data['additional_info']; ?></textarea>
+				<p class="remainingChars">Characters remaining: 1000</p>
 				
-				<label class= "field" for="agent_only_info">Alarm Information:</label><br>
-				<input type="text" name="agent_only_info" value="<?php echo $data['agent_only_info']; ?>">
+				<label class= "field" for="agent_only_info">Agent-Only Information:</label><br>
+				<textarea name="agent_only_info" rows="10" cols="30" class="threeHundredChars"><?php echo $data['agent_only_info']; ?></textarea>
+				<p class="remainingChars">Characters remaining: 300</p>
 				
 				<input type="hidden" name = "MLS" value=" <?php echo $_GET['MLS'];?>"><br><br>
 				<input type="submit" value="Continue">
@@ -83,6 +100,6 @@
 			</form>
 		</div>
 		<br/>
-        <?php  include $_SERVER['DOCUMENT_ROOT'] . "../footer.php" ?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
     </body>
 </html>

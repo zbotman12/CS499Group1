@@ -12,7 +12,7 @@
 	<title>Listing Photos</title>
 </head>
 <body>
- <?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php" ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<!-- action_page.php is a php file that handles the submitted input -->
 	<div class="container-fluid">
 		<form action="/Helpers/Listing/photoHandle.php" method="post" enctype="multipart/form-data" >
@@ -34,6 +34,6 @@
 		</form>
 	</div>
 	<br/>
- <?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php" ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>
 </html>

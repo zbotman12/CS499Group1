@@ -8,7 +8,7 @@
 	</style>
 </head>
 <body>
-	<?php include "header.php"; ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<!--http://www.html-form-guide.com/php-form/php-login-form.html-->
 	<div class="container-fluid">
 		<form id="login" action="landingpage.php" method="post">
@@ -36,5 +36,5 @@
 		</a>
 	</div>
 	<br/>
-	<?php include "footer.php"; ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>

@@ -7,7 +7,7 @@
 	</head>
     <body>
         <?php
-            include $_SERVER['DOCUMENT_ROOT'] . "/header.php";
+            include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php";
             include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 
             $agentTable  = DBTransactorFactory::build("Agents");
@@ -56,6 +56,6 @@
             <input type="hidden" name = "user_login" value=" <?php echo $agent['user_login'];?>"><br><br>
             <input type='submit' name='Submit' value='Submit' /> <br/>
         </form>
-        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php" ?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
     </body>    
 </html>

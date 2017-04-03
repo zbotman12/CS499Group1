@@ -1,5 +1,5 @@
 <?php
-	include "../DBTransactor/DBTransactorFactory.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 	
 	
 	function get_FeedbackInfo()

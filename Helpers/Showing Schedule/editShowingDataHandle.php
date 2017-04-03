@@ -95,7 +95,7 @@ function handleShowingData(){
 			$feedback->update($feedback_array, $feedback_cond);
 			
 		}
-		header('location: ./../showings.php?MLS=' . $_POST['MLS']);
+		//header('location: ./../showings.php?MLS=' . $_POST['MLS']);
 	} catch (Exception $e) {
 		echo $e->getMessage() . "<br/>";
 	}

@@ -16,7 +16,7 @@
 </head>
 <body>
 	<?php Logout(); ?>
-	<?php include "header.php";?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<div class="container-fluid">
 		<h2>Logout</h2>
 		<hr/>
@@ -34,5 +34,5 @@
 		-->
 	</div>
 	<br/>
-	<?php include "footer.php";?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>

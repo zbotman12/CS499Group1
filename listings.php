@@ -128,7 +128,7 @@
 </head>
 
 <body>
-	<?php include "header.php"; ?>	
+	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<div class="container-fluid">
 		<h2>Listings</h2>
 		<hr/>
@@ -180,5 +180,5 @@
 		?>
 		<!--End listings display loop-->
 	</div>
-	<?php include "footer.php"; ?>
+	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>

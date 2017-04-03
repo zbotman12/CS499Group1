@@ -16,7 +16,7 @@ $formatted_info = getDefinedAgentInfo($previous_data_array["SA_id"]);
 <script src="/js/dateFilter.js"></script>
 </head>
 <body>
-
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 <!-- action_page.php is a php file that handles the submitted input --> 
 <form action="/Helpers/Showing Schedule/editShowingDataHandle.php" method="post">
 Start Time:<select name='startHour'>
@@ -107,6 +107,6 @@ or show text field when "other" is selected-->
   <input type="hidden" name="original_SA" value= "<?php echo $previous_data_array["SA_id"];?>">
   <input type="submit" value="Submit" name="Submit" onClick = "valid()">
 </form>
-
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>
 </html>

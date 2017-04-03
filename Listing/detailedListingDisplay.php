@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-<?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php"; ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 <div class="container-fluid">
     <div class="header row">
         <h1 class="text-center">
@@ -168,6 +168,6 @@
         </div>
     </div>
 </div>
-<?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php"; ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body> 
 </html>

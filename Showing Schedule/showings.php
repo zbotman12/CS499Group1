@@ -13,7 +13,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php"; ?>
+	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<div class="container-fluid">
 	  <h2>Showings for <?php echo GetData('address', 'Listings') . ", " . GetData('city', 'Listings') . ", " . GetData('state', 'Listings');?></h2>
 	  <table class="table table-hover table-responsive">
@@ -34,7 +34,7 @@
 		</thead>
 		<tbody>
 		  <?php
-			foreach (GetShowingsArrays() as $key => $value)
+			foreach ((array)GetShowingsArrays() as $key => $value)
 			{
 			  $agentInfo=GetAgentandCompanyName(GetShowingData('showing_agent_id', $key));
 			  
@@ -63,6 +63,6 @@
 	  <a class="btn btn-default" href="/Showing Schedule/newShowingDisplay.php?MLS=<?php echo $_GET['MLS']; ?>">Add A Showing</a>
 	  <a class="btn btn-default" href="/Listing/detailedListingDisplay.php?MLS=<?php echo $_GET['MLS']; ?>">View Listing</a>
 	</div>
-	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php"; ?>
+	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>
 </html>

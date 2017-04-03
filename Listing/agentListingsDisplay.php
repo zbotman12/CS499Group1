@@ -29,7 +29,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php" ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 <div class="container-fluid">
   <h2>Listings for <?php echo $agent['user_login']; ?></h2>
   <!-- We need to change this-->
@@ -66,6 +66,10 @@
           $view  = "<td>" . "<form method='get' action='/Listing/detailedListingDisplay.php' class 'inline'>";
           $view1 = "<button type='submit' name='MLS' value='";
           $view2 = "'>View</a></form></td>";
+		  
+		  $showings = "<td>" . "<form method='get' action='/Showing Schedule/showings.php' class 'inline'>";
+          $showings1 = "<button type='submit' name='MLS' value='";
+          $showings2 = "'>Showings</a></form></td>";
 
           /*
           $view  = "<td>" . "<a class='btn btn-default' href='../detailedlisting.php?MLS='";
@@ -81,9 +85,12 @@
               echo "<td>" . $array['city']    . "</td>";
               echo "<td>" . $array['state']   . "</td>";
 
-              //View Listing
+              //View Detailed Listing
               //echo "<td>" . "<a class='btn btn-default' href='../detailedlisting.php?MLS='" . $_GET['MLS'] . "'>View</a></td>";
               echo $view . $view1 . $mls . $view2; 
+			  
+			  //View Showings
+			  echo $showings . $showings1 . $mls . $showings2; 
 
               //Edit Listing
               echo $editListing . $editListing1 . $mls . $editListing2;
@@ -97,6 +104,6 @@
     </tbody>
   </table>
 </div>
-<?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php" ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>
 </html>
