@@ -33,7 +33,7 @@ function handleShowingData(){
 		$endMin = test_input($_POST["endMin"]);
 		$endTime = test_input($_POST["endTime"]);
 		$date = test_input($_POST["date"]);
-		$occupy = intval($_POST["occupy"]);
+		$occupy = $_POST["occupy"];
 		$fname = test_input($_POST["fname"]);
 		$lname = test_input($_POST["lname"]);
 		$code = test_input($_POST["code"]);

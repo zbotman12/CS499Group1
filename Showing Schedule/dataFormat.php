@@ -79,12 +79,12 @@ function getPreviousData(){
 				
 			if($occupied == 1)
 			{
-				$occupied = true;
+				$occupied = 1;
 				$tempOccupy="Yes";
 			}
 			else
 			{
-				$occupied = false;
+				$occupied = 0;
 				$tempOccupy="No";
 			}
 			

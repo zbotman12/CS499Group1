@@ -84,9 +84,9 @@ or show text field when "other" is selected-->
   <br/>
   Date (MM/DD/YYYY): <input type="text" name="date" id="date_input" value="<?php echo $previous_data_array["date"]; ?>"><br>
     Is home occupied?<select name='occupy'>
-    	<option value="<?php echo $previous_data_array["occupied"]; ?>"><?php echo $previous_data_array["tempOccupy"]; ?></option>
-  		<option value=true>Yes</option>
-  		<option value=false>No</option>
+    	<option value=<?php echo $previous_data_array["occupied"]; ?>><?php echo $previous_data_array["tempOccupy"]; ?></option>
+  		<option value=1>Yes</option>
+  		<option value=0>No</option>
   </select>
   <br/>
   Select Showing Agent:
