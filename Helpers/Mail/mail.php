@@ -128,7 +128,7 @@
             
             // Get Agent information
             $sel = ['first_name', 'last_name', 'email'];
-            $result = $agentsTable->select($sel, ["agent_id" => $messageArray['showing_agent_id']]);
+            $result = $agentsTable->select($sel, ["agent_id" => $messageArray['Agents_listing_agent_id']]);
             
             // Check if we actually got something.
             if (empty($result)) {

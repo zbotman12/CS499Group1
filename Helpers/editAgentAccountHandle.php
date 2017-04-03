@@ -21,7 +21,6 @@
             // Update the agent.
             $agents->update($_POST, ["user_login" => $_POST['user_login']]);
             
-            // Direct user to their listings.
             header("Location: ../listings.php");
         } catch(Exception $e) {
             echo $e->getMessage() . "<br\>";
