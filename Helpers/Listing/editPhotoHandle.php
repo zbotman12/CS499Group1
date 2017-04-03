@@ -18,15 +18,80 @@
 
 
 	if (!file_exists($upload_dir)) {
-		echo "called";
+		//echo "called";
 		mkdir($upload_dir, 0777, true);  //create directory if not exist
 	}
 
+	//Get all images.
+	$images = scandir($upload_dir);
+	var_dump($images);
+
+	unset($images[0]);
+	unset($images[1]);
+
+	//var_dump($images);
+
 	for($i = 1; $i <= 6; $i++)
 	{
-		$image_name=basename($_FILES['file'.$i]['name']);
-		$image=time().'_'.$image_name;
-		move_uploaded_file($_FILES['file'.$i]['tmp_name'],$upload_dir.$image);
+
+		if (empty($images)) {
+			// Get image. 
+			$image_name=basename($_FILES[$i]['name']);
+			
+			//Add full path
+			$path = $upload_dir . $image_name;
+
+			//Upload image.
+			move_uploaded_file($_FILES[$i]['tmp_name'],$upload_dir.$image_name);
+
+			//Rename image in directory.
+			$ext = pathinfo($path, PATHINFO_EXTENSION);
+
+			// Rename image.
+			rename($path, $upload_dir . $i . "." . $ext);
+
+		} else {
+
+			//Get image
+			$image_name=basename($_FILES[$i]['name']);
+			
+			//If no image to replace, continue to next loop iteration.
+			if(empty($image_name)) {
+				continue;
+			}
+
+			// Else, assume file exists. 
+			// File formats.
+			$jpeg = $upload_dir . $i . "." . "jpeg";
+			$png  = $upload_dir . $i . "." . "png";
+			$jpg  = $upload_dir . $i . "." . "jpg";
+			$gif  = $upload_dir . $i . "." . "gif";
+			$formats = [$jpg, $upload_dir . $jpeg, $upload_dir . $jpg, $gif];
+
+			foreach ($formats as $file) {
+				// Delete this file if it exists.
+				if (file_exists($file)) {
+					//var_dump($file);
+					unlink($file);
+				}
+			}
+
+			//var_dump($image_name);
+			//var_dump($i);
+			
+			//Add full path
+			$path = $upload_dir . $image_name;
+
+			//Upload image.
+			move_uploaded_file($_FILES[$i]['tmp_name'],$upload_dir.$image_name);
+
+			//Rename image in directory.
+			$ext = pathinfo($path, PATHINFO_EXTENSION);
+
+			// Rename image.
+			rename($path, $upload_dir . $i . "." . $ext);		
+		}
+
 	}
 ?>
 

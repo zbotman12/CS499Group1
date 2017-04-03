@@ -16,9 +16,20 @@
 	}
 	for($i = 1; $i <= 6; $i++)
 	{
+		// Get image. 
 		$image_name=basename($_FILES['file'.$i]['name']);
-		$image=time().'_'.$image_name;
-		move_uploaded_file($_FILES['file'.$i]['tmp_name'],$upload_dir.$image);
+		
+		//Add full path
+		$path = $upload_dir . $image_name;
+
+		//Upload image.
+		move_uploaded_file($_FILES['file'.$i]['tmp_name'],$upload_dir.$image_name);
+
+		//Rename image in directory.
+		$ext = pathinfo($path, PATHINFO_EXTENSION);
+
+		// Rename image.
+		rename($path, $upload_dir . $i . "." . $ext);
 	}// upload file
 ?>
 

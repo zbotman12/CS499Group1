@@ -31,22 +31,22 @@
 				<hr/>
 				<p>Select image to upload:</p>
 				<br/>
-				<input type="file" name="file1">
+				<input type="file" name="1">
 				<img src="<?php echo checkExist(0);?>" style="width:200px;height:100px;">
 				<hr/>
-				<input type="file" name="file2" > 	
+				<input type="file" name="2" > 	
 				<img src="<?php echo checkExist(1);?>" style="width:200px;height:100px;">
 				<hr/>
-				<input type="file" name="file3"> 	
+				<input type="file" name="3"> 	
 				<img src="<?php echo checkExist(2);?>" style="width:200px;height:100px;">	
 				<hr/>
-				<input type="file" name="file4"> 
+				<input type="file" name="4"> 
 				<img src="<?php echo checkExist(3);?>" style="width:200px;height:100px;">	
 				<hr/>
-				<input type="file" name="file5"> 
+				<input type="file" name="5"> 
 				<img src="<?php echo checkExist(4);?>" style="width:200px;height:100px;">	
 				<hr/>
-				<input type="file" name="file6">
+				<input type="file" name="6">
 				<img src="<?php echo checkExist(5);?>" style="width:200px;height:100px;">
 				<hr/>
 				<input type="submit" value="Continue">
