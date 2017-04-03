@@ -257,6 +257,7 @@ class DB_Agents extends Paragon implements DBTransactor {
 		$query = "UPDATE " . $this->AGENTS_TABLE . " SET " . $columns . " WHERE " . $condition . ";";
 		$results = $this->connection->query($query);
 
+		var_dump($results);
 		return $results;
 	}
 	/* delete()           -> Deletes an entry from the database

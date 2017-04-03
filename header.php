@@ -46,6 +46,11 @@
 	<?php } else { ?>
 		<!--If session is set-->
 		<a href="http://
+		<?php echo $_SERVER['SERVER_NAME'] . "/agentaccount.php"; ?>
+		" class="btn">
+			My Account
+		</a>
+		<a href="http://
 		<?php echo $_SERVER['SERVER_NAME'] . "/Listing/agentListingsDisplay.php"; ?>
 		" class="btn">
 			My Listings
