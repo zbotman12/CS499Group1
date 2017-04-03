@@ -71,7 +71,7 @@
         } else {
             //That means user doesn't exist and this will be serious error
             //We must ensure that we get the username for agent correctly
-            echo "Could not change your password. Agent does not exist in database. Please input your password or contact your system administrator.<br/>";
+            echo "Could not change your password. Please input your password or contact your system administrator for additional help.<br/>";
         }
 
         unset($password);
