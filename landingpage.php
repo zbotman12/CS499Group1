@@ -57,8 +57,10 @@
 			$_SESSION['name'] = $username;
 			//echo "You have been logged in.<br/>Hello, " . $username ."!<br/>";
 
-
-			$_SESSION['number'] = rand(1, 10);
+			$getId= $agents->select(['agent_id'],['user_login' => $username]);
+			$id=array_pop($getId);
+			
+			$_SESSION['number'] = $id['agent_id'];
 			//echo "Your number is " . $_SESSION['number'] . "!<br/>";
 
 		} else {
