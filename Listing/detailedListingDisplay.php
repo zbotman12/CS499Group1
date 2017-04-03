@@ -30,14 +30,24 @@
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
               <!-- Indicators -->
               <ol class="carousel-indicators">
-                  <?php
+                    <?php
                         $active_item = "class='active'";
                         $count = 0;
-                        foreach (GetFilePathArray() as $filepath)
-                        {
+                        
+                        $directories = GetFilePathArray();
+                        
+                        //var_dump($directories);
+                        if(is_array($directories)){
+                            foreach ($directories as $filepath)
+                            {
+                                echo "<li data-target='#myCarousel' data-slide-to='" . $count . "' " . $active_item . "></li>";
+                                $active_item = "";
+                                $count = $count + 1;
+                            }
+                        }
+                        else {
                             echo "<li data-target='#myCarousel' data-slide-to='" . $count . "' " . $active_item . "></li>";
                             $active_item = "";
-                            $count = $count + 1;
                         }
                     ?>
               </ol>
@@ -46,10 +56,20 @@
               <div class="carousel-inner" role="listbox">
                   <?php
                         $active_item = " active";
-                        foreach (GetFilePathArray() as $filepath)
-                        {
+                        $directories = GetFilePathArray();
+
+                        if (is_array($directories)) {
+                            foreach ($directories as $filepath)
+                            {
+                                echo "<div class='item" . $active_item . "'>";
+                                //echo $filepath;
+                                echo "<img class='d-block center-block CarouselImg' src='" . $filepath . "' alt='HouseImage'></div>";
+                                $active_item = "";
+                            }  
+                        } else {
                             echo "<div class='item" . $active_item . "'>";
-                            echo "<img class='d-block center-block CarouselImg' src='" . $filepath . "' alt='HouseImage'></div>";
+                            //echo $_SERVER['DOCUMENT_ROOT'];
+                            echo "<img class='d-block center-block CarouselImg' src='../Helpers/Images/noimage.png'" . " alt='HouseImage'></div>";
                             $active_item = "";
                         }
                     ?>

@@ -8,6 +8,7 @@ $agent_only_info = $agency = $agent = $city = $state = $zip = $num_bathrooms =
 $num_bedrooms = "";
 
 //clean and set all the inputs
+var_dump($_POST);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$price = test_input($_POST["price"]);
 	$desc = test_input($_POST["desc"]);

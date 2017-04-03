@@ -90,7 +90,7 @@
 			<a href="./Listing/createListingDisplay.php" class="btn btn-default">
 				Add A New Listing
 			</a>
-			<a href="./Listing/agentListingDisplay.php" class='btn btn-default'>
+			<a href="./Listing/agentListingsDisplay.php" class='btn btn-default'>
 				View your listings
 			</a>
 			<a href="./changepass.php" class="btn btn-default">
