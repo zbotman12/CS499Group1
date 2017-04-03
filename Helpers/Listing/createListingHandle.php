@@ -39,10 +39,10 @@ if(!empty(mysqli_query($conn, "SELECT MLS_number FROM Listings WHERE address='$a
 {
 	echo "House already listed. <br>";
 	//Go ahead with the current listed house and move on to pictures page
-
-	$mls = $result->fetch_array()["MLS_number"];
-	$_SESSION['temp_MLS'] = $mls;//mysqli_query($comm, $sql);
-	header('location: ../../Listing/photoUploadDisplay.php');
+	//$mls = $result->fetch_array()["MLS_number"];
+	//$_SESSION['temp_MLS'] = $mls;//mysqli_query($comm, $sql);
+	
+	header('location: ../../Listing/houseAlreadyListedDisplay.php');
 	exit;
 }
 
@@ -81,4 +81,5 @@ function test_input($data) {
 	$data = htmlspecialchars($data);
 	return $data;
 }
+
 ?>
