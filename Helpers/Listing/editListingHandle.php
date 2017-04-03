@@ -30,7 +30,7 @@
             // Delete old index
             unset($_GET['MLS']);
             
-            var_dump($_GET);
+            //var_dump($_GET);
 
             // Update the listing.
             $listings->update($_GET, ["MLS_number" => $_GET['MLS_number']]);
