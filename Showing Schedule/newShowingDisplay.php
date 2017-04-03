@@ -2,6 +2,7 @@
 <!-- ISSUES: Line 70-71 True and False values printed as string. Need to handle this.-->
 <?php
     include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/dataFormat.php";
+    $formatted_info = getAgentInfo();
 ?>
 
 <html>
@@ -72,8 +73,8 @@ or show text field when "other" is selected-->
 	<br/>
   	Date (MM/DD/YYYY): <input type="text" name="date" id="date_input" required><br>
     Is home occupied?<select name='occupy'>
-  		<option value=true>Yes</option>
-  		<option value=false>No</option>
+  		<option value=1>Yes</option>
+  		<option value=0>No</option>
   	</select>
   	<br/>
     <!-- possibly auto fill the name and company with listing agent info -->
@@ -88,7 +89,7 @@ or show text field when "other" is selected-->
 	</select><br>
   	Customer First Name:<input type="text" name="fname"><br>
   	Customer Last Name:<input type="text" name="lname"><br>
-  	Lock Box Code:<input type="text" name="code"><br>
+  	Lock Box Code:<input type="text" name="code" value="N/A"><br>
   	<input type="hidden" name="MLS" value="<?php echo $_GET['MLS']; ?>">
   	<input type="submit" value="Submit" name="Submit" onClick="return isValid()"/>
 </form>

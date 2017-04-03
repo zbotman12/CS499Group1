@@ -256,8 +256,6 @@ class DB_Agents extends Paragon implements DBTransactor {
 
 		$query = "UPDATE " . $this->AGENTS_TABLE . " SET " . $columns . " WHERE " . $condition . ";";
 		$results = $this->connection->query($query);
-
-		var_dump($results);
 		return $results;
 	}
 	/* delete()           -> Deletes an entry from the database
@@ -332,6 +330,8 @@ class DB_Agents extends Paragon implements DBTransactor {
 		}
 	}
 	
+	// added by Cray. Returns array of elements based on alphabetically order
+	// last name
 	public function select_with_order($array, $cond) {
 		$isThere = false;
 		$result_array = Array();
@@ -388,7 +388,8 @@ class DB_Agents extends Paragon implements DBTransactor {
 			return $result_array;
 		}
 	}
-	
+
+	// added by Cray. Returns array of elements where not.
 	public function select_where_not($array, $cond) {
 		$isThere = false;
 		$result_array = Array();

@@ -34,8 +34,10 @@
 		</thead>
 		<tbody>
 		  <?php
-		  	foreach ((array) GetShowingsArrays() as $key => $value)
+			foreach (GetShowingsArrays() as $key => $value)
 			{
+			  $agentInfo=GetAgentandCompanyName(GetShowingData('showing_agent_id', $key));
+			  
 				//(RYAN): We may want to format these dates and times better.
 			  echo "<tr>";
 			  echo "<td class='text-center'>" . date( "F dS\\, Y", strtotime(GetShowingData('start_time', $key))) . "</td>";
@@ -47,11 +49,11 @@
 					echo "<td class='text-center'>False</td>";
 				}
 				echo "<td class='text-center'>" . GetShowingData('customer_first_name', $key) . " " . GetShowingData('customer_last_name', $key) . "</td>";
-				echo "<td class='text-center'>" . GetShowingData('showing_agent_name', $key) . "</td>";
-				echo "<td class='text-center'>" . GetShowingData('showing_agent_company', $key) . "</td>";
+				echo "<td class='text-center'>" . $agentInfo["full_name"] . "</td>";
+				echo "<td class='text-center'>" . $agentInfo["company_name"] . "</td>";
 				echo "<td class='text-center'>" . GetShowingData('lockbox_code', $key) . "</td>";
 				echo "<td class='text-center'><a href='/Showing Schedule/editShowingDisplay.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'>[pencil]</a></td>";
-			  echo "<td class='text-center'><a href=''>[notepad]</a></td>";
+			  echo "<td class='text-center'><a href='/Showing Schedule/feedbackDisplay.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'>[notepad]</a></td>";
 			  echo "<td class='text-center'><a href='/Helpers/Showing Schedule/deleteShowingHandle.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'>[x]</a></td>";
 			  echo "</tr>";
 			}

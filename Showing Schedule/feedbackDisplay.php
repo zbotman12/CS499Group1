@@ -27,14 +27,14 @@
 		<input type="radio" name="experience" value=3 <?php if($info[1]==3){echo "checked";}?>>Good
 		<input type="radio" name="experience" value=4 <?php if($info[1]==4){echo "checked";}?>>Excellent<br>
 		What is your opinion of the price?<br>
-		<input type="radio" name="price" value=0 <?php if($info[2]==0){echo "checked";}?>>Very Poor
-		<input type="radio" name="price" value=1 <?php if($info[2]==1){echo "checked";}?>>Poor
-		<input type="radio" name="price" value=2 <?php if($info[2]==2){echo "checked";}?>>Average
-		<input type="radio" name="price" value=3 <?php if($info[2]==3){echo "checked";}?>>Good
-		<input type="radio" name="price" value=4 <?php if($info[2]==4){echo "checked";}?>>Excellent<br>
+		<textarea name="opinion" rows="3" cols="30"> <?php echo $info[2];?>
+    	</textarea><br>
+	
 		<label class= "field" for="additional">Additional Comments:</label><br>
     	<textarea name="additional" rows="10" cols="30"> <?php echo $info[3];?>
     	</textarea><br>
+    	<input type="hidden" name="showing_id" value="<?php echo $_GET['showing_id']; ?>">
+		<input type="hidden" name="MLS" value="<?php echo $_GET['MLS']; ?>">
 		<input type="submit" value="Continue">
    		<input type="reset">
 		</fieldset>
