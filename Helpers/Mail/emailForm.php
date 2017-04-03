@@ -61,7 +61,8 @@
 					</div> 
 				</div>
 				<!-- Hardcoded for now until we get showings working. -->
-				<input type="hidden" name = "showing_agent_id" value=" <?php echo 1;?>"><br><br>
+				<!-- This needs to email the agent of the listing. All it needs is the listing agent ID. -->
+				<input type="hidden" name = "Agents_listing_agent_id" value=" <?php echo 1;?>"><br><br>
 			<!--end Form-->
 			</form>
 		</div>
