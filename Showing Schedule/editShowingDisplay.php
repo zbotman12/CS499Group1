@@ -16,7 +16,7 @@ $formatted_info = getDefinedAgentInfo($previous_data_array["SA_id"]);
 <script src="dateFilter.js"></script>
 </head>
 <body>
-
+<?php include "../header.php" ?>
 <!-- action_page.php is a php file that handles the submitted input --> 
 <form action="editShowingDataHandle.php" method="post">
 Start Time:<select name='startHour'>
@@ -84,9 +84,9 @@ or show text field when "other" is selected-->
   <br/>
   Date (MM/DD/YYYY): <input type="text" name="date" id="date_input" value="<?php echo $previous_data_array["date"]; ?>"><br>
     Is home occupied?<select name='occupy'>
-    	<option value="<?php echo $previous_data_array["occupied"]; ?>"><?php echo $previous_data_array["tempOccupy"]; ?></option>
-  		<option value=true>Yes</option>
-  		<option value=false>No</option>
+    	<option value=<?php echo $previous_data_array["occupied"]; ?>><?php echo $previous_data_array["tempOccupy"]; ?></option>
+  		<option value=1>Yes</option>
+  		<option value=0>No</option>
   </select>
   <br/>
   Select Showing Agent:
@@ -107,6 +107,6 @@ or show text field when "other" is selected-->
   <input type="hidden" name="original_SA" value= "<?php echo $previous_data_array["SA_id"];?>">
   <input type="submit" value="Submit" name="Submit" onClick = "valid()">
 </form>
-
+<?php include "../footer.php" ?>
 </body>
 </html>

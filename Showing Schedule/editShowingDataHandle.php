@@ -33,7 +33,7 @@ function handleShowingData(){
 		$endMin = test_input($_POST["endMin"]);
 		$endTime = test_input($_POST["endTime"]);
 		$date = test_input($_POST["date"]);
-		$occupy = intval($_POST["occupy"]);
+		$occupy = $_POST["occupy"];
 		$fname = test_input($_POST["fname"]);
 		$lname = test_input($_POST["lname"]);
 		$code = test_input($_POST["code"]);
@@ -88,9 +88,9 @@ function handleShowingData(){
 			// Update feedback info if showing agent changed
 			$feedback_cond= array("Showings_showing_id"=>$showing_id);
 			$feedback_array = Array(
-					"customer_interest_level"=>2,
+					"customer_interest_level"=>0,
 					"showing_agent_experience_level"=>2,
-					"customer_price_opinion"=>2,
+					"customer_price_opinion"=>"",
 					"additional_notes"=>"");
 			$feedback->update($feedback_array, $feedback_cond);
 			

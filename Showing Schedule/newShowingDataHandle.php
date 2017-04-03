@@ -34,7 +34,7 @@ function handleShowingData(){
 		$endMin = test_input($_POST["endMin"]);
 		$endTime = test_input($_POST["endTime"]);
 		$date = test_input($_POST["date"]);
-		$occupy = intval($_POST["occupy"]);
+		$occupy = $_POST["occupy"];
 		$fname = test_input($_POST["fname"]);
 		$lname = test_input($_POST["lname"]);
 		$code = test_input($_POST["code"]);
@@ -83,14 +83,16 @@ function handleShowingData(){
       $showings->insert($array); // add new showing
       $return_name= array("showing_id");
       $showing_info= $showings->select($return_name, $array);
-      
+      $showing_id=array_pop($showing_info);
+      //error_log("break",0);
    	  // Create feedback info for the new showing
-	  $feedback_array = Array("Showings_showing_id"=>$showing_info[1]["showing_id"],
-	  						  "customer_interest_level"=>2,
+	  $feedback_array = Array("Showings_showing_id"=>$showing_id["showing_id"],
+	  						  "customer_interest_level"=>0,
 	  						  "showing_agent_experience_level"=>2,
-	  						  "customer_price_opinion"=>2,
+	  						  "customer_price_opinion"=>"",
 	  						  "additional_notes"=>"");
-	  $feedback->insert($feedback_array);
+	  $msg = $feedback->insert($feedback_array);
+	  error_log("did it work? ".$msg,0);
       header('location: ./../showings.php?MLS=' . $_POST['MLS']);
      } catch (Exception $e) {
       echo $e->getMessage() . "<br/>";  

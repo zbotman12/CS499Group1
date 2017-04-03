@@ -1,0 +1,10 @@
+
+*{
+	font-family: Times;
+	margin: 2 px;
+}
+
+.timeStart{
+	min-width=300px;
+	max-width=400px;
+}

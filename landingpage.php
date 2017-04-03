@@ -1,70 +1,62 @@
 <?php
-	session_start();
-    include "./DBTransactor/DBTransactorFactory.php";
+session_start();
+include "./DBTransactor/DBTransactorFactory.php";
+function Login(){
+	//Start session
+	//Establish Database Connection
+	$agents = DBTransactorFactory::build("Agents");
+	//Check empty username
+	if(empty($_POST['username'])){
+		//echo("UserName is empty!<br/>");
+		return false;
+	}
+	//Check empty pw
+	if(empty($_POST['password'])){
+		//echo("Password is empty!<br/>");
+		return false;
+	}
+	//Extract variables from post
+	$username = $_POST['username'];
+	$password = $_POST['password'];
+	//Check if user exists
+	$userExists = false;
 
-    function Login(){
-    	//Start session
+	$arr = Array("user_login" => $username);
 
-		//Establish Database Connection
-        $agents = DBTransactorFactory::build("Agents");
-
-		//Check empty username
-		if(empty($_POST['username'])){
-			//echo("UserName is empty!<br/>");
-			return false;
-		}
-
-		//Check empty pw
-		if(empty($_POST['password'])){
-			//echo("Password is empty!<br/>");
-			return false;
-		}
-
-		//Extract variables from post
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-
-		//Check if user exists
-		$userExists = false;
-        
-        $arr = Array("user_login" => $username);
-        
-        $result = $agents->select(['*'], $arr);
-
-		if (!empty($result)) {
-			if (count($result) == 1) {
-                $hash = $agents->select(['password'], ['user_login' => $username]);
-                //var_dump($hash);
-                foreach($hash as $key => $val) {
-                    if(password_verify($password, $val['password'])) {
-                        $userExists = true;
-                    } else {
-                        $userExists = false;
-                    }
-                }
-			} else {
-				$userExists = false;
+	$result = $agents->select(['*'], $arr);
+	if (!empty($result)) {
+		if (count($result) == 1) {
+			$hash = $agents->select(['password'], ['user_login' => $username]);
+			//var_dump($hash);
+			foreach($hash as $key => $val) {
+				if(password_verify($password, $val['password'])) {
+					$userExists = true;
+				} else {
+					$userExists = false;
+				}
 			}
 		} else {
-		   //echo("User doesn't exist");
+			$userExists = false;
 		}
-        
-        unset($password);
-		//Start session
-		if($userExists == true) {
-			//session_start(); //PHP gives a warning if session_start() isn't declared at the top. Commented for now.
-
-			$_SESSION['name'] = $username;
-			//echo "You have been logged in.<br/>Hello, " . $username ."!<br/>";
-
-
-			$_SESSION['number'] = rand(1, 10);
-			//echo "Your number is " . $_SESSION['number'] . "!<br/>";
-
-		} else {
-			//echo "User does not exist.  You have not been logged in.<br/>";
-		}
+	} else {
+		//echo("User doesn't exist");
 	}
+
+	unset($password);
+	//Start session
+	if($userExists == true) {
+		//session_start(); //PHP gives a warning if session_start() isn't declared at the top. Commented for now.
+		$_SESSION['name'] = $username;
+		//echo "You have been logged in.<br/>Hello, " . $username ."!<br/>";
+		$getId= $agents->select(['agent_id'],['user_login' => $username]);
+		$id=array_pop($getId);
+			
+		$_SESSION['number'] = $id['agent_id'];
+		//echo "Your number is " . $_SESSION['number'] . "!<br/>";
+	} else {
+		//echo "User does not exist.  You have not been logged in.<br/>";
+	}
+}
 ?>
 
 <head>

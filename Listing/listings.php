@@ -43,6 +43,7 @@
         <th>City</th>
         <th>State</th>
         <th>View</th>
+		<th>Showings</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
@@ -62,6 +63,10 @@
           $view  = "<td>" . "<form method='get' action='../detailedlisting.php' class 'inline'>";
           $view1 = "<button type='submit' name='MLS' value='";
           $view2 = "'>View</a></form></td>";
+		  
+		  $showings = "<td>" . "<form method='get' action='../showings.php' class 'inline'>";
+          $showings1 = "<button type='submit' name='MLS' value='";
+          $showings2 = "'>Showings</a></form></td>";
 
           /*
           $view  = "<td>" . "<a class='btn btn-default' href='../detailedlisting.php?MLS='";
@@ -77,9 +82,12 @@
               echo "<td>" . $array['city']    . "</td>";
               echo "<td>" . $array['state']   . "</td>";
 
-              //View Listing
+              //View Detailed Listing
               //echo "<td>" . "<a class='btn btn-default' href='../detailedlisting.php?MLS='" . $_GET['MLS'] . "'>View</a></td>";
               echo $view . $view1 . $mls . $view2; 
+			  
+			  //View Showings
+			  echo $showings . $showings1 . $mls . $showings2; 
 
               //Edit Listing
               echo $editListing . $editListing1 . $mls . $editListing2;
