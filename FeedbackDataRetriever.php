@@ -50,11 +50,11 @@
 			$vacant, $customer_first_name, $customer_last_name, $code, $showing_agent_id,
 			$first_name, $last_name, $email, $phone);
 	
-	/*ob_start();
+	ob_start();
 	var_dump($dataArray);
 	$result_information = ob_get_clean();
 	error_log($result_information,0);
-	*/
+	
 	return $dataArray;
 	}
 	
