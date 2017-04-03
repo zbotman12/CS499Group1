@@ -86,7 +86,7 @@
 	//Returns <a class="btn btn-default"> linking to the listing's detail page
     function createDetailsLink($MLS) {
     	$toReturn = "";
-    	$toReturn .= "<a class=\"btn btn-default\" href=\"Listing/detailedlistingDisplay.php?MLS=";
+    	$toReturn .= "<a class=\"btn btn-default\" href=\"Listing/detailedListingDisplay.php?MLS=";
 		$toReturn .= $MLS;
 		$toReturn .= "\">";
 		$toReturn .= "Details</a>";
