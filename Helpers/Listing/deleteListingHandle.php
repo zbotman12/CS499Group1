@@ -26,11 +26,11 @@
   }
 ?>
 
-<?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php" ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 <div class="container-fluid">
 	<h2>Delete Listing</h2>
 	<hr/>
 	<?php deleteListing(); ?>
 </div>
 <br/>
-<?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php" ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>

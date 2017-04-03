@@ -5,8 +5,7 @@
 	//define("SITE_NAME","localhost:8080:/"); //constant for project name
 	//define("SITE_PATH",$_SERVER['DOCUMENT_ROOT']."/".SITE_NAME); //constant for project base directory
 	//define("IMAGES_URL",SITE_PATH."/images/"); //constant for image directory
-
-	$upload_base_dir= "../../Listing/photos/";//"/var/www/html/pics/";
+	$upload_base_dir= $_SERVER['DOCUMENT_ROOT'] . "Listing/photos/";//"/var/www/html/pics/";
 	$upload_time_dir=$_SESSION['temp_MLS']."/"; // setup directory name
 	$upload_dir = $upload_base_dir.$upload_time_dir;
 
@@ -37,12 +36,12 @@
 	<title>New Listing</title>
 </head>
 <body>
- <?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php" ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<div class="container-fluid">
 		<h2>Listing Creation</h2>
 		<hr/>
 		Creation complete
 	</div>
 	<br/>
- <?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php" ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>

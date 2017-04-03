@@ -6,7 +6,7 @@
 		<title>Create An Agent Account</title>
 	</head>
     <body>
-        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php" ?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 
         <h2>Create An Agent Account</h2>
 
@@ -61,6 +61,6 @@
             <input type='submit' name='Submit' value='Submit' /> <br/>
         </form>
 
-        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php" ?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
     </body>    
 </html>

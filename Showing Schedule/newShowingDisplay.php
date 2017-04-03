@@ -2,6 +2,7 @@
 <!-- ISSUES: Line 70-71 True and False values printed as string. Need to handle this.-->
 <?php
     include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/dataFormat.php";
+    $formatted_info = getAgentInfo();
 ?>
 
 <html>
@@ -16,9 +17,10 @@
 </script>
 </head>
 <body>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 <!-- action_page.php is a php file that handles the submitted input --> 
 <form name="scheduleForm" action="/Helpers/Showing Schedule/newShowingDataHandle.php" method="post">
-	Start Time:<select name='startHour'>
+	<div class= "timeStart"><b>Start Time:</b><select name='startHour'>
  		<option value="1">1</option>
   	 	<option value="2">2</option>
   	 	<option value="3">3</option>
@@ -42,8 +44,9 @@
 	    <option value="AM">AM</option>
  	    <option value="PM">PM</option>
 	</select>
+	</div>
 	<br/>
-	End Time:<select name='endHour'>
+	<div class= "timeEnd"><b>End Time:</b><select name='endHour'>
  		<option value="1">1</option>
   	 	<option value="2">2</option>
   	 	<option value="3">3</option>
@@ -67,30 +70,36 @@
 	    <option value="AM">AM</option>
  	    <option value="PM">PM</option>
 	</select>
+	</div>
 <!-- For adding the "other" option for manual input, use javascript to hide
 or show text field when "other" is selected--> 
-	<br/>
-  	Date (MM/DD/YYYY): <input type="text" name="date" id="date_input" required><br>
-    Is home occupied?<select name='occupy'>
-  		<option value=true>Yes</option>
-  		<option value=false>No</option>
+	<br/><div class="dateDiv">
+  	<b>Date (MM/DD/YYYY):</b> <input type="text" name="date" id="date_input" required></div><br>
+    <div class="vacant"><b>Is home occupied?</b><select name='occupy'>
+  		<option value=1>Yes</option>
+  		<option value=0>No</option>
   	</select>
-  	<br/>
+  	</div>
+  	<br/><div class="SAgent">
     <!-- possibly auto fill the name and company with listing agent info -->
-  	Select Showing Agent:
-  	<select id="selectSAgent" name='SAgent'>
+  	<b>Select Showing Agent:</b>
+  	<select class="selectAgent" id="selectSAgent" name='SAgent'>
 	    <?php
 	    	foreach($formatted_info as $agent)
 	    	{
 	    		echo "<option value=\"".$agent."\">".$agent."</option>";
 	    	}
 	    ?>  
-	</select><br>
-  	Customer First Name:<input type="text" name="fname"><br>
-  	Customer Last Name:<input type="text" name="lname"><br>
-  	Lock Box Code:<input type="text" name="code"><br>
+	</select></div>
+	<br>
+	<div class="names">
+  	<b>Customer First Name:</b><input type="text" name="fname"><br>
+  	<b>Customer Last Name:</b><input type="text" name="lname"></div><br>
+  	<div class="lock"><b>Lock Box Code:</b><input type="text" name="code" value="N/A"></div><br>
   	<input type="hidden" name="MLS" value="<?php echo $_GET['MLS']; ?>">
   	<input type="submit" value="Submit" name="Submit" onClick="return isValid()"/>
 </form>
+
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>
 </html>

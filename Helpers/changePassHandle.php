@@ -88,11 +88,11 @@
 	<title>Change Your Password</title>
 </head>
 <body>
-	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php"; ?>
+	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<div class="container-fluid">
 		<h2>Change Your Password</h2>
 		<hr/>
 		<?php changePassword(); ?>
 	</div>
-	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php"; ?>
+	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>

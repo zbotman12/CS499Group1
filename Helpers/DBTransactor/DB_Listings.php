@@ -1,4 +1,5 @@
-<?php /*
+<?php
+/*
     File: DB_Listings.php
     Class to create Listings database transactions in ParagonMLS database.
     
@@ -98,12 +99,11 @@
             }     
             
             $ignore = ['submitted', 'Submit'];
-            
+            unset($set_array["MLS"]);
             $columns     = $this->conditionBuilder($set_array, ",", $ignore);
-            $condition   = $this->conditionBuilder($where_array, " AND ", $ignore);
+	    //$condition   = $this->conditionBuilder($where_array, " AND ", $ignore);
             
-            $query = "UPDATE " . $this->LISTINGS_TABLE . " SET " . $columns . " WHERE " . $condition . ";";
-
+		$query = "UPDATE " . $this->LISTINGS_TABLE . " SET " . $columns . " WHERE MLS_number= " . $where_array["MLS_number"] . ";";
             $results = $this->connection->query($query);
 
             return $results;

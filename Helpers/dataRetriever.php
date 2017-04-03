@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include "DBTransactor/DBTransactorFactory.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 
     //This function gets the listing data as an array for a listing with MLS number $_GET['MLS']
     function GetListingArray()
@@ -48,91 +48,105 @@
         return $ShowingArrays[$ShowingIndex][$columnName];
     }
 
-    function GetShowingsCount()
-    {
-        return count(GetShowingsArrays());
-    }
+function GetAgentandCompanyName($SA_id)
+{
+	//error_log("Id = ".$SA_id,0);
+	$agents= DBTransactorFactory::build("Agents");
+	$agencies= DBTransactorFactory::build("Agencies");
+	
+	$agent_info= array("first_name", "last_name", "Agencies_agency_id");
+	$temp_cond= array("agent_id"=>$SA_id);
+	
+	$target_agent=$agents->select($agent_info, $temp_cond);
+	$agent=array_pop($target_agent);
+	$target_company=$agencies->select(['company_name'], ['agency_id'=>$agent["Agencies_agency_id"]]);
+	$agency=array_pop($target_company);
+	
+	$return_array= array();
+	$full_name=$agent["first_name"]." ".$agent["last_name"];
+	$return_array["full_name"]= $full_name;
+	$return_array["company_name"]=$agency["company_name"];
+	
+	return $return_array;
+}
 
-    //This function gets the listing agent data as an array for a listing with MLS number $_GET['MLS']
-    function GetAgentArray()
-    { 
-        $listingArray = GetListingArray();
-        $Agents = DBTransactorFactory::build("Agents");
-
-        if($agentArray = $Agents->select(['*'], ['agent_id' => $listingArray['Agents_listing_agent_id']]))
-        {
-            return $agentArray[$listingArray['Agents_listing_agent_id']];
-        } else {
-            echo "Error: Could not find listing agent in database. <br>" . mysqli_error($conn);
-            return null;
-        }
-    }
-
-    //This function gets the agency data as an array for a listing with MLS number $_GET['MLS']
-    function GetAgencyArray()
-    { 
-        $agentArray = GetAgentArray();
-        $Agencies = DBTransactorFactory::build("Agencies");
-
-        if($agencyArray = $Agencies->select(['*'], ['agency_id' => $agentArray['Agencies_agency_id']]))
-        {
-            return $agencyArray[$agentArray['Agencies_agency_id']];
-        } else {
-            echo "Error: Could not find MLS number in database. <br>" . mysqli_error($conn);
-            return null;
-        }
-    }
-
-    //This function takes a column name and a table name and returns the value found within
-    function GetData($index, $table)
-    {
-        switch ($table) 
-        {   
-            case 'Listings' : $Array = GetListingArray(); break;
-            case 'Agents'   : $Array = GetAgentArray(); break;
-            case 'Agencies' : $Array = GetAgencyArray(); break;
-            default         : return null;
-        }
-
-        if($Array != null && count($Array) > 0)
-        {
-            return $Array[$index];
-        } 
-    }
-
-    //This function returns an array of the filepaths to all photos for a listing with MLS number $_GET['MLS']
-    function GetFilePathArray()
-    { 
-        if(!isset($_GET['MLS']))
-        {
-            echo "ERROR: You are trying to view a detailed listing without an MLS number in the URL.";
-            exit();
-        }
-        $FilePathArray = null;
-        $dir = "./photos/" .  $_GET['MLS'] . "/";
-        if (is_dir($dir))
-        {
-            if ($dh = opendir($dir))
-            {
-                while (($file = readdir($dh)) !== false)
-                {
-                    if(!is_dir($dir . $file) && exif_imagetype($dir . $file))
-                    {
-                        if($FilePathArray == null)
-                        {
-                            $FilePathArray = array($dir . $file);
-                        } else {
-                            array_push($FilePathArray, $dir . $file);
-                        }
-                    }
-                }
-                closedir($dh);
-                return $FilePathArray;
-            }
-        }
-    }
-
-    //USED FOR editPhotoUpload.
+function GetShowingsCount()
+{
+	return count(GetShowingsArrays());
+}
+//This function gets the listing agent data as an array for a listing with MLS number $_GET['MLS']
+function GetAgentArray()
+{
+	$listingArray = GetListingArray();
+	$Agents = DBTransactorFactory::build("Agents");
+	if($agentArray = $Agents->select(['*'], ['agent_id' => $listingArray['Agents_listing_agent_id']]))
+	{
+		return $agentArray[$listingArray['Agents_listing_agent_id']];
+	} else {
+		echo "Error: Could not find listing agent in database. <br>" . mysqli_error($conn);
+		return null;
+	}
+}
+//This function gets the agency data as an array for a listing with MLS number $_GET['MLS']
+function GetAgencyArray()
+{
+	$agentArray = GetAgentArray();
+	$Agencies = DBTransactorFactory::build("Agencies");
+	if($agencyArray = $Agencies->select(['*'], ['agency_id' => $agentArray['Agencies_agency_id']]))
+	{
+		return $agencyArray[$agentArray['Agencies_agency_id']];
+	} else {
+		echo "Error: Could not find MLS number in database. <br>" . mysqli_error($conn);
+		return null;
+	}
+}
+//This function takes a column name and a table name and returns the value found within
+function GetData($index, $table)
+{
+	switch ($table)
+	{
+		case 'Listings' : $Array = GetListingArray(); break;
+		case 'Agents'   : $Array = GetAgentArray(); break;
+		case 'Agencies' : $Array = GetAgencyArray(); break;
+		default         : return null;
+	}
+	if($Array != null && count($Array) > 0)
+	{
+		return $Array[$index];
+	}
+}
+//This function returns an array of the filepaths to all photos for a listing with MLS number $_GET['MLS']
+function GetFilePathArray()
+{
+	if(!isset($_GET['MLS']))
+	{
+		echo "ERROR: You are trying to view a detailed listing without an MLS number in the URL.";
+		exit();
+	}
+	$FilePathArray = null;
+	$dir = "./../Listing/photos/" .  $_GET['MLS'] . "/";
+	if (is_dir($dir))
+	{
+		if ($dh = opendir($dir))
+		{
+			while (($file = readdir($dh)) !== false)
+			{
+				if(!is_dir($dir . $file) && exif_imagetype($dir . $file))
+				{
+					if($FilePathArray == null)
+					{
+						$FilePathArray = array($dir . $file);
+					} else {
+						array_push($FilePathArray, $dir . $file);
+					}
+				}
+			}
+			closedir($dh);
+			return $FilePathArray;
+		}
+	}
+}
+//USED FOR editPhotoUpload.
 //This function returns an array of the filepaths to all photos for a listing with MLS number $_GET['MLS']
     function GetFilePathArrayVer2()
     { 
@@ -142,7 +156,7 @@
             exit();
         }
         $FilePathArray = null;
-        $dir = "photos/" .  $_GET['MLS'] . "/";
+        $dir = "./../Listing/photos/" .  $_GET['MLS'] . "/";
         if (is_dir($dir))
         {
             if ($dh = opendir($dir))

@@ -48,7 +48,7 @@
 ?>
 
 <body>
-        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/header.php" ?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<div class="container-fluid">
 		<h2>Agent Creation</h2>
 		<hr/>
@@ -57,5 +57,5 @@
 			createAgent(); 
 		?>
 	</div>
-        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/footer.php" ?>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>>
 </body>

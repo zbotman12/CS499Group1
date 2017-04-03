@@ -1,4 +1,5 @@
-<?php /*
+<?php
+/*
     File: DB_Showings.php
     Class to create Showings database transactions in ParagonMLS database.
     
@@ -46,7 +47,6 @@
             //echo "Am I working? <br/>";
             //Check for duplicate entries
             $dup_query  = "SELECT * FROM " . $this->SHOWINGS_FEEDB_TABLE . " WHERE ";
-            $dup_query .= "idShowing_Feedback="  . "'" . $assoc_array['idShowing_Feedback']  . "' AND ";
             $dup_query .= "Showings_showing_id=" . "'" . $assoc_array['Showings_showing_id'] . "';";
 
             $dup_results = $this->connection->query($dup_query);
@@ -96,10 +96,10 @@
 
             $ignore = ['submitted', 'Submit'];
             
-            $columns     = $this->conditionBuilder($set_array, ",", $ignore);
-            $condition   = $this->conditionBuilder($where_array, " AND ", $ignore);
+		//$columns     = $this->conditionBuilder($set_array, ", ", $ignore);
+		//$condition   = $this->conditionBuilder($where_array, " AND ", $ignore);
             
-            $query = "UPDATE " . $this->SHOWINGS_FEEDB_TABLE . " SET " . $columns . " WHERE " . $condition . ";";
+		$query = "UPDATE " . $this->SHOWINGS_FEEDB_TABLE . " SET customer_interest_level= ".$set_array["customer_interest_level"].", showing_agent_experience_level= ".$set_array["showing_agent_experience_level"].", customer_price_opinion= \"".$set_array["customer_price_opinion"]."\", additional_notes= \"".$set_array["additional_notes"]. "\" WHERE Showings_showing_id= " . $where_array["Showings_showing_id"] . ";";
 
             $results = $this->connection->query($query);
             return $results;
