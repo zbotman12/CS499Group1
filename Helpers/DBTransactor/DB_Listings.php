@@ -122,7 +122,7 @@
             }
             
             //Delete pictures, then delete listing.
-            if($this->rrmdir('../../Listing/photos/' . $key_array['MLS_number'])) {
+            if($this->rrmdir($_SERVER['DOCUMENT_ROOT'] . '/Listing/photos/' . $key_array['MLS_number'] . "/")) {
 
                 $condition = $this->conditionBuilder($key_array, " AND ", []);
 

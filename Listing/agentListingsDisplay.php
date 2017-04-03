@@ -1,10 +1,10 @@
 <!--
-    File: Listings.php
+    File: agentListingsDisplay.php
     Displays all agent listings.
 -->
 
 <?php
-  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessioncheck.php";
+  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
   include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
     
     $agents   = DBTransactorFactory::build("Agents");
@@ -54,7 +54,12 @@
           $editListing1 = "<button type='submit' name='MLS' value='";
           $editListing2 = "' class='link-button'>Edit</button></form></td>";
 
+          /*
           $delListing   = "<td>" . "<form method='post' action='/Helpers/Listing/deleteListingHandle.php' class='inline'>";
+          $delListing1  = "<button type='submit' name='MLS_number' value='";
+          $delListing2  = "'>Delete</button></form></td>";
+          */
+          $delListing   = "<td>" . "<form method='post' action='../Helpers/Listing/deleteListingHandle.php' class='inline'>";
           $delListing1  = "<button type='submit' name='MLS_number' value='";
           $delListing2  = "'>Delete</button></form></td>";
            
