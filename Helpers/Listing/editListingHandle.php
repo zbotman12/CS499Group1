@@ -20,10 +20,23 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         try {
-            $listings->update($_GET, ["MLS_number" => $_GET['MLS']]);
-            $v = $_GET['MLS'];
-            $y = intval($v);
-            header("location: ./../../Listing/photoEditDisplay.php?MLS=$y");
+
+            //Turn MLS into numeric value before updating it. Get rid of spaces if any.
+            $_GET['MLS'] = intval(str_replace(' ', '', $_GET['MLS']));
+
+            // Change index of $_GET array to proper key.
+            $_GET["MLS_number"] = $_GET['MLS'];
+
+            // Delete old index
+            unset($_GET['MLS']);
+            
+            var_dump($_GET);
+
+            // Update the listing.
+            $listings->update($_GET, ["MLS_number" => $_GET['MLS_number']]);
+            
+            // Direct user to photoEditDisplay to edit pictures.
+            header("location: ./../../Listing/photoEditDisplay.php?MLS=" . $_GET['MLS_number']);
         } catch(Exception $e) {
             echo $e->getMessage() . "<br\>";
         }
