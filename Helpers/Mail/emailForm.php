@@ -60,6 +60,7 @@
 					<button type="submit" id="submit" name="submit" class="btn-lg btn-primary">Send</button> 
 					</div> 
 				</div>
+				<!-- Hardcoded for now until we get showings working. -->
 				<input type="hidden" name = "showing_agent_id" value=" <?php echo 1;?>"><br><br>
 			<!--end Form-->
 			</form>
