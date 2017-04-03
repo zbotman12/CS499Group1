@@ -8,7 +8,7 @@ $agent_only_info = $agency = $agent = $city = $state = $zip = $num_bathrooms =
 $num_bedrooms = "";
 
 //clean and set all the inputs
-var_dump($_POST);
+//var_dump($_POST);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$price = test_input($_POST["price"]);
 	$desc = test_input($_POST["desc"]);
@@ -39,6 +39,7 @@ if(!empty(mysqli_query($conn, "SELECT MLS_number FROM Listings WHERE address='$a
 {
 	echo "House already listed. <br>";
 	//Go ahead with the current listed house and move on to pictures page
+
 	$mls = $result->fetch_array()["MLS_number"];
 	$_SESSION['temp_MLS'] = $mls;//mysqli_query($comm, $sql);
 	header('location: ../../Listing/photoUploadDisplay.php');
