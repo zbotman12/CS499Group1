@@ -8,12 +8,76 @@ pre
 	background-color: unset !important;
 	border: none !important;
     border: 0px;
+    word-break: break-word !important;
+    word-wrap: break-word;
 }
+
+.listing {
+    margin: 10px;
+}
+
+.listing:hover {
+    background-color: #eee;
+}
+
+/* mouse over link */
+a:hover {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+/* selected link
+a:active {
+    color: black;
+} */
+
+.houseImg {
+    height: 300px;
+    max-width: 100%;
+}
+
+.listing-text {
+    padding-bottom: 0;
+}
+
+.listing-row {
+    font-size: 20;
+    padding-top:100px;
+}
+
+.listing-row2 {
+    font-size: 20;
+    padding-top:10px;
+}
+
+.listing-p {
+    height: 50px;
+}
+
+.listing-address {
+    font-size: 40;
+    padding:25px;
+    height: 50px;
+}
+
+@media screen and (max-width: 768px) {
+    .listing-row2 {
+        padding-top:5px;
+    }
+}
+
 
 .textbox
 {
     margin: 5px 10px;
     font-weight: normal;
+}
+
+.blueRowPanel
+{
+    color: #000;
+    background-color: #E7E7E7 !important;
+    border: 1px solid black !important;
 }
 
 .CarouselImg
@@ -40,20 +104,27 @@ pre
     background-color: rgb(214, 174, 14) !important;
     border-color: black !important;
 }
+
 .infoPanel
 {
     margin: 30px 0px;
     font-weight: bold;
 }
 
+.blueRowHeader
+{
+    font-size: 20px;
+}
+
 .topRow
 {
-    margin-bottom: 15px;
+    color: #000;
+    background-color: #E7E7E7 !important;
 }
 
 .bottomRow
 {
-    margin-bottom: 15px;
+    margin-bottom: 0px;
     background-color: rgb(96, 157, 255);
 }
 
@@ -68,4 +139,14 @@ legend.field {
 input.textbox {
     width: 300px;
     float: left;
+}
+
+@media screen and (max-width: 768px) {
+    .CarouselImg
+    {
+      width: auto;
+      height: 300px;
+      min-height: 300px;
+      max-height: 300px;
+    }
 }

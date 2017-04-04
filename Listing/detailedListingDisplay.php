@@ -1,18 +1,14 @@
 <?php
      include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/dataRetriever.php";
+     Hit();
 ?>
 <html>
 <head>
-    <link href="./../style/bootstrap.min.css" rel="stylesheet">
-    <link href="./../style/bootstrap.css" rel="stylesheet">
-    <link href="./../style/Listing.css" rel="stylesheet">
-    <script src="./../js/jquery-1.11.3.js"></script>
-    <script src="./../js/bootstrap.min.js"></script>
-    <style>
-        div .bottomRow {
-            margin-bottom: 0px;
-        }
-    </style>
+    <link href="/style/bootstrap.min.css" rel="stylesheet">
+    <link href="/style/bootstrap.css" rel="stylesheet">
+    <link href="/style/Listing.css" rel="stylesheet">
+    <script src="/js/jquery-1.11.3.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
 <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
@@ -129,23 +125,23 @@
 
     <div class="row bottomRow">
 <!-- DESCRIPTION PANEL -->
-        <div class="col-md-6 infoPanel">
+        <div class="col-md-6 infoPanel blueRowHeader">
             Room Descriptions:
             <br>
             <div  class="textbox">
-            <?php echo "<pre>" . GetData('room_desc', 'Listings') . "</pre>";?>
+            <?php echo "<pre class='blueRowPanel'>" . GetData('room_desc', 'Listings') . "</pre>";?>
             </div>
             <br>
             Listing Description:
             <br>
             <div  class="textbox">
-            <?php echo "<pre>" . GetData('listing_desc', 'Listings')  . "</pre>";?>
+            <?php echo "<pre class='blueRowPanel'>" . GetData('listing_desc', 'Listings')  . "</pre>";?>
             </div>
             <br>
             Additional Info:
             <br>
             <div  class="textbox">
-            <?php echo "<pre>" . GetData('additional_info', 'Listings')  . "</pre>";?>
+            <?php echo "<pre class='blueRowPanel'>" . GetData('additional_info', 'Listings')  . "</pre>";?>
             </div>
             <br>
         </div>
@@ -156,12 +152,16 @@
                 if(!empty($_SESSION['name']))
                 {  
                     echo "<div class='panel panel-default'>";
-                    echo "<div class='panel-heading'>Agent Only Info:</div><br>";
-                    echo "<div class='textbox'>";
-                    echo "Agent Information:<br>";
-                    echo "<pre>" . GetData('agent_only_info', 'Listings')  . "</pre><br>";
-                    echo "<a class='btn btn-default' href='/Showing Schedule/showings.php?MLS=" . $_GET['MLS'] . "'>View Showings</a>";
-                    echo "</div>";
+                        echo "<div class='panel-heading'>Agent Only Info:</div><br>";
+                        echo "<div class='textbox panel-body'>";
+                            echo "Agent Information:<br>";
+                            echo "<pre>" . GetData('agent_only_info', 'Listings')  . "</pre><br>";
+                            echo "<div class='row'>";
+                                echo "<div class='col-sm-9 col-xs-9'> Hits (Today): " . GetData('daily_hit_count', 'Listings')  . "<br>";
+                                echo "Hits (All-Time): " . GetData('hit_count', 'Listings')  . "</div>";
+                                echo "<a class='btn btn-default col-sm-3 col-xs-3' style='padding: 10px;' href='/Showing Schedule/showings.php?MLS=" . $_GET['MLS'] . "'>View Showings</a>";
+                            echo "</div>";
+                        echo "</div>";
                     echo "</div>";
                 }
             ?>

@@ -109,6 +109,33 @@
             return $results;
         }
 
+        public function addHit($MLS) : bool { 
+            //Check if MLS is an integer value
+            if(!is_numeric($MLS) || $MLS != round($MLS, 0)){
+                return false;
+            }
+            $results = $this->select(['*'],  ['MLS_number' => $_GET['MLS']]);
+            if($results){
+                $dhc = $results[$_GET['MLS']]['daily_hit_count'] + 1;
+                $hc = $results[$_GET['MLS']]['hit_count'] + 1;
+                return $this->update(['daily_hit_count' => $dhc, 'hit_count' => $hc], ['MLS_number' => $_GET['MLS']]);
+            }
+            return false; 
+        }
+
+        public function resetDailyHit($MLS) : bool { 
+            //Check if MLS is an integer value
+            if(!is_numeric($MLS) || $MLS != round($MLS, 0)){
+                return false;
+            }
+            $results = $this->select(['*'],  ['MLS_number' => $_GET['MLS']]);
+            if($results){
+                $dhc = 0;
+                return $this->update(['daily_hit_count' => $dhc], ['MLS_number' => $_GET['MLS']]);
+            }
+            return false; 
+        }
+
         /* delete()           -> Deletes an entry from the database
             @param $key_array -> A single valued associative array where ["column_name"] = value_to_delete; 
                                 delete() corresponds to following mysql syntax: "DELETE FROM 'table_name' WHERE 'condition1' AND 'condition1' AND ...;

@@ -97,34 +97,8 @@
 ?>
 
 <head>
+	<link href="/style/Listing.css" rel="stylesheet">
 	<title>Listings</title>
-	<style>
-		.listing {
-			margin: 10px;
-		}
-		
-		.listing:hover {
-			background-color: #eee;
-		}
-		
-		.houseImg {
-			height: 300px;
-			max-width: 100%;
-		}
-		
-		.listing-text {
-			padding-bottom: 0;
-		}
-		
-		.listing-row {
-			height: 100px;
-			padding:10px;
-		}
-		
-		.listing-p {
-			height: 50px;
-		}
-	</style>
 </head>
 
 <body>
@@ -144,37 +118,36 @@
 			foreach($ListingArray as $listing) {
 				$MLS = $listing["MLS_number"]
 		?>
+		<a  style="color:black" href= <?php echo "/Listing/detailedListingDisplay.php?MLS=" . $MLS; ?>>
 		<div class="container-fluid listing">
 			<div class="col-md-4">
 				<?php echo createPic($MLS); ?>
 			</div>
+			<div class="col-sm-8 listing-address">
+				<?php echo getAddress($MLS, $listings); ?>
+			</div>
 			<div class="col-md-8 listing-text">
 				<div class="container-fluid listing-row">
-					<div class="col-sm-6 listing-p">
+					<div class="col-sm-6 col-xs-6">
 						<?php echo getPrice($MLS, $listings); ?>
 					</div>
-					<div class="col-sm-6 listing-p">
+					<div class="col-sm-6 col-xs-6">
 						<?php echo getAgent($MLS, $listings, $agents); ?>
+						
 					</div>
 				</div>
-				<div class="container-fluid listing-row">
-					<div class="col-sm-6 listing-p">
-						<?php echo getAddress($MLS, $listings); ?>
-					</div>
-					<div class="col-sm-6 listing-p">
-						<?php echo getCompany($MLS, $listings, $agents, $agencies); ?>
-					</div>
-				</div>
-				<div class="container-fluid listing-row">
-					<div class="col-sm-6 listing-p">
+				<div class="container-fluid listing-row2">
+					<div class="col-sm-6 col-xs-6">
 						<?php echo getSqFootage($MLS, $listings); ?> sq. ft. 
 					</div>
-					<div class="col-sm-6 listing-p">
-						<?php echo createDetailsLink($MLS); ?>
+					<div class="col-sm-6 col-xs-6">
+						<?php echo getCompany($MLS, $listings, $agents, $agencies); ?>
+						<?php //echo createDetailsLink($MLS); ?>
 					</div>
 				</div>
 			</div>
 		</div>
+		</a>
 		<?php 
 			} //End iteration
 		?>

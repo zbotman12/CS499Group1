@@ -27,6 +27,26 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    button {
+     background:none!important;
+     color: #337ab7 !important;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     font-size: 20px !important;
+     cursor: pointer;
+  }
+  button:hover {
+     background:none!important;
+     color: #23527c !important;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     font-size: 20px !important;
+     cursor: pointer;
+  }
+  </style>
 </head>
 <body>
 <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
@@ -35,41 +55,43 @@
   <!-- We need to change this-->
   <a href="/Listing/createListingDisplay.php" style="background-color: rgb(255, 204, 0)" class="btn">Add New Listing</a>           
 
+  <div class="table-responsive">
   <table class="table table-hover  table-responsive">
     <thead>
       <tr>
         <th>Address</th>
         <th>City</th>
         <th>State</th>
-        <th>View</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th class='text-center'>View</th>
+        <th class='text-center'>Showings</th>
+        <th class='text-center'>Edit</th>
+        <th class='text-center'>Delete</th>
       </tr>
     </thead>
     <tbody>
       <tr>
       <?php
 
-          $editListing  = "<td>" . "<form method='get' action='/Listing/editListingDisplay.php' class='inline'>";
+          $editListing  = "<td>" . "<form method='get' action='/Listing/editListingDisplay.php' class='text-center'>";
           $editListing1 = "<button type='submit' name='MLS' value='";
-          $editListing2 = "' class='link-button'>Edit</button></form></td>";
+          $editListing2 = "' class='link-button'><div class='glyphicon glyphicon-pencil'></div></button></form></td>";
 
           /*
-          $delListing   = "<td>" . "<form method='post' action='/Helpers/Listing/deleteListingHandle.php' class='inline'>";
+          $delListing   = "<td>" . "<form method='post' action='/Helpers/Listing/deleteListingHandle.php' class='text-center'>";
           $delListing1  = "<button type='submit' name='MLS_number' value='";
           $delListing2  = "'>Delete</button></form></td>";
           */
-          $delListing   = "<td>" . "<form method='post' action='../Helpers/Listing/deleteListingHandle.php' class='inline'>";
+          $delListing   = "<td>" . "<form method='post' action='../Helpers/Listing/deleteListingHandle.php' class='text-center'>";
           $delListing1  = "<button type='submit' name='MLS_number' value='";
-          $delListing2  = "'>Delete</button></form></td>";
+          $delListing2  = "'><div class='glyphicon glyphicon-remove'></div></button></form></td>";
            
-          $view  = "<td>" . "<form method='get' action='/Listing/detailedListingDisplay.php' class 'inline'>";
+          $view  = "<td>" . "<form method='get' action='/Listing/detailedListingDisplay.php' class='text-center'>";
           $view1 = "<button type='submit' name='MLS' value='";
-          $view2 = "'>View</a></form></td>";
+          $view2 = "'><div class='glyphicon glyphicon-home'></div></form></td>";
 		  
-		  $showings = "<td>" . "<form method='get' action='/Showing Schedule/showings.php' class 'inline'>";
+		  $showings = "<td>" . "<form method='get' action='/Showing Schedule/showings.php' class='text-center'>";
           $showings1 = "<button type='submit' name='MLS' value='";
-          $showings2 = "'>Showings</a></form></td>";
+          $showings2 = "'><div class='glyphicon glyphicon-eye-open'></div></form></td>";
 
           /*
           $view  = "<td>" . "<a class='btn btn-default' href='../detailedlisting.php?MLS='";
@@ -103,6 +125,7 @@
       </tr>
     </tbody>
   </table>
+  </div>
 </div>
 <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>

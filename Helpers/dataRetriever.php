@@ -22,6 +22,46 @@
         }
     }
 
+    //This function gets the listing data as an array for a listing with MLS number $_GET['MLS']
+    function Hit()
+    { 
+        if(!isset($_GET['MLS']))
+        {
+            echo "ERROR: You are trying to view a detailed listing without an MLS number in the URL.";
+            return false;
+        }
+
+        $listings = DBTransactorFactory::build("Listings");
+
+        if($listings->addHit($_GET['MLS']))
+        {
+            return true;
+        } else {
+            echo "Error: Could not find MLS number in database. <br>";
+            return false;
+        }
+    }
+
+        //This function gets the listing data as an array for a listing with MLS number $_GET['MLS']
+    function ResetHit()
+    { 
+        if(!isset($_GET['MLS']))
+        {
+            echo "ERROR: You are trying to view a detailed listing without an MLS number in the URL.";
+            return false;
+        }
+
+        $listings = DBTransactorFactory::build("Listings");
+
+        if($listings->resetDailyHit($_GET['MLS']))
+        {
+            return true;
+        } else {
+            echo "Error: Could not find MLS number in database. <br>";
+            return false;
+        }
+    }
+
     //This function returns an array of showing data arrays for a listing with MLS number $_GET['MLS']
     function GetShowingsArrays()
     {
