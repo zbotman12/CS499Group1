@@ -29,35 +29,25 @@
 
 <!--Create header-->
 <div class="site-header">
-	<a href="http://
-		<?php echo $_SERVER['SERVER_NAME'] . "/listings.php"; ?>
-	" class="btn">
+	<a href="/listings.php" class="btn">
 		Home
 	</a>
 
 	<?php if(!isset($_SESSION['number'])){ ?>
 		<!--If session is not set-->
-		<a href="http://
-		<?php echo $_SERVER['SERVER_NAME'] . "/login.php"; ?>
-		" class="btn">
+		<a href="/login.php" class="btn">
 			Login
 		</a>
 
 	<?php } else { ?>
 		<!--If session is set-->
-		<a href="http://
-		<?php echo $_SERVER['SERVER_NAME'] . "/agentaccount.php"; ?>
-		" class="btn">
+		<a href="/agentaccount.php" class="btn">
 			My Account
 		</a>
-		<a href="http://
-		<?php echo $_SERVER['SERVER_NAME'] . "/Listing/agentListingsDisplay.php"; ?>
-		" class="btn">
+		<a href="/Listing/agentListingsDisplay.php" class="btn">
 			My Listings
 		</a>
-		<a href="http://
-		<?php echo $_SERVER['SERVER_NAME'] . "/logout.php"; ?>
-		" class="btn right">
+		<a href="/logout.php" class="btn right">
 			Logout
 		</a>
 	<?php } ?>

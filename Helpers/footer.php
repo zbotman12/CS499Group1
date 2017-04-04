@@ -13,7 +13,7 @@
 		margin-bottom: 0px;
 	}
 </style>
-<link rel="stylesheet" href="http://207.98.161.214/style/bootstrap.min.css">
+<link rel="stylesheet" href="/style/bootstrap.min.css">
 
 <div class="footer">
 	<p> CS490 Team 1 </p>
