@@ -1,11 +1,11 @@
 <?php
-//Check and make sure we have an active session. If not we need one so send the user to the login page.
+	//Check and make sure we have an active session. If not we need one so send the user to the login page.
 	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessioncheck.php";
 
 	//define("SITE_NAME","localhost:8080:/"); //constant for project name
 	//define("SITE_PATH",$_SERVER['DOCUMENT_ROOT']."/".SITE_NAME); //constant for project base directory
 	//define("IMAGES_URL",SITE_PATH."/images/"); //constant for image directory
-	$upload_base_dir= $_SERVER['DOCUMENT_ROOT'] . "Listing/photos/";//"/var/www/html/pics/";
+	$upload_base_dir= $_SERVER['DOCUMENT_ROOT'] . "/Listing/photos/";//"/var/www/html/pics/";
 	$upload_time_dir=$_SESSION['temp_MLS']."/"; // setup directory name
 	$upload_dir = $upload_base_dir.$upload_time_dir;
 
@@ -13,22 +13,19 @@
 		//echo "called";
 		mkdir($upload_dir, 0777, true);  //create directory if not exist
 	}
+
 	for($i = 1; $i <= 6; $i++)
 	{
+		// Get temp name and extenstion 
+		$temp = explode(".", $_FILES['file'.$i]["name"]);
+		$extension = end($temp);
+
 		// Get image. 
 		$image_name=basename($_FILES['file'.$i]['name']);
-		
-		//Add full path
-		$path = $upload_dir . $image_name;
+		$image_name= $i . strrchr($image_name, '.');
 
-		//Upload image.
 		move_uploaded_file($_FILES['file'.$i]['tmp_name'],$upload_dir.$image_name);
 
-		//Rename image in directory.
-		$ext = pathinfo($path, PATHINFO_EXTENSION);
-
-		// Rename image.
-		rename($path, $upload_dir . $i . "." . $ext);
 	}// upload file
 ?>
 

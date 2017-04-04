@@ -15,7 +15,7 @@
 <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<!-- action_page.php is a php file that handles the submitted input -->
 	<div class="container-fluid">
-		<form action="/Helpers/Listing/photoHandle.php" method="post" enctype="multipart/form-data" >
+		<form action="../Helpers/Listing/photoHandle.php" method="post" enctype="multipart/form-data" >
 			<fieldset>
 			<h2>Listing Photos</h2>
 			<hr/>

@@ -14,6 +14,7 @@
 
 	$upload_time_dir=$temp."/"; // setup directory name
 	$upload_dir = $upload_base_dir.$upload_time_dir;
+	
 	//var_dump($upload_dir);
 
 
@@ -35,20 +36,15 @@
 	{
 
 		if (empty($images)) {
+			// Get temp name and extenstion 
+			$temp = explode(".", $_FILES[$i]["name"]);
+			$extension = end($temp);
+
 			// Get image. 
 			$image_name=basename($_FILES[$i]['name']);
-			
-			//Add full path
-			$path = $upload_dir . $image_name;
+			$image_name= $i . strrchr($image_name, '.');
 
-			//Upload image.
 			move_uploaded_file($_FILES[$i]['tmp_name'],$upload_dir.$image_name);
-
-			//Rename image in directory.
-			$ext = pathinfo($path, PATHINFO_EXTENSION);
-
-			// Rename image.
-			rename($path, $upload_dir . $i . "." . $ext);
 
 		} else {
 
@@ -66,7 +62,7 @@
 			$png  = $upload_dir . $i . "." . "png";
 			$jpg  = $upload_dir . $i . "." . "jpg";
 			$gif  = $upload_dir . $i . "." . "gif";
-			$formats = [$jpg, $upload_dir . $jpeg, $upload_dir . $jpg, $gif];
+			$formats = [$jpg, $jpeg, $jpg, $gif];
 
 			foreach ($formats as $file) {
 				// Delete this file if it exists.
@@ -76,20 +72,15 @@
 				}
 			}
 
-			//var_dump($image_name);
-			//var_dump($i);
-			
-			//Add full path
-			$path = $upload_dir . $image_name;
+			// Get temp name and extenstion 
+			$temp = explode(".", $_FILES[$i]["name"]);
+			$extension = end($temp);
 
-			//Upload image.
+			// Get image. 
+			$image_name=basename($_FILES[$i]['name']);
+			$image_name= $i . strrchr($image_name, '.');
+
 			move_uploaded_file($_FILES[$i]['tmp_name'],$upload_dir.$image_name);
-
-			//Rename image in directory.
-			$ext = pathinfo($path, PATHINFO_EXTENSION);
-
-			// Rename image.
-			rename($path, $upload_dir . $i . "." . $ext);		
 		}
 
 	}
