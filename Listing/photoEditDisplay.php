@@ -19,6 +19,7 @@
 	<title>Edit Listing Photos</title>
 	<?php  //var_dump($_GET);
 		include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/dataRetriever.php";
+		include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 	?>
 </head>
 <body>

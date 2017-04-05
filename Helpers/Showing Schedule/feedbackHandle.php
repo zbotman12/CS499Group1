@@ -1,4 +1,5 @@
 <?php
+include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 header('location: ./../../Showing Schedule/showings.php?MLS=' . $_POST['MLS']);
 include "../DBTransactor/DBTransactorFactory.php";
 handleFeedbackData();

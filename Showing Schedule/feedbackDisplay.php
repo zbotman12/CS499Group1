@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/FeedbackDataRetriever.php";
+  	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 ?>
 <html>
 <head>

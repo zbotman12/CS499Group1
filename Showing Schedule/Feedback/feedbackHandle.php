@@ -1,6 +1,7 @@
 <?php
 header('location: ./../showings.php?MLS=' . $_POST['MLS']);
 include "../DBTransactor/DBTransactorFactory.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 handleFeedbackData();
 
 

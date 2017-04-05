@@ -2,7 +2,9 @@
 	<title>House already listed</title>
 </head>
 <body>
-	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
+	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php";
+  		   include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
+	?>
 	<div class="container-fluid">
 		<h2>House already listed</h2>
 		<hr/>

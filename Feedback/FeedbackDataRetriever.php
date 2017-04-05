@@ -1,4 +1,5 @@
 <?php
+	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 	include "../DBTransactor/DBTransactorFactory.php";
 	
 	

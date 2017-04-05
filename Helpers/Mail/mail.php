@@ -5,7 +5,7 @@
     */
 
     include "../DBTransactor/DBTransactorFactory.php";
-
+    include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
     class Mail {
 
         //Send email function for add Showing.

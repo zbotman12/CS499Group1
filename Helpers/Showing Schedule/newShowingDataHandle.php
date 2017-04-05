@@ -1,8 +1,10 @@
 <?php
 // ISSUE: Is_vacant ($occupy) is not display correctly.
+include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 
 header('location: ../../Showing Schedule/showings.php?MLS=' . $_POST['MLS']);
 include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
+
 handleShowingData();
 
 /*

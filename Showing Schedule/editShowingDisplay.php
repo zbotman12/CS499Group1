@@ -10,6 +10,7 @@
 <title></title>
 <?php 
 include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/dataFormat.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 $previous_data_array=getPreviousData();
 $formatted_info = getDefinedAgentInfo($previous_data_array["SA_id"]);
 ?>

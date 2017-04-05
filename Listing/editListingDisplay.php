@@ -29,7 +29,7 @@
 
         <?php 
             include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
-
+			include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
             $listings = DBTransactorFactory::build("Listings");
 
             $data = null;
