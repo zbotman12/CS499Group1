@@ -1,5 +1,5 @@
 <?php
-  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessioncheck.php";
+  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
   include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/dbConnect.php";
 
 // define variables and set to empty values

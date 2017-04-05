@@ -6,7 +6,7 @@
         password.
     */
     //Resume session. If no session found, rout to login page
- include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessioncheck.php";
+ include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 
     function changePassword(){
 

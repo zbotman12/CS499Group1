@@ -4,7 +4,7 @@
 -->
 
 <?php
-  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessioncheck.php";
+  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
   include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 
   function deleteListing() {

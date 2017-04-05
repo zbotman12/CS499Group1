@@ -1,6 +1,6 @@
 <?php
 	//Check and make sure we have an active session. If not we need one so send the user to the login page.
-	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessioncheck.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 
 	define("SITE_NAME","localhost:8080:/"); //constant for project name
 	define("SITE_PATH",$_SERVER['DOCUMENT_ROOT']."/".SITE_NAME); //constant for project base directory

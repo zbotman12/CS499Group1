@@ -12,7 +12,7 @@
 			<form id="changepass" action="/Helpers/changePassHandle.php" method="post">
 				<input type='hidden' name='submitted' id='submitted' value='1'/>
 				<?php
-                     include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessioncheck.php";
+                     include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
                     
                     //Resume session. If no session found,Let the user specify there username
 					if(session_id() == null)
