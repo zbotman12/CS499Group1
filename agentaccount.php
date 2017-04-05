@@ -19,7 +19,7 @@
             //var_dump($_SESSION["name"]);            
             
             // Select this agents information.
-            $sel = ['first_name', 'last_name', 'email', 'phone_number'];
+            $sel = ['first_name', 'last_name', 'email', 'phone_number', 'user_login'];
             $result = $agentTable->select($sel, ["user_login" => $_SESSION["name"]]);
             
             //var_dump($result);
