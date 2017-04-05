@@ -137,7 +137,7 @@
 			  echo "<td class='text-center'>" . date( "F dS\\, Y", strtotime(GetShowingData('start_time', $key))) . "</td>";
 				echo "<td class='text-center'>" . date( "g\\:i A", strtotime(GetShowingData('start_time', $key))) . "</td>";
 				echo "<td class='text-center'>" . date( "g\\:i A", strtotime(GetShowingData('end_time', $key))) . "</td>";
-				if( GetShowingData('is_house_vacant', $key) == 1){
+				if( GetShowingData('is_house_vacant', $key) == 0){
 					echo "<td class='text-center'>True</td>";
 				}else{
 					echo "<td class='text-center'>False</td>";
