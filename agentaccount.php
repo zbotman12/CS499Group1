@@ -1,5 +1,5 @@
 <html>
-    <!-- File: createagent.php
+    <!-- File: agentaccount.php
          Makes an agent entry in database.
     -->
     <head>
@@ -9,16 +9,20 @@
         <?php
             include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php";
             include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
-
+            include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
+            
             $agentTable  = DBTransactorFactory::build("Agents");
             $agencyTable = DBTransactorFactory::build("Agencies");
 
             $agent  = null;
             $agency = null;
+            //var_dump($_SESSION["name"]);            
             
             // Select this agents information.
-            $result = $agentTable->select(['*'], ["user_login"]);
-
+            $sel = ['first_name', 'last_name', 'email', 'phone_number'];
+            $result = $agentTable->select($sel, ["user_login" => $_SESSION["name"]]);
+            
+            //var_dump($result);
             // Check if we actually got something.
             if (empty($result)) {
                 throw new Exception("Could not fetch agent info. Contact system administrator.");
@@ -28,7 +32,7 @@
             foreach ($result as $array) {
                 $agent = $array;
             }
-
+            //var_dump($agent);
         ?>
 
         <h2>Edit your account</h2>
