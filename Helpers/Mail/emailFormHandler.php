@@ -3,24 +3,18 @@
 	include "mail.php";
 
 	$mailer = new Mail;
+    $_POST['MLS_number'] = intval(str_replace(' ', '', $_POST['MLS_number']));
 
     if ($mailer->email_form($_POST)) {
-    	echo "Email sent succesfully! <br>";
+    	//echo "Email sent succesfully! <br>";
+        //return '<div class="alert alert-success">Thank You! I will be in touch</div>';
+        header("location: sentEmailDisplay.php");
     } else {
-    	echo "Email was not sent";
+    	//return '<div class="alert alert-danger">Sorry there was an error sending your message. Please try again later</div>';
+        header("location: emailFailedDisplay.php");
     }
-	/*
-	<html>
-		<!--Files--> 
-		<link href="../../style/bootstrap.min.css" rel="stylesheet">
-	    <link href="../../style/bootstrap.css" rel="stylesheet">
-	    <script src="../../js/jquery-1.11.3.js"></script>
-	    <script src="../../js/bootstrap.min.js"></script>
-		<div class="alert alert-success alert-dismissable">
-		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		  <strong>Email sent!</strong> We've sent your email over to the recipient.
-		</div>
-	</html>
-	*/
-?>
+    
+    //echo "<script> $(\"#myModal\").modal('hide')</script>";
 
+    //header("location: sentEmailDisplay.php");
+?>

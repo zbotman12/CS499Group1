@@ -123,12 +123,34 @@
         // Send email through email form.
         public function email_form($messageArray) {
             
+            // Sanitize $messageArray for white space and convert to integer.
+            $messageArray['MLS_number'] = intval(str_replace(' ', '', $messageArray['MLS_number']));
+            //var_dump($messageArray);
+            // Initialize agent array
+            $agent = array();
+            $listing = array();
+
             // Create transactors
             $agentsTable   = DBTransactorFactory::build("Agents");
+            $listingsTable = DBTransactorFactory::build("Listings");
+
+            //Get listing agents id from listings.
+            $sel = ['Agents_listing_agent_id'];
+            $result = $listingsTable->select($sel, ["MLS_number" => $messageArray['MLS_number']]);
             
+            // Check if we actually got something.
+            if (empty($result)) {
+                throw new Exception("Could not fetch agent info. Contact system administrator.");
+            }
+
+            // Set agent array
+            foreach ($result as $array) {
+                $listing = $array;
+            }
+
             // Get Agent information
             $sel = ['first_name', 'last_name', 'email'];
-            $result = $agentsTable->select($sel, ["agent_id" => $messageArray['Agents_listing_agent_id']]);
+            $result = $agentsTable->select($sel, ["agent_id" => $listing['Agents_listing_agent_id']]);
             
             // Check if we actually got something.
             if (empty($result)) {
