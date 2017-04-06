@@ -1,0 +1,23 @@
+
+*{
+	font-family: Times;
+	
+}
+
+.timeStart, .timeEnd, .dateDiv, .vacant, .SAgent, .names, .lock{
+	display: inline-block;
+	width: 500px;
+	border-style: inset;
+	border-color: #000;
+	border-width: 2px 4px 2px 4px;
+	min-width=300px;
+	max-width=400px;
+	min-height=20px;
+}
+
+label{
+    width:150px;
+}
+
+
+ 

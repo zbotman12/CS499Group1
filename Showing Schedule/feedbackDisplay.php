@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
-	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/FeedbackDataRetriever.php";
-  	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/FeedbackDataRetriever.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 ?>
 <html>
 <head>
@@ -10,6 +10,16 @@
   <?php
         // $files = GetFilePathArray();   
         $info= get_FeedbackInfo();
+
+        if($info[8] != $_SESSION['number'])
+        {
+        	$editAllowed = 0;
+        }
+        else
+        {
+        	$editAllowed = 1;
+        }
+        
   ?>
 
 </head>
@@ -17,7 +27,7 @@
 	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 	<!-- action_page.php is a php file that handles the submitted input -->
 	<form action="/Helpers/Showing Schedule/feedbackHandle.php" method="post" >
-		<fieldset>
+		<fieldset <?php if($editAllowed==0){echo "disabled";}?>>
 		<legend></legend>
 		Is the customer interested in the property?<br>
 		<input type="radio" name="interest" value=1 <?php if($info[0]==1){echo "checked";}?>>Yes
@@ -41,11 +51,11 @@
    		<input type="reset">
 		</fieldset>
 	</form>
-	<b>Showing Agent: <?php echo $info[9]." ".$info[10]?></b>
-	<b>Email: <?php echo $info[11]?> </b>
-	<b>Phone: <?php echo $info[12]?> </b>
-	<b>Is property vacant? <?php if($info[4]==0){echo " Yes";}else{echo " No";}?></b>
-	<b>Code: <?php echo $info[7]?></b>
+	<b>Showing Agent: <?php echo $info[9]." ".$info[10]?></b><br/>
+	<b>Email: <?php echo $info[11]?> </b><br/>
+	<b>Phone: <?php echo $info[12]?> </b><br/>
+	<b>Is property vacant? <?php if($info[4]==0){echo " Yes";}else{echo " No";}?></b><br/>
+	<b>Code: <?php echo $info[7]?></b><br/>
 	<b>Customer Name: <?php echo $info[5]." ".$info[6]?></b>
 	<b></b>
 	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
