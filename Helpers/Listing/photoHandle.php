@@ -13,7 +13,27 @@
 		//echo "called";
 		mkdir($upload_dir, 0777, true);  //create directory if not exist
 	}
+	
+	// Check file extensions	
+	$exts = ["jpeg", "png", "jpg", "gif"];
 
+	for($j = 1; $j <= 6; $j++) {
+		// Get temp name and extenstion 
+		$temp = explode(".", $_FILES['file'.$j]["name"]);
+		$extension = end($temp);
+
+		// Unsoported format error.
+		if (empty($extension)) {
+			continue;
+		}
+		if (!in_array($extension, $exts)) {
+			//echo "I got called!";
+			header("Location: ../../Listing/pictureFormatErrorDisplay.php");
+			exit;
+		} 
+	}
+
+	// If none of the file extensions are faulty, continue processing images.		
 	for($i = 1; $i <= 6; $i++)
 	{
 		// Get temp name and extenstion 

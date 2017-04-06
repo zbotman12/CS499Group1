@@ -163,7 +163,7 @@
                 if ($key == "start_time" || $key == "end_time") {
 					$s = $key . '=' . $value;
 				} else {
-					$s = $key . '=' . "'" . $value . "'";				
+                    $s = $key . "=" . "'" . $value . "'";
 				}
                 array_push($a, $s);
                 //echo $s;

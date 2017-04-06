@@ -2,7 +2,7 @@
     File: editListingDisplay.php
     HTML form to edit Listing currently selected.
 -->
-
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/goodAgents.php"; ?>
 <!DOCTYPE html>
 <html>
     <!-- ISSUE: LINE 18, 154 - change showing_id to $_GET['showing_id'] --> 
@@ -27,9 +27,8 @@
         <!-- <meta charset="UTF-8"> -->
         <title>Edit Listing</title>
 
-        <?php 
-            include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
-			include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
+        <?php
+        
             $listings = DBTransactorFactory::build("Listings");
 
             $data = null;

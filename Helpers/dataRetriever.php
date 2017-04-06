@@ -214,6 +214,7 @@ function GetFilePathArray()
                     }
                 }
                 closedir($dh);
+                var_dump($FilePathArray);
                 return $FilePathArray;
             }
         }

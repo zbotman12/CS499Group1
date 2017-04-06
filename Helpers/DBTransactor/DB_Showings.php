@@ -258,9 +258,9 @@
               //Test
 			  //echo "Condition <br>";
 			  //var_dump($c);
-              
+              //echo "Where am I getting called?";
               $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_TABLE . " WHERE " . $c . ";";
-              
+              //var_dump($query);
               $results = $this->connection->query($query);
 			  
               //If results is false, return empty array.

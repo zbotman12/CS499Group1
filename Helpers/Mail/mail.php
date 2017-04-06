@@ -3,15 +3,15 @@
     /* mail.php
        Functions to send mail.
     */
-
-    include "../DBTransactor/DBTransactorFactory.php";
+    
     include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
+    include "../DBTransactor/DBTransactorFactory.php";
     class Mail {
 
         //Send email function for add Showing.
         // Throws exception. Make sure to catch the exception.
-        public function send_mail($showing) {
-
+        public function showing_mail($showing) {
+            //var_dump($showing);
             //Create transactors
             $agentsTable   = DBTransactorFactory::build("Agents");
             $agencyTable   = DBTransactorFactory::build("Agencies");
@@ -24,6 +24,8 @@
             
             // Get listing information
             $sel = ['Agents_listing_agent_id', 'address', 'city', 'state', 'zip'];
+
+            //echo "Did I get called?";
             $result  = $listingsTable->select($sel, ["MLS_number" => $showing['Listings_MLS_number']]);
             
             // Check if we actually got something.

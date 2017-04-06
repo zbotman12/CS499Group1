@@ -61,21 +61,23 @@
 
             //echo "Am I working now? <br/>";
             //Build agency query 
-            $showings_q = "INSERT INTO " . $this->SHOWINGS_FEEDB_TABLE . "VALUES (NULL,";
+            $showings_q = "INSERT INTO " . $this->SHOWINGS_FEEDB_TABLE . " VALUES (NULL,";
             $showings_q .= "'" . $assoc_array['Showings_showing_id']            . "'" . ",";
             $showings_q .= "'" . $assoc_array['customer_interest_level']        . "'" . ",";
             $showings_q .= "'" . $assoc_array['showing_agent_experience_level'] . "'" . ",";
             $showings_q .= "\"" . $assoc_array['customer_price_opinion']        . "\"" . ",";
             $showings_q .= "\"" . $assoc_array['additional_notes']              . "\"" . ");";
             
+            //var_dump($showings_q);
             //Insert agency into database
             $result = $this->connection->query($showings_q);
-
+            //echo "Did I fail here?";
             //Check results. $results is either true or false
             if($result) {
                 return true;
             } else {
                 throw new Exception($this->connection->error);
+                echo "help";
                 return false;
             }
         }

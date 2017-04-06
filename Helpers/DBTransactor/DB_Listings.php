@@ -141,6 +141,7 @@
                                 delete() corresponds to following mysql syntax: "DELETE FROM 'table_name' WHERE 'condition1' AND 'condition1' AND ...;
                                 Array must not be empty.
           @throws BadMethodCallException  -> Throws mysql query failure if database query failed
+          This function must be supplied an MLS number or it won't work.
         */
         public function delete($key_array) : bool {
             
@@ -151,6 +152,8 @@
             $pathToDir = $_SERVER['DOCUMENT_ROOT'] . '/Listing/photos/' . $key_array['MLS_number'] . "/";
             
             if (file_exists($pathToDir)) {
+                
+                //echo "Am I being called?";
                 //Delete pictures, then delete listing.
                 if($this->rrmdir($_SERVER['DOCUMENT_ROOT'] . '/Listing/photos/' . $key_array['MLS_number'] . "/")) {
 
@@ -164,10 +167,14 @@
                   throw new Exception("Could not delete pictures from database");  
                 }                
             } else {
+                //echo "Am I being called?";
                 $condition = $this->conditionBuilder($key_array, " AND ", []);
-
+                //echo "Condition builder";
+                //var_dump($condition);
+                //var_dump($key_array);
                 $query = "DELETE FROM " . $this->LISTINGS_TABLE . " WHERE " . $condition . ";";
 
+                //var_dump($query);
                 $results = $this->connection->query($query);
                 return $results;
             }

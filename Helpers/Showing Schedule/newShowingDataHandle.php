@@ -1,9 +1,9 @@
 <?php
 // ISSUE: Is_vacant ($occupy) is not display correctly.
 include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Mail/mail.php";
 
 header('location: ../../Showing Schedule/showings.php?MLS=' . $_POST['MLS']);
-include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 
 handleShowingData();
 
@@ -79,7 +79,7 @@ function handleShowingData(){
                     "customer_first_name"   => $fname,
                     "customer_last_name"    => $lname,
                     "lockbox_code"          => $code,
-                    "showing_agent_id"    => $SA_id);
+                    "showing_agent_id"    => intval($SA_id));
     
     try {
       $showings->insert($array); // add new showing
@@ -91,11 +91,20 @@ function handleShowingData(){
 	  $feedback_array = Array("Showings_showing_id"=>$showing_id["showing_id"],
 	  						  "customer_interest_level"=>0,
 	  						  "showing_agent_experience_level"=>2,
-	  						  "customer_price_opinion"=>"",
-	  						  "additional_notes"=>"");
+	  						  "customer_price_opinion"=>null,
+	  						  "additional_notes"=>null);
 	  $msg = $feedback->insert($feedback_array);
 	  error_log("did it work? ".$msg,0);
-      header('location: ./../showings.php?MLS=' . $_POST['MLS']);
+
+	  //var_dump($array);
+	  //Send email before we leave newShowingDataHandle
+  	  $mailer = new Mail;
+  	  $array["start_time"] = $finalStartFormat;
+  	  $array["end_time"]   = $finalEndFormat;
+
+  	  $mailer->showing_mail($array);
+      
+      header('location: ../../Showing Schedule/showings.php?MLS=' . $_POST['MLS']);
      } catch (Exception $e) {
       echo $e->getMessage() . "<br/>";  
     }

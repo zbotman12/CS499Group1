@@ -1,5 +1,6 @@
 <?php
     include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
+
 	include "mail.php";
 
 	$mailer = new Mail;

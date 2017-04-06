@@ -1,5 +1,6 @@
 <?php
 	//Check and make sure we have an active session. If not we need one so send the user to the login page.
+
 	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 
 	define("SITE_NAME","localhost:8080:/"); //constant for project name
@@ -7,7 +8,7 @@
 	define("IMAGES_URL",SITE_PATH."/images/"); //constant for image directory
 
 
-	$upload_base_dir= "../../Listing/photos/";//"/var/www/html/pics/";
+	$upload_base_dir= $_SERVER['DOCUMENT_ROOT'] . "/Listing/photos/";//"/var/www/html/pics/";
 	$temp = intval($_POST['MLS']);
 
 	//var_dump($temp);
@@ -25,17 +26,38 @@
 
 	//Get all images.
 	$images = scandir($upload_dir);
-	//var_dump($images);
-
+	
+	// Remove . and .. 
 	unset($images[0]);
 	unset($images[1]);
 
 	//var_dump($images);
+	//var_dump($_FILES);
 
-	for($i = 1; $i <= 6; $i++)
-	{
 
-		if (empty($images)) {
+	//Otherwise, formats are correct, continue through pics upload.	
+	//If directory empty, cycle through all the pictures and upload them using their name.
+	if (empty($images)) {
+		for($i = 1; $i <= 6; $i++) {
+			// Check file extensions	
+			$exts = ["jpeg", "png", "jpg", "gif"];
+
+			for($j = 1; $j <= 6; $j++) {
+				// Get temp name and extenstion 
+				$temp = explode(".", $_FILES[$j]["name"]);
+				$extension = end($temp);
+
+				// Unsoported format error.
+				if (empty($extension)) {
+					continue;
+				}
+				if (!in_array($extension, $exts)) {
+					//echo "I got called!";
+					header("Location: ../../Listing/pictureFormatErrorDisplay.php");
+					exit;
+				} 
+			}			
+			
 			// Get temp name and extenstion 
 			$temp = explode(".", $_FILES[$i]["name"]);
 			$extension = end($temp);
@@ -45,28 +67,51 @@
 			$image_name= $i . strrchr($image_name, '.');
 
 			move_uploaded_file($_FILES[$i]['tmp_name'],$upload_dir.$image_name);
+		}
+	} else { // Directory is not empty after listing was created. Update images.
+		for($i = 1; $i <= 6; $i++) {
 
-		} else {
-
-			//Get image
+			//Get image from queue.
 			$image_name=basename($_FILES[$i]['name']);
 			
-			//If no image to replace, continue to next loop iteration.
+			//If no image to replace at current position, continue to next loop iteration until we find image at position $i.
 			if(empty($image_name)) {
 				continue;
 			}
 
-			// Else, assume file exists. 
+			// From now on, if there is an image at position $i, we assume file exists so check for existence in server. 
+		
+			// Check file extensions	
+			$exts = ["jpeg", "png", "jpg", "gif"];
+
+			for($j = 1; $j <= 6; $j++) {
+				// Get temp name and extenstion 
+				$temp = explode(".", $_FILES[$j]["name"]);
+				$extension = end($temp);
+
+				// Unsoported format error.
+				if (empty($extension)) {
+					continue;
+				}
+				if (!in_array($extension, $exts)) {
+					//echo "I got called!";
+					header("Location: ../../Listing/pictureFormatErrorDisplay.php");
+					exit;
+				} 
+			}			
 			// File formats.
 			$jpeg = $upload_dir . $i . "." . "jpeg";
 			$png  = $upload_dir . $i . "." . "png";
 			$jpg  = $upload_dir . $i . "." . "jpg";
 			$gif  = $upload_dir . $i . "." . "gif";
-			$formats = [$jpg, $jpeg, $jpg, $gif];
+			$formats = [$jpeg, $png, $jpg, $gif];
 
+			//If this image does not exist, this loop doesn't do anything but continue.
+			//Loop through all available file formats for $i.ext.
 			foreach ($formats as $file) {
-				// Delete this file if it exists.
+				// If the file exists, remove and replace image. 
 				if (file_exists($file)) {
+					//echo "Why aren't you deleting?";
 					//var_dump($file);
 					unlink($file);
 				}
@@ -82,7 +127,6 @@
 
 			move_uploaded_file($_FILES[$i]['tmp_name'],$upload_dir.$image_name);
 		}
-
 	}
 ?>
 

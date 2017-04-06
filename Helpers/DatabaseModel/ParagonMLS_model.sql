@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `ParagonMLS`.`Showings` (
   CONSTRAINT `fk_Showings_Listings1`
     FOREIGN KEY (`Listings_MLS_number`)
     REFERENCES `ParagonMLS`.`Listings` (`MLS_number`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Showings_Agents1`
     FOREIGN KEY (`showing_agent_id`)
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `ParagonMLS`.`Showing_Feedback` (
   CONSTRAINT `fk_Showing_Feedback_Showings1`
     FOREIGN KEY (`Showings_showing_id`)
     REFERENCES `ParagonMLS`.`Showings` (`showing_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
