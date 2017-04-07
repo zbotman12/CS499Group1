@@ -33,7 +33,7 @@ $(function(){
 </head>
 
 <body>
-<!--<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>-->
+<?php // include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
 <!-- action_page.php is a php file that handles the submitted input --> 
 <form name="scheduleForm" action="/Helpers/Showing Schedule/newShowingDataHandle.php" method="post">
 	<div class="SAgent">
