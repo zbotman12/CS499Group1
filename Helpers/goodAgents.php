@@ -21,11 +21,11 @@
     		//Don't do anything.
     	}
     	else {
-			header("location: " . $_SERVER['DOCUMENT_ROOT'] . "index.php");
+			header("location: /index.php");
 			exit();
     	}
 	} else {
-		header("location: " . $_SERVER['DOCUMENT_ROOT'] . "index.php");
+		header("location: /index.php");
 		exit();
 	}
 ?>

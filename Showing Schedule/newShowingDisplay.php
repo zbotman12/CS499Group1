@@ -24,11 +24,16 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 <script type="text/javascript" src="/js/crayJS/external/jquery/jquery.js"></script>
 <script type="text/javascript" src="/js/crayJS/jquery-ui.js"></script>
 
-  
+<script type="text/javascript">
+$(function(){
+  $( '#date' ).datepicker();
+});
+</script>
+
 </head>
 
 <body>
-<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
+<!--<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>-->
 <!-- action_page.php is a php file that handles the submitted input --> 
 <form name="scheduleForm" action="/Helpers/Showing Schedule/newShowingDataHandle.php" method="post">
 	<div class="SAgent">
@@ -111,11 +116,7 @@ or show text field when "other" is selected-->
   	<input type="hidden" name="MLS" value="<?php echo $_GET['MLS']; ?>">
   	<input style="margin: auto" class="button" type="submit" value="Submit" name="Submit" onClick="return isValid()"/>
 </form>
-<script type="text/javascript">
-$("document").ready(function(){
-  $( '#date' ).datepicker();
-});
-</script>
 <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
+
 </body>
 </html>
