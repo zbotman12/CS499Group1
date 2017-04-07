@@ -10,10 +10,8 @@ function getAgentInfo()
 	$empty_cond= array();
 	$temp_array= array("first_name", "last_name", "Agencies_agency_id");
 	$agent_info=$agents->select_with_order($temp_array, $empty_cond);
-
 	$formatted_info= array();
 	$temp_array= array("company_name");
-
 	foreach($agent_info as $agent)
 	{
 		$temp_var = array("agency_id"=>$agent["Agencies_agency_id"]);
@@ -33,11 +31,6 @@ function getDefinedAgentInfo($SA_id)
 	$cond= array("agent_id"=>$SA_id);
 	$temp_array= array("first_name", "last_name", "Agencies_agency_id");
 	$agent_info=$agents->select_where_not($temp_array, $cond);
-	
-	/*ob_start();
-	var_dump($agent_info);
-	$result_information = ob_get_clean();
-	error_log($result_information,0);*/
 	
 	$formatted_info= array();
 	$temp_array2= array("company_name");
@@ -151,4 +144,4 @@ function push_into_associative_array($tempArray, $value, $key)
 
 
 	
-	
+		
