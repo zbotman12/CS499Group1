@@ -16,15 +16,15 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 <title></title>
 <script src="/js/dateFilter.js">
 </script>
-<link type="text/css" href="css/ui-lightness/jquery-ui-1.9.1.custom.min.css" rel="stylesheet" />
-<script src="/js/crayJS/jquery.js" type="text/javascript"></script>
-<script src="/js/crayJS/jquery-ui.min.js" type="text/javascript"></script>
+<link
+	href="/js/crayJS/jquery-ui.min.css"
+	type="text/css"
+	rel="stylesheet">
 
-  <script>
-  $( function() {
-	    $( "#date" ).datepicker();
-	  } );
-  </script>
+<script type="text/javascript" src="/js/crayJS/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="/js/crayJS/jquery-ui.js"></script>
+
+  
 </head>
 
 <body>
@@ -109,9 +109,13 @@ or show text field when "other" is selected-->
   	</div>
   	<br/>
   	<input type="hidden" name="MLS" value="<?php echo $_GET['MLS']; ?>">
-  	<input type="submit" value="Submit" name="Submit" onClick="return isValid()"/>
+  	<input style="margin: auto" class="button" type="submit" value="Submit" name="Submit" onClick="return isValid()"/>
 </form>
-
+<script type="text/javascript">
+$("document").ready(function(){
+  $( '#date' ).datepicker();
+});
+</script>
 <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>
 </html>

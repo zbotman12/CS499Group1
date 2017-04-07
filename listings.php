@@ -92,12 +92,15 @@
 		$toReturn .= "Details</a>";
 		return $toReturn;
     }
-	
-	
 ?>
 
 <head>
 	<link href="/style/Listing.css" rel="stylesheet">
+	<style>
+		.pageNav {
+			display: inline;
+		}
+	</style>
 	<title>Listings</title>
 </head>
 
@@ -106,6 +109,23 @@
 	<div class="container-fluid">
 		<h2>Listings</h2>
 		<hr/>
+		<!--Listing options form-->
+		<form action="./listings.php" method="GET">
+			<div class="form-group">
+				<label for="sqftMin">Min Sq. Ft.</label>
+				<input type="text" name="sqftMin" value="<?php echo $_GET["sqftMin"]; ?>"/>
+				<label for="sqftMax">Max Sq. Ft.</label>
+				<input type="text" name="sqftMax" value="<?php echo $_GET["sqftMax"]; ?>"/>
+				<label for="priceMin">Min Price</label>
+				<input type="text" name="priceMin" value="<?php echo $_GET["priceMin"]; ?>"/>
+				<label for="priceMax">Max Price</label>
+				<input type="text"  name="priceMax" value="<?php echo $_GET["priceMax"]; ?>"/>
+				<label for="zipCode">ZIP Code</label>
+				<input type="text" name="zipCode" value="<?php echo $_GET["zipCode"]; ?>"/>
+				<button type="submit" class="btn btn-primary">Search</button>
+				<input type="hidden" value="1" name="page"/>
+			</div>
+		</form>
 		<!--Listings display loop-->
 		<?php
 			//Create DB Accessors
@@ -113,9 +133,71 @@
 			$agents = DBTransactorFactory::build("Agents");
 			$agencies = DBTransactorFactory::build("Agencies");
 			
+			//Get all listings
+			$FULL_GET_SIZE = 6;
+			$ListingArray = $listings->select(['MLS_number', 'square_footage', 'price', 'zip'], []);
+			$newListingArray = array();
+			
+			//Remove listings which do not meet search parameters
+			if (count($_GET) == 0) {
+				$newListingArray = $ListingArray;
+			} else if (count($_GET) >= 1) {
+				foreach ($ListingArray as $listing) {
+					
+					//Check square footage
+					$sqft = intval($listing["square_footage"]);
+					if ($sqft == 0) continue; //Return value for failed conversion
+					
+					$sqftMin = intval($_GET['sqftMin']);
+					$sqftMax = intval($_GET['sqftMax']);
+					if ($sqftMin != 0) {
+						if ($sqft < $sqftMin) continue;
+					}
+					if ($sqftMax != 0) {
+						if ($sqft > $sqftMax) continue;
+					}
+					
+					//Check price 
+					$price = intval($listing["price"]);
+					if ($price == 0) continue; //Return value for failed conversion
+					
+					$priceMin = intval($_GET['priceMin']);
+					$priceMax = intval($_GET['priceMax']);
+					if ($priceMin != 0) {
+						if ($price < $priceMin) continue;
+					}
+					if ($priceMax != 0) {
+						if ($price > $priceMax) continue;
+					}
+					
+					//Check zip code 
+					$myZip = intval($listing["zip"]);
+					if ($myZip == 0) continue; //Return value for failed conversion
+					
+					$zipCode = intval($_GET['zipCode']);
+					if ($zipCode != 0) {
+						if ($myZip != $zipCode) continue;
+					}
+					
+					$newListingArray[$listing["MLS_number"]] = $listing;
+				}
+			}
+
+			//Determine which indexes to display
+			$RESULTS_PER_PAGE = 2;
+			$num_results = count($newListingArray);
+			
+			$start_idx = 0;
+			if($_GET["page"] != null) {
+				$start_idx = ($_GET["page"]-1) * $RESULTS_PER_PAGE; //pages are 1-based
+			}
+			
+			$end_idx = $start_idx + $RESULTS_PER_PAGE - 1;
+			
+			$newListingArray = array_slice($newListingArray, $start_idx, $RESULTS_PER_PAGE);
+			
 			//Begin iteration through all MLS numbers
-			$ListingArray = $listings->select(['MLS_number'], []);
-			foreach($ListingArray as $listing) {
+			foreach($newListingArray as $listing) {
 				$MLS = $listing["MLS_number"]
 		?>
 		<a  style="color:black" href= <?php echo "/Listing/detailedListingDisplay.php?MLS=" . $MLS; ?>>
@@ -129,7 +211,7 @@
 			<div class="col-md-8 listing-text">
 				<div class="container-fluid listing-row">
 					<div class="col-sm-6 col-xs-6">
-						<?php echo getPrice($MLS, $listings); ?>
+						$<?php echo getPrice($MLS, $listings); ?>
 					</div>
 					<div class="col-sm-6 col-xs-6">
 						<?php echo getAgent($MLS, $listings, $agents); ?>
@@ -152,6 +234,37 @@
 			} //End iteration
 		?>
 		<!--End listings display loop-->
+		
+		<!--Navigation buttons-->
+		<center>
+			<?php if($start_idx > 0) { ?>
+			<form action="./listings.php" method="GET" class="pageNav">
+				<input type="hidden" name="sqftMin" value="<?php echo $_GET["sqftMin"]; ?>"/>
+				<input type="hidden" name="sqftMax" value="<?php echo $_GET["sqftMax"]; ?>"/>
+				<input type="hidden" name="priceMax" value="<?php echo $_GET["priceMax"]; ?>"/>
+				<input type="hidden" name="priceMax" value="<?php echo $_GET["priceMax"]; ?>"/>
+				<input type="hidden" name="zipCode" value="<?php echo $_GET["zipCode"]; ?>"/>
+				<input type="hidden" name="page" value="<?php echo $_GET["page"] - 1; ?>"/>
+				<button type="submit" class="btn btn-primary"><< Previous</button>
+			</form>
+			<?php } ?>
+			
+			<?php if($num_results > $end_idx + 1) { ?>
+			<form action="./listings.php" method="GET" class="pageNav">
+				<input type="hidden" name="sqftMin" value="<?php echo $_GET["sqftMin"]; ?>"/>
+				<input type="hidden" name="sqftMax" value="<?php echo $_GET["sqftMax"]; ?>"/>
+				<input type="hidden" name="priceMax" value="<?php echo $_GET["priceMax"]; ?>"/>
+				<input type="hidden" name="priceMax" value="<?php echo $_GET["priceMax"]; ?>"/>
+				<input type="hidden" name="zipCode" value="<?php echo $_GET["zipCode"]; ?>"/>
+				<input type="hidden" name="page" value="<?php 
+					if ($_GET["page"] != 0) echo $_GET["page"] + 1;
+					else echo 2; 				
+				?>"/>
+				<button type="submit" class="btn btn-primary">Next >></button>
+			</form>
+			<?php } ?>
+		</center>
+		<br/>
 	</div>
 	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>

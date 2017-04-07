@@ -34,32 +34,32 @@
             }
             //var_dump($agent);
         ?>
+		<div class="container-fluid">
+			<h2>Edit your account</h2>
+			<form id="createagent" action="./Helpers/editAgentAccountHandle.php" method="post">
+				<input type='hidden' name='submitted' id='submitted' value='1'/>
+				<legend><b class='bold'>Enter your agent information</b></legend>
+				
+				<label for='first_name'> First name: </label>
+				<input type="text" name="first_name" id='first_name' maxlength="50" value="<?php echo $agent['first_name']?>"/>  <br/>
 
-        <h2>Edit your account</h2>
+				<label for='last_name'> Last name: </label>
+				<input type="text" name="last_name" id='last_name' maxlength="50" value="<?php echo $agent['last_name']?>"/><br/>
 
-        <form id="createagent" action="./Helpers/editAgentAccountHandle.php" method="post">
-            <input type='hidden' name='submitted' id='submitted' value='1'/>
-            <legend><b class='bold'>Enter your agent information</b></legend>
-            
-            <label for='first_name'> First name: </label>
-            <input type="text" name="first_name" id='first_name' maxlength="50" value="<?php echo $agent['first_name']?>"/>  <br/>
+				<label for='email'> Email: </label>
+				<input type='text' name='email' id='email' maxlength="255" value="<?php echo $agent['email']?>"/><br/>
 
-            <label for='last_name'> Last name: </label>
-            <input type="text" name="last_name" id='last_name' maxlength="50" value="<?php echo $agent['last_name']?>"/><br/>
+				<label for='agent_phone_number'> Phone number:</label>
+				<input type='text' name='phone_number' id='agent_phone_number' maxlength="14" value="<?php echo $agent['phone_number']?>"/><br/>
 
-            <label for='email'> Email: </label>
-            <input type='text' name='email' id='email' maxlength="255" value="<?php echo $agent['email']?>"/><br/>
+				<legend><b class='bold'> Edit your password</b></legend>
 
-            <label for='agent_phone_number'> Phone number:</label>
-            <input type='text' name='phone_number' id='agent_phone_number' maxlength="14" value="<?php echo $agent['phone_number']?>"/><br/>
+				<a href="./changepass.php" class="btn btn-default">Change Password</a>
 
-            <legend><b class='bold'> Edit your password</b></legend>
-
-            <a href="./changepass.php" class="btn btn-default">Change Password</a> <br/> <br/>
-
-            <input type="hidden" name = "user_login" value=" <?php echo $agent['user_login'];?>"><br><br>
-            <input type='submit' name='Submit' value='Submit' /> <br/>
-        </form>
+				<input type="hidden" name = "user_login" value=" <?php echo $agent['user_login'];?>"><br><br>
+				<input type='submit' name='Submit' value='Submit' /> <br/>
+			</form>
+		</div>
         <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
     </body>    
 </html>

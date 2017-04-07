@@ -7,9 +7,9 @@
 		}
 ?>
 <head>
-	<link href="/style/bootstrap.min.css" rel="stylesheet">
-    <link href="/style/bootstrap.css" rel="stylesheet">
-    <link href="/style/detailedListing.css" rel="stylesheet">
+	<!--<link href="/style/bootstrap.min.css" rel="stylesheet">-->
+    <!--<link href="/style/bootstrap.css" rel="stylesheet">-->
+    <!--<link href="/style/detailedListing.css" rel="stylesheet">-->
     <script src="/js/jquery-1.11.3.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 	<!--Declare formatting-->
