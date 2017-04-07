@@ -135,7 +135,20 @@
             }
             return false; 
         }
-
+        
+        public function resetDailyHitCron($MLS) : bool { 
+            //Check if MLS is an integer value
+            if(!is_numeric($MLS) || $MLS != round($MLS, 0)){
+                return false;
+            }
+            $results = $this->select(['*'],  ['MLS_number' => $MLS]);
+            if($results){
+                $dhc = 0;
+                return $this->update(['daily_hit_count' => $dhc], ['MLS_number' => $MLS]);
+            }
+            return false; 
+        }
+        
         /* delete()           -> Deletes an entry from the database
             @param $key_array -> A single valued associative array where ["column_name"] = value_to_delete; 
                                 delete() corresponds to following mysql syntax: "DELETE FROM 'table_name' WHERE 'condition1' AND 'condition1' AND ...;

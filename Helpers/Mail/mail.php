@@ -109,17 +109,96 @@
         // Cron job mail. 
         public function cron_mail() {
 
-            // Create transactors
-            $agentsTable   = DBTransactorFactory::build("Agents");
+            // Create listing transactor
             $listingsTable = DBTransactorFactory::build("Listings");
 
-            // Get id, first name, last name, and email of ALL agents.
-            $sel = ['agent_id', 'first_name', 'last_name', 'email'];
-            $result = $agentsTable->select($sel, []);
+            // Get all listings info with the following selection
+            $sel = ["MLS_number", "Agents_listing_agent_id", "address", "city", "state", "zip", "daily_hit_count", "hit_count"];
+            $allListings = $listingsTable->select($sel, []);
 
-            // Get ALL listings. Get the agent emails.
+            // Initialize mailList
+            $agent_id = null;
+            $mls      = null;
+            $mailList = [[]];
 
-            // Organize 
+            //Iterate through the entire database and create a mailList.
+            foreach ($allListings as $MLSarr) {
+                //Set current agent ID. 
+                $agent_id = $MLSarr['Agents_listing_agent_id'];
+
+                //Check if we have key in mailList
+                if (array_key_exists($agent_id, $mailList)) {
+                    $mailList[$agent_id][] = $MLSarr;
+                } else { //Key not in maillist, create new entry for agent.
+                    $mailList[$agent_id][] = $MLSarr;
+                }
+            }
+
+            // SPAM
+            array_map(array($this, 'mass_mailer'), $mailList);
+
+            //Reset daily hit count for all listings after mass mailer.
+            $mlsNumbers = array_keys($allListings);
+
+            foreach($mlsNumbers as $m) {
+                $listingsTable->resetDailyHitCron($m);
+            }
+        }
+
+        private function mass_mailer($agentListings) {
+            //Build transactors
+            $agentsTable   = DBTransactorFactory::build("Agents");
+            $agent_id = null;
+
+            //Return empty list if current agent has no listings. Do not mail anything.
+            if (empty($agentListings)) {
+                return [];
+            }
+            
+            //Get agent id.
+            $agent_id = $agentListings[0]['Agents_listing_agent_id'];
+
+            //Get agent info from db.
+            $sel = ["first_name", "last_name", "email"];
+            $agent = $agentsTable->select($sel, ["agent_id" => $agent_id]);
+            
+            $agent = $agent[$agent_id];
+            //var_dump($agent);
+
+             // Create email message. 
+            $to = $agent['email'];
+            $subject = "Daily Hit Count - ParagonMLS.";
+            
+            // Headers
+            $headers[] = 'MIME-Version: 1.0';
+            $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+            $headers[] = "To:" . " " . $agent['first_name'] . " " . $agent['last_name'] . " " . "<" . $agent['email'] . ">";
+            $headers[] = 'From: ParagonMLS <postmaster@ParagonMLS.com>';
+
+            $messageHead = "<html><head><title>ParagonMLS</title></head>
+                        <body><p> Dear" . " " . $agent['first_name'] . " " . $agent['last_name'] . " <br></p>";
+            $messageHead .= "<body><p> Here are the daily hit counts for your listings.</p> <p>";
+            
+            $message = null;
+
+            //Iterate through agents listings.
+            //Construct message array.
+            foreach($agentListings as $listing) {
+                $message  = $message . "MLS Number: " . $listing['MLS_number'] . "<br>";
+                $message .=  "Address:" . $listing['address'] . " " . $listing['city'] . ", " . $listing['state'] . " " . $listing['zip'] . "<br>";
+                $message .= "Daily Hit Count: " . $listing['daily_hit_count'] . "<br>" . "Overall Hit Count: " . $listing['hit_count'] . "<br><br>";
+            }
+            
+            $message = $message . "<p> This is an automated
+                                  email from ParagonMLS. <br> CS499 Team 1. <a
+                                  href=\"207.98.161.214\" target=\"_blank\">
+                                  ParagonMLS</a></p>" . "</p></body></body><html>";
+            //var_dump($agentListings);
+            //var_dump($message);
+            //echo $messageHead . $message;
+
+            //Send email.
+            mail($to, $subject, ($messageHead . $message) , implode("\r\n", $headers));
         }
 
         // Send email through email form.
@@ -164,7 +243,7 @@
                 $agent = $array;
             }
 
-            // Create email message.
+            // Create email message. 
             $to = $agent['email'];
             $subject = "You've received a message from " . $messageArray['name'] . ". ParagonMLS.";
 

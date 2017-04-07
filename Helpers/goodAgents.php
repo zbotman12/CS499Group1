@@ -15,7 +15,7 @@
 
     //Get current MLS from url.
     $MLS = $_GET['MLS'];
-
+    
     if (array_key_exists($MLS, $allListings)) {
     	if ($allListings[$MLS]["Agents_listing_agent_id"] == $_SESSION['number'] ) {
     		//Don't do anything.
