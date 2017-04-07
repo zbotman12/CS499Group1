@@ -20,32 +20,45 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 	href="/js/crayJS/jquery-ui.min.css"
 	type="text/css"
 	rel="stylesheet">
-
-<script type="text/javascript" src="/js/crayJS/external/jquery/jquery.js"></script>
-<script type="text/javascript" src="/js/crayJS/jquery-ui.js"></script>
-
-<script type="text/javascript">
-$(function(){
-  $( '#date' ).datepicker();
-});
-</script>
-
 </head>
 
 <body>
-<?php // include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
+<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
+<script type="text/javascript" src="/js/crayJS/jquery-ui.js"></script>
+<script type="text/javascript">
+$(function(){
+  $( '#date' ).datepicker({ minDate: 0 });
+});
+
+    
+
+
+$(function() {
+	var availableTags =<?php echo json_encode($formatted_info); ?>;
+	$('#selectSAgent').autocomplete({
+	source: availableTags,
+	change: function (event, ui) {
+                if(!ui.item){
+                    $('#selectSAgent').val("");
+                }
+
+            }
+	});
+});
+</script>
+
 <!-- action_page.php is a php file that handles the submitted input --> 
 <form name="scheduleForm" action="/Helpers/Showing Schedule/newShowingDataHandle.php" method="post">
 	<div class="SAgent">
-	<label><b>Select Showing Agent:</b></label>
-  	<select class="selectAgent" id="selectSAgent" name='SAgent'>
+	<label><b>Enter/Select Showing Agent:</b></label>
+  	<input class="selectAgent" id="selectSAgent" name='SAgent' placeholder="Enter text here.." required>
 	    <?php
-	    	foreach($formatted_info as $agent)
+	    	/*foreach($formatted_info as $agent)
 	    	{
 	    		echo "<option value=\"".$agent."\">".$agent."</option>";
-	    	}
+	    	}*/
 	    ?>  
-	</select></div><br/>
+	</div><br/>
 	<div class= "timeStart"><label><b>Start Time:</b></label><select name='startHour'>
  		<option value="1">1</option>
   	 	<option value="2">2</option>
