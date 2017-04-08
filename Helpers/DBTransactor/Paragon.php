@@ -34,7 +34,10 @@
             returns a new mysql object and authenticates to the server using credentials from Paragon.
         */
         protected function getConn() {
-            include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/dbConnect.php";
+            //THIS PATH MUST STAY LIKE THIS, OTHERWISE PHP IN CLI MODE WILL NOT
+            //RUN cronmail.php in linux
+            //THIS IS VERY WEIRD. (MICHAEL).
+            include "/var/www/html/Helpers/dbConnect.php";
             return $conn;
         }
 

@@ -4,14 +4,15 @@
        Functions to send mail.
     */
     
-    include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
-    include "../DBTransactor/DBTransactorFactory.php";
+    //include "/var/www/html/Helpers/sessionCheck.php";
+    include "/var/www/html/Helpers/DBTransactor/DBTransactorFactory.php";
+    
     class Mail {
 
         //Send email function for add Showing.
         // Throws exception. Make sure to catch the exception.
         public function showing_mail($showing) {
-            //var_dump($showing);
+            
             //Create transactors
             $agentsTable   = DBTransactorFactory::build("Agents");
             $agencyTable   = DBTransactorFactory::build("Agencies");

@@ -1,0 +1,38 @@
+*{
+	font-family: Times;
+	
+}
+
+.wholeForm{
+	overflow: scroll;
+}
+
+.interestButton, .experience, .price, .comments{
+	display: inline-block;
+	width: 420px;
+	border-style: groove;
+	border-width: 1px 2px 1px 2px;
+}
+
+label, .option3, .option4{
+	margin: 0px 10px 2px 10px;
+	width: 400px;
+}
+
+.option1{
+	margin: 0px 10px 2px 100px;
+	width: 400px;
+}
+
+.option2{
+	margin: 0px 10px 2px 20px;
+	width: 400px;
+}
+
+.info{
+	margin: 2px 10px 2px 10px;
+	display: inline-block;
+	width: 400px;
+	border-style: groove;
+	border-width: 4px 4px 4px 4px;
+}

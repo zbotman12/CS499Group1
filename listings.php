@@ -1,5 +1,5 @@
 <?php
-    include "./Helpers/DBTransactor/DBTransactorFactory.php";
+    include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 
     //Stolen and adapted from dataretriver.php
 	function GetFilePathArrayVer2($MLS)
