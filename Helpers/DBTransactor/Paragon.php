@@ -34,9 +34,15 @@
             returns a new mysql object and authenticates to the server using credentials from Paragon.
         */
         protected function getConn() {
-            //THIS PATH MUST STAY LIKE THIS, OTHERWISE PHP IN CLI MODE WILL NOT
-            //RUN cronmail.php in linux
-            //THIS IS VERY WEIRD. (MICHAEL).
+            /* On Linux, this include path must be absolute starting from root.
+               Otherwise if not set as absolute, cronmail.php (The Cron Mailer)
+               will not be able to run when being called on the PHP command line interface. 
+
+               If you need to use the program on wamp on windows, uncomment the
+               following include $_SERVER['DOCUMENT_ROOT'];
+            */
+            
+            //include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/dbConnect.php";
             include "/var/www/html/Helpers/dbConnect.php";
             return $conn;
         }
