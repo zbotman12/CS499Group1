@@ -5,7 +5,11 @@
 	*/
 	
 	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
 
+    $listingsTable = DBTransactorFactory::build("Listings");
+	$showingsTable = DBTransactorFactory::build("Showings");
+	
 	$MLS = null;
 	$sID = null;
 	
@@ -18,19 +22,20 @@
 	if (isset($_GET['showing_id'])) {
 		$sID = intval($_GET['showing_id']);
 	}
-		
+	
+	//Get listing using MLS number. 
+    $listings = $listingsTable->select(["Agents_listing_agent_id"], ["MLS_number" => $MLS]);
+
+	//Get Showing information using MLS number. 
+	$showings = $showingsTable->select(["showing_agent_id"], ["showing_id"] => $sID);
+	
 	/********************************************************************************************** 
 		Check Listings edit information
 	***********************************************************************************************/
 	
 	//Check edit listing display page.
 	if (strpos($_SERVER['QUERY_STRING'], '/Listing/editListingDisplay.php') !== false) {
-		include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
-		$listingsTable = DBTransactorFactory::build("Listings");
-		
-		//Get listing using MLS number. 
-		$listings = $listingsTable->select(["Agents_listing_agent_id"], ["MLS_number" => $MLS]);	
-		
+
 		if (array_key_exists($MLS, $listings)) {
 			if ($alllistings[$MLS]["Agents_listing_agent_id"] == $_SESSION['number'] ) {
 				//Don't do anything.
@@ -48,11 +53,6 @@
 	
 	//Check edit photo display page.
 	if (strpos($_SERVER['QUERY_STRING'], '/Listing/photoEditDisplay.php') !== false) {
-		include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
-		$listingsTable = DBTransactorFactory::build("Listings");
-		
-		//Get listing using MLS number. 
-		$listings = $listingsTable->select(["Agents_listing_agent_id"], ["MLS_number" => $MLS]);
 		if (array_key_exists($MLS, $listings)) {
 			if ($alllistings[$MLS]["Agents_listing_agent_id"] == $_SESSION['number'] ) {
 				//Don't do anything.
@@ -73,12 +73,6 @@
 	***********************************************************************************************/
 	//Check Showings. Only showing agent can edit 
 	if (strpos($_SERVER['QUERY_STRING'], "/Showing Schedule/editShowingDisplay.php") !== false) {
-		include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
-		$showingsTable = DBTransactorFactory::build("Showings");
-
-		//Get Showing information using MLS number. 
-		$showings = $showingsTable->select(["showing_agent_id"], ["showing_id"] => $sID);
-
 		if (array_key_exists($sID, $showings)) {
 			if ($showings[$sID]["showing_agent_id"] == $_SESSION['number'] ) {
 				//Don't do anything.
@@ -96,12 +90,6 @@
 
 	//Check Showings. Only showing agent can edit 
 	if (strpos($_SERVER['QUERY_STRING'], "/Showing Schedule/deleteShowingHandle.php") !== false) {
-		include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
-		$showingsTable = DBTransactorFactory::build("Showings");
-		
-		//Get Showing information using MLS number. 
-		$showings = $showingsTable->select(["showing_agent_id"], ["showing_id"] => $sID);
-		
 		if (array_key_exists($sID, $showings)) {
 			if ($showings[$sID]["showing_agent_id"] == $_SESSION['number'] ) {
 				//Don't do anything.
