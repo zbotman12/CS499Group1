@@ -3,7 +3,7 @@
 	//TODO: Set relative path root to website base
 	if(session_id() == null)
 		{
-			session_start();
+			session_start(); 
 		}
 ?>
 <head>
@@ -12,7 +12,9 @@
     <!--<link href="/style/detailedListing.css" rel="stylesheet">-->
     <script src="/js/jquery-1.11.3.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-	<!--Declare formatting-->
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
 	<style>
 		.site-header {
 			background-color: rgb(96, 157, 255);
@@ -24,31 +26,43 @@
 		.site-header > .right {
 			float: right;
 		}
+		
+		.btn-text {
+			margin-left: 5px;
+		}
+		
+		@media screen and (max-width: 768px) {
+			.btn-text {
+				display: none;
+			}
+		}
+	}
+		
 	</style>
 </head>
 
 <!--Create header-->
 <div class="site-header">
 	<a href="/listings.php" class="btn">
-		Home
+		<span class="glyphicon glyphicon-home"></span><span class="btn-text">Home</span>
 	</a>
 
 	<?php if(!isset($_SESSION['number'])){ ?>
 		<!--If session is not set-->
 		<a href="/login.php" class="btn">
-			Login
+			<span class="glyphicon glyphicon-user"></span><span class="btn-text">Login</span>
 		</a>
 
 	<?php } else { ?>
 		<!--If session is set-->
-		<a href="/agentaccount.php" class="btn">
-			My Account
+		<a href="/agentaccount.php" class="btn text-button">
+			<span class="glyphicon glyphicon-user"></span><span class="btn-text">My Account</span>
 		</a>
-		<a href="/Listing/agentListingsDisplay.php" class="btn">
-			My Listings
+		<a href="/Listing/agentListingsDisplay.php" class="btn text-button">
+			<span class="glyphicon glyphicon-briefcase"></span><span class="btn-text">My Listings</span>
 		</a>
-		<a href="/logout.php" class="btn right">
-			Logout
+		<a href="/logout.php" class="btn right text-button">
+			<span class="glyphicon glyphicon-log-out"></span><span class="btn-text">Logout</span>
 		</a>
 	<?php } ?>
 </div>

@@ -63,7 +63,7 @@
 	//Returns the address of the listing
     function getAddress($MLS, $listings) {
 		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
-		return $ListingArray[$MLS]["address"];
+		return $ListingArray[$MLS]["address"] . ", " . $ListingArray[$MLS]["zip"] ;
     }
 
     //Returns the company associated with the listing's agent
@@ -97,9 +97,14 @@
 <head>
 	<link href="/style/Listing.css" rel="stylesheet">
 	<style>
+		.listing {
+			font-family: serif;
+		}
+	
 		.pageNav {
 			display: inline;
 		}
+		
 	</style>
 	<title>Listings</title>
 </head>
@@ -134,19 +139,21 @@
 			$agencies = DBTransactorFactory::build("Agencies");
 			
 			//Get all listings
-			$FULL_GET_SIZE = 6;
-			$ListingArray = $listings->select(['MLS_number', 'square_footage', 'price', 'zip'], []);
-			$newListingArray = array();
+			$FULL_GET_SIZE = 6; //The size of $_GET when all fields have been sent
+			$allListings = $listings->select(['MLS_number', 'square_footage', 'price', 'zip'], []);
+			$listingsToDisplay = array();
 			
-			//Remove listings which do not meet search parameters
-			if (count($_GET) == 0) {
-				$newListingArray = $ListingArray;
+            //Remove listings which do not meet search parameters
+			if (count($_GET) == 0) { //No search parameters exist
+				$listingsToDisplay = $allListings; 
 			} else if (count($_GET) >= 1) {
-				foreach ($ListingArray as $listing) {
+				foreach ($allListings as $listing) {
 					
 					//Check square footage
-					$sqft = intval($listing["square_footage"]);
-					if ($sqft == 0) continue; //Return value for failed conversion
+					$sqft = $listing["square_footage"];
+					$sqft = str_replace(",", "", $sqft);
+					$sqft = intval($sqft);
+					if ($sqft == 0) continue; //0 is the return value for failed conversion
 					
 					$sqftMin = intval($_GET['sqftMin']);
 					$sqftMax = intval($_GET['sqftMax']);
@@ -157,9 +164,12 @@
 						if ($sqft > $sqftMax) continue;
 					}
 					
-					//Check price 
-					$price = intval($listing["price"]);
-					if ($price == 0) continue; //Return value for failed conversion
+					//Check price
+					$price = $listing["price"];
+					$price = str_replace("$", "", $price);
+					$price = str_replace(",", "", $price);
+					$price = intval($price);
+					if ($price == 0) continue; //0 is the return value for failed conversion
 					
 					$priceMin = intval($_GET['priceMin']);
 					$priceMax = intval($_GET['priceMax']);
@@ -172,20 +182,22 @@
 					
 					//Check zip code 
 					$myZip = intval($listing["zip"]);
-					if ($myZip == 0) continue; //Return value for failed conversion
+					if ($myZip == 0) continue; //0 is the return value for failed conversion
 					
 					$zipCode = intval($_GET['zipCode']);
 					if ($zipCode != 0) {
 						if ($myZip != $zipCode) continue;
 					}
 					
-					$newListingArray[$listing["MLS_number"]] = $listing;
+					//If the code has reached this line, the listing
+					//does not violate any of the search parameters 
+					$listingsToDisplay[$listing["MLS_number"]] = $listing;
 				}
 			}
 
 			//Determine which indexes to display
 			$RESULTS_PER_PAGE = 2;
-			$num_results = count($newListingArray);
+			$num_results = count($listingsToDisplay);
 			
 			$start_idx = 0;
 			if($_GET["page"] != null) {
@@ -193,11 +205,16 @@
 			}
 			
 			$end_idx = $start_idx + $RESULTS_PER_PAGE - 1;
-			
-			$newListingArray = array_slice($newListingArray, $start_idx, $RESULTS_PER_PAGE);
+		    
+            // Hey nick. Problem is in this line here. Michael
+            //var_dump($listingsToDisplay);
+			$listingsToDisplay = array_slice($listingsToDisplay, $start_idx, $RESULTS_PER_PAGE);
 			
 			//Begin iteration through all MLS numbers
-			foreach($newListingArray as $listing) {
+            //echo "After slicing<br><br>";
+            //var_dump($listingsToDisplay);
+			
+            foreach($listingsToDisplay as $listing) {
 				$MLS = $listing["MLS_number"]
 		?>
 		<a  style="color:black" href= <?php echo "/Listing/detailedListingDisplay.php?MLS=" . $MLS; ?>>
