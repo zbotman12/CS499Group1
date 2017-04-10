@@ -93,7 +93,10 @@
   </style>
 </head>
 <body>
-<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
+<?php  
+    include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php";
+    include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/deleteModal.php";
+?>
 <div class="container-fluid">
   <h2>Listings for <?php echo $agent['user_login']; ?></h2>
 
@@ -132,8 +135,7 @@
               //Edit Listing
               echo $editListing . $editListing1 . $mls . $editListing2;
 
-              //Delete Listing
-              echo $delListing . $delListing1 . $mls . $delListing2;
+              echo "<td class='text-center'><button data-toggle='modal' data-target='#myDeleteModal' data-backdrop='false'><span data-id='". $mls . "' class='deleteListingsButton glyphicon glyphicon-remove'></span></button></td>";
               echo "</tr>";
           }
       ?>
@@ -177,7 +179,7 @@
               echo $editListing . $editListing1 . $mls . $editListing2;
 
               //Delete Listing
-              echo $delListing . $delListing1 . $mls . $delListing2;
+              echo "<td class='text-center'><button data-toggle='modal' data-target='#myDeleteModal' data-backdrop='false'><span data-id='". $mls . "'  class='deleteListingsButton glyphicon glyphicon-remove'></span></button></td>";
               echo "</tr>";
           }
       ?>

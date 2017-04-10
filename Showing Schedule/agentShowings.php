@@ -12,8 +12,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
   <style>
   .glyphicon
   {
@@ -38,7 +38,10 @@
 </head>
 <body>
   <title>Showings for <?php echo $_SESSION['name']; ?></title>
-	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
+	<?php
+		include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php";
+		include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/deleteModal.php";
+	?>
 	<div class="container-fluid">
 	  <h2>Showings for <?php echo $_SESSION['name']; ?></h2>
     <!--<a class="btn btn-default paragon" href="/Listing/detailedListingDisplay.php?MLS=<?php echo $_GET['MLS']; ?>">View Listing</a>-->
@@ -82,7 +85,7 @@
 				echo "<td class='text-center'><a class='glyphicon glyphicon-pencil' href='/Showing Schedule/editShowingDisplay.php?MLS=" . $array['Listings_MLS_number'] . "&showing_id=" . $showing_id . "'></a></td>";
         echo "<td class='text-center'><a class='glyphicon glyphicon-home' href='/Listing/detailedListingDisplay.php?MLS=" . $array['Listings_MLS_number'] . "'></a></td>";
 			  echo "<td class='text-center'><a class='glyphicon glyphicon-book' href='/Showing Schedule/feedbackDisplay.php?MLS=" . $array['Listings_MLS_number'] . "&showing_id=" . $showing_id . "'></a></td>";
-			  echo "<td class='text-center'><a class='glyphicon glyphicon-remove' href='/Helpers/Showing Schedule/deleteShowingHandle.php?MLS=" . $array['Listings_MLS_number'] . "&showing_id=" . $showing_id . "'></a></td>";
+  			  echo "<td class='text-center'><a data-id='A ". $showing_id . "' data-toggle='modal' data-target='#myDeleteModal' data-backdrop='false' class='deleteShowingsButton glyphicon glyphicon-remove'></a></td>";
 			  echo "</tr>";
 			}
 			?>

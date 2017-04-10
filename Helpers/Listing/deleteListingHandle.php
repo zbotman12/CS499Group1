@@ -13,7 +13,11 @@
     //(Michael) :: Must update this to have MLS number from current session after clicking delete listing from agent session
     try {
       // Convert MLS_number from string to integer
-      $mls = $_POST['MLS_number'];
+      if(isset($_POST['MLS_number'])){
+          $mls = $_POST['MLS_number'];
+      }elseif(isset($_GET['MLS'])) {
+          $mls = $_GET['MLS'];  
+      }
       $mls= intval(str_replace(' ', '', $mls));
       
       //var_dump($mls);
