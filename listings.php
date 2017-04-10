@@ -108,8 +108,9 @@
 	</style>
 	<title>Listings</title>
 	<script>
-		$(document).on("click", ".clearButton", function () {
-		    window.location.replace(<?php $_SERVER['SERVER_NAME'] + '/listings.php');
+		$(document).on("click", ".clearButton", function () 
+		{
+		    window.location.replace(<?php echo $_SERVER['SERVER_NAME'] ?> + '/listings.php');
 		});
 	</script>
 </head>
