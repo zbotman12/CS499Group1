@@ -4,8 +4,6 @@
        Functions to send mail.
     */
     
-    //include "/var/www/html/Helpers/sessionCheck.php";
-    //include "/var/www/html/Helpers/DBTransactor/DBTransactorFactory.php";
     include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
     
     class Mail {
@@ -23,7 +21,8 @@
             $listing = null;
             $agent   = null;
             $agency  = null;
-            
+            $showingAgent = null;
+
             // Get listing information
             $sel = ['Agents_listing_agent_id', 'address', 'city', 'state', 'zip'];
 
@@ -44,14 +43,23 @@
             $sel = ['first_name', 'last_name', 'email', 'Agencies_agency_id'];
             $result = $agentsTable->select($sel, ["agent_id" => $listing['Agents_listing_agent_id']]);
             
+            //Get showing Agent information
+            $sel = ['first_name', 'last_name', 'email'];
+            $showingA = $agentsTable->select($sel, ["agent_id" => $showing['showing_agent_id']]);
+            
             // Check if we actually got something.
-            if (empty($result)) {
+            if (empty($result || empty($showingA))) {
                 throw new Exception("Could not fetch agent info. Contact system administrator.");
             }
 
             // Set agent array
             foreach ($result as $array) {
                 $agent = $array;
+            }
+            
+            // Set showing agent array 
+            foreach ($showingA as $array) {
+                $showingAgent = $array;
             }
 
             // Get Agency information. 
@@ -68,7 +76,7 @@
                 $agency = $array;
             }
 
-            // Create Email message
+            // Create Email message for listing agent.
             $to = $agent['email'];
             $subject = "NEW SHOWING:" . " " . $listing['address'] . " " . "has a new showing.";
 
@@ -104,8 +112,34 @@
             $headers[] = "To:" . " " . $agent['first_name'] . " " . $agent['last_name'] . " " . "<" . $agent['email'] . ">";
             $headers[] = 'From: ParagonMLS <postmaster@ParagonMLS.com>';
 
-            // Return either true or false if email was sent.
-            return mail($to, $subject, $message, implode("\r\n", $headers));
+            //Create email message for showing agent.
+            $toS = $showingAgent['email'];
+
+            $showingASubject = "You've been schedule for a showing.";
+
+            $showingMessage  = "<html><head><title> ParagonMLS</title></head> <body> <p> Dear " . $showingAgent['first_name'] . " " . $showingAgent['last_name'] . "</p><br>";
+            $showingMessage .= "<p> You've been scheduled for a showing at the following address </p><br>" . $listing['address'] . "<br>" . $listing['city'] . "," . $listing['state'] . " " . $listing['zip'] . "</p>" .
+                                "<p><table>
+                                          <tr>
+                                            <th>Customer Name</th> 
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Lockbox Code </th>
+                                          </tr>
+                                          <tr>
+                                            <td>" . $showing['customer_first_name'] . " " . $showing['customer_last_name'] . "</td>
+                                            <td>" . $showing['start_time'] . "</td>
+                                            <td>" . $showing['end_time'] . "</td>
+                                            <td>" . $showing['lockbox_code'] . "</td></tr>
+                                      </table>" . "<br> <p> This is an automated
+                                      email from ParagonMLS. <br> CS499 Team 1. <a
+                                      href=\"207.98.161.214\" target=\"_blank\">
+                                      ParagonMLS</a></p>" . "
+                            </body>
+                        </html>";
+
+            // Return either true or false if both emails were sent.
+            return (mail($to, $subject, $message, implode("\r\n", $headers))) && (mail($to, $showingASubject, $showingMessage, implode("\r\n", $headers)));
         }
 
         // Cron job mail. 
