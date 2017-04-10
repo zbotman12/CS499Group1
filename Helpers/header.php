@@ -55,16 +55,20 @@
 	<?php } else { ?>
 		<!--If session is set-->
 		<a href="/agentaccount.php" class="btn text-button">
-			<span class="glyphicon glyphicon-user"></span><span class="btn-text">My Account</span>
+			<span class="glyphicon glyphicon-user"></span>
+			<span class="btn-text">My Account</span>
 		</a>
 		<a href="/Listing/agentListingsDisplay.php" class="btn text-button">
-			<span class="glyphicon glyphicon-briefcase"></span><span class="btn-text">My Listings</span>
+			<span class="glyphicon glyphicon-briefcase"></span>
+			<span class="btn-text">My Listings</span>
 		</a>
 		<a href="/logout.php" class="btn right text-button">
-			<span class="glyphicon glyphicon-log-out"></span><span class="btn-text">Logout</span>
+			<span class="glyphicon glyphicon-log-out"></span>
+			<span class="btn-text">Logout</span>
         </a>
 		<a href="/Showing Schedule/agentShowings.php" class="btn">
-			My Showings
+			<span class="glyphicon glyphicon-eye-open"></span>
+			<span class="btn-text">My Showings</span>
 		</a>
 	<?php } ?>
 </div>

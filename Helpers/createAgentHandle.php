@@ -57,5 +57,5 @@
 			createAgent(); 
 		?>
 	</div>
-        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>>
+        <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>
 </body>
