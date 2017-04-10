@@ -128,6 +128,7 @@
 				<label for="zipCode">ZIP Code</label>
 				<input type="text" name="zipCode" value="<?php echo $_GET["zipCode"]; ?>"/>
 				<button type="submit" class="btn btn-primary">Search</button>
+				<button type="reset" value="Reset" class="btn btn-primary">Clear Filters</button>
 				<input type="hidden" value="1" name="page"/>
 			</div>
 		</form>
