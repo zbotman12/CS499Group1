@@ -7,7 +7,7 @@
     </head>
     <body>
         <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; 
-               include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
+               //include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
         ?>
         <div class="container-fluid">
             <h2>We could not send your email.</h2>

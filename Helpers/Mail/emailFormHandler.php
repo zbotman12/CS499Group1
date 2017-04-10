@@ -1,5 +1,7 @@
 <?php
-    include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
+    
+    //Anyone can send agent an email if they're interested directly from the website.
+    //include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 
 	include "mail.php";
 
