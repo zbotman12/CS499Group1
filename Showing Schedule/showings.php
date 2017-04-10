@@ -11,7 +11,7 @@
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
   <style>
-  .glyphicon
+  td > .glyphicon
   {
   	font-size: 20px;
   }
@@ -20,16 +20,19 @@
   	text-decoration: none;
   	font-size: 20px;
   }
+  
+  /*
   .paragon
   {
   	color: #337ab7 !important;
   	background-color: rgb(255, 204, 0) !important;
-  }
+  } 
   .paragon:hover
   {
   	color: #23527c !important;
   	background-color: rgb(255, 204, 0) !important;
-  }
+  } 
+  */
   </style>
 </head>
 <body>

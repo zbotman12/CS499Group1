@@ -6,7 +6,7 @@
   $showingsArray = $showings->select(['*'], ['showing_agent_id' => $_SESSION['number']]);
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -15,11 +15,11 @@
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
   <style>
-  .glyphicon
+  td > .glyphicon
   {
   	font-size: 20px;
   }
-  .glyphicon:hover
+  td > .glyphicon:hover
   {
   	text-decoration: none;
   	font-size: 20px;

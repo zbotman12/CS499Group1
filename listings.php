@@ -105,7 +105,15 @@
 			display: inline;
 		}
 		
+		.listing-address {
+			height: auto !important;
+		}
+		
 	</style>
+	
+	<script>
+	</script>
+	
 	<title>Listings</title>
 	</head>
 

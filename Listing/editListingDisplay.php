@@ -12,6 +12,10 @@
             type="text/css"
             rel="stylesheet">
 			
+         <link
+            href="/js/crayJS/jquery-ui.min.css"
+            type="text/css"
+            rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function() {
@@ -59,6 +63,20 @@
 
     <body>
         <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
+          <script type="text/javascript" src="/js/crayJS/jquery-ui.js"></script>
+   <script type="text/javascript">
+    $(function() {
+                var availableTags = [ "AK","AL","AR","AZ","CA","CO","CT","DE","FL","GA","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VA","VT","WA","WI","WV","WY"];
+                $('#state').autocomplete({
+                source: availableTags,
+                change: function (event, ui) {
+                        if(!ui.item){
+                            $('#state').val("");
+                        }
+                }
+                });
+            });
+   </script>
         <!-- action_page.php is a php file that handles the submitted input --> 
 		<div class="container-fluid">
 			<form action="../Helpers/Listing/editListingHandle.php" method="get" enctype="multipart/form-data">
@@ -66,22 +84,22 @@
 			<h2>Listing Information</h2>
 			<hr/>
 			<label class= "field" for="price">List Price:</label><br>
-			<input type="text" name="price" value="<?php echo $data['price']; ?>"><br><br>
+			<input type="text" name="price" value="<?php echo $data['price']; ?>" required><br><br>
 
 			<label class= "field" for="city">City:</label><br>
-			<input type="text" name="city" value="<?php echo $data['city']; ?>"><br><br>
+			<input type="text" name="city" value="<?php echo $data['city']; ?>" required><br><br>
 			
 			<label class= "field" for="state">State (Postal Code):</label><br>
-			<input type="text" name="state" value="<?php echo $data['state']; ?>"><br><br>
+			<input type="text" id="state" name="state" value="<?php echo $data['state']; ?>" placeholder="Select State" required><br><br>
 			
 			<label class= "field" for="zip">Zip:</label><br>
-			<input type="text" name="zip" value="<?php echo $data['zip']; ?>"><br><br>
+			<input type="text" name="zip" value="<?php echo $data['zip']; ?>" required><br><br>
 			
 			<label class= "field" for="address">Address:</label><br>
-			<input type="text" name="address" value="<?php echo $data['address']; ?>"><br><br>
+			<input type="text" name="address" value="<?php echo $data['address']; ?>" required><br><br>
 			
 			<label class= "field" for="square_footage">Square Footage:</label><br>
-			<input type="text" name="square_footage" value="<?php echo $data['square_footage']; ?>"><br><br>
+			<input type="text" name="square_footage" value="<?php echo $data['square_footage']; ?>" required><br><br>
 			
 			<label class= "field" for="number_of_bedrooms">Number of Rooms:</label><br>
 			<input type="text" name="number_of_bedrooms" value="<?php echo $data['number_of_bedrooms']; ?>"><br><br>
