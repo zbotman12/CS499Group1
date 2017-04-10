@@ -5,6 +5,7 @@
 	// Make cron excecute this script at your desired time. 
     echo "Hello I am cronmail.php!\n";
 
+	//Change this to relative path. Paragon only needs absolute path. 
     include "/var/www/html/Helpers/Mail/mail.php";
     
     echo "I got past the include!\n";
