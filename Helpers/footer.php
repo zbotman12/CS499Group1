@@ -16,5 +16,5 @@
 <link rel="stylesheet" href="/style/bootstrap.min.css">
 
 <div class="footer">
-	<p> CS490 Team 1 </p>
+	<p> CS499 Team 1 </p>
 </div>
