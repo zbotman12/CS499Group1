@@ -33,6 +33,12 @@
   	background-color: rgb(255, 204, 0) !important;
   }
   </style>
+ <script>
+  $(document).on("click", ".deleteButton", function () {
+      var showing_id = $(this).data('id');
+      $('.modal-body #confirm').attr('href', '/Helpers/Showing Schedule/deleteShowingHandle.php?MLS=<?php echo $_GET['MLS']; ?>&showing_id=' + showing_id);
+  });
+ </script>
 </head>
 <body>
 	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
@@ -108,6 +114,25 @@
         </div> 
         </div> 
 
+ <!--Begin Delete Modal Window--> 
+        <div class="modal fade left" id="myDeleteModal"> 
+        <div class="modal-dialog"> 
+        <div class="modal-content"> 
+        <div class="modal-header">
+        <h3 class="pull-left no-margin">Are you sure you want to delete this showing?</h3>
+        <button type="button" class="close" data-dismiss="modal" title="Close"><span class="glyphicon glyphicon-remove"></span>
+        </button> 
+        </div>
+        <div class="modal-body">
+            <a id="confirm" href="#" class="left btn" type="button">Okay</a>
+            <button class="right btn-sm" type="button" data-dismiss="modal">Cancel</button> 
+        </div>
+        </div> 
+        </div> 
+        </div>
+        </div> 
+        </div>
+ <!--End Delete Modal Window--> 
 
 <div class="table-responsive">
 	  <table class="table table-hover">
@@ -148,7 +173,7 @@
 				echo "<td class='text-center'>" . GetShowingData('lockbox_code', $key) . "</td>";
 				echo "<td class='text-center'><a class='glyphicon glyphicon-pencil' href='/Showing Schedule/editShowingDisplay.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'></a></td>";
 			  echo "<td class='text-center'><a class='glyphicon glyphicon-book' href='/Showing Schedule/feedbackDisplay.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'></a></td>";
-			  echo "<td class='text-center'><a class='glyphicon glyphicon-remove' href='/Helpers/Showing Schedule/deleteShowingHandle.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'></a></td>";
+			  echo "<td class='text-center'><a data-id='". $key . "' data-toggle='modal' data-target='#myDeleteModal' data-backdrop='false' class='deleteButton glyphicon glyphicon-remove'></a></td>";
 			  echo "</tr>";
 			}
 			?>

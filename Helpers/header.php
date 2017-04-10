@@ -7,9 +7,8 @@
 		}
 ?>
 <head>
-	<!--<link href="/style/bootstrap.min.css" rel="stylesheet">-->
-    <!--<link href="/style/bootstrap.css" rel="stylesheet">-->
-    <!--<link href="/style/detailedListing.css" rel="stylesheet">-->
+    <link href="/style/bootstrap.css" rel="stylesheet">
+    <link href="/style/detailedListing.css" rel="stylesheet">
     <script src="/js/jquery-1.11.3.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 	
@@ -63,6 +62,9 @@
 		</a>
 		<a href="/logout.php" class="btn right text-button">
 			<span class="glyphicon glyphicon-log-out"></span><span class="btn-text">Logout</span>
+        </a>
+		<a href="/Showing Schedule/agentShowings.php" class="btn">
+			My Showings
 		</a>
 	<?php } ?>
 </div>
