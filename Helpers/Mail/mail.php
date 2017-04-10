@@ -5,7 +5,8 @@
     */
     
     //include "/var/www/html/Helpers/sessionCheck.php";
-    include "/var/www/html/Helpers/DBTransactor/DBTransactorFactory.php";
+    //include "/var/www/html/Helpers/DBTransactor/DBTransactorFactory.php";
+    include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
     
     class Mail {
 

@@ -42,8 +42,8 @@
                following include $_SERVER['DOCUMENT_ROOT'];
             */
             
-            //include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/dbConnect.php";
-            include "/var/www/html/Helpers/dbConnect.php";
+            include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/dbConnect.php";
+            //include "/var/www/html/Helpers/dbConnect.php";
             return $conn;
         }
 
