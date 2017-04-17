@@ -107,12 +107,6 @@
 		
 	</style>
 	<title>Listings</title>
-	<script>
-		$(document).on("click", ".clearButton", function () 
-		{
-		    window.location.replace(<?php echo $_SERVER['SERVER_NAME'] ?> + '/listings.php');
-		});
-	</script>
 </head>
 
 <body>
@@ -134,7 +128,6 @@
 				<label for="zipCode">ZIP Code</label>
 				<input type="text" name="zipCode" value="<?php echo $_GET["zipCode"]; ?>"/>
 				<button type="submit" class="btn btn-primary">Search</button>
-				<button type="reset" value="Reset" class="btn btn-primary clearButton">Clear Filters</button>
 				<input type="hidden" value="1" name="page"/>
 			</div>
 		</form>
