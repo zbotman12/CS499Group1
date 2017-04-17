@@ -4,8 +4,8 @@
        Functions to send mail.
     */
     
-    include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
-    
+    include __DIR__ . "/../DBTransactor/DBTransactorFactory.php";
+
     class Mail {
 
         //Send email function for add Showing.

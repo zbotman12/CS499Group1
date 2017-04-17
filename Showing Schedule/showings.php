@@ -44,7 +44,7 @@
   ?>
 	<div class="container-fluid">
 	  <h2>Showings for <?php echo GetData('address', 'Listings') . ", " . GetData('city', 'Listings') . ", " . GetData('state', 'Listings');?></h2>
-	  <a class="btn btn-default paragon" href="/Showing Schedule/newShowingDisplay.php?MLS=<?php echo $_GET['MLS']; ?>">Add A Showing</a>
+	  <a class="btn btn-default paragon" href="/Showing Schedule/showingDateSelection.php?MLS=<?php echo $_GET['MLS']; ?>">Add A Showing</a>
 	  <a class="btn btn-default paragon" href="/Listing/detailedListingDisplay.php?MLS=<?php echo $_GET['MLS']; ?>">View Listing</a>
     <button type="button" class="btn btn-default paragon" data-toggle="modal" data-target="#myModal" data-backdrop="false">Send Email</button>
 

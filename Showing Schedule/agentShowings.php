@@ -82,7 +82,7 @@
 				echo "<td class='text-center'>" . $currentListing['MLS_number'] . "</td>";
 				echo "<td class='text-center'>" . $currentListing['address'] . ", " . $currentListing['city'] . ", " . $currentListing['state'] . ", " . $currentListing['zip'] . "</td>";
 				echo "<td class='text-center'>" . $array['lockbox_code'] . "</td>";
-				echo "<td class='text-center'><a class='glyphicon glyphicon-pencil' href='/Showing Schedule/editShowingDisplay.php?MLS=" . $array['Listings_MLS_number'] . "&showing_id=" . $showing_id . "'></a></td>";
+				echo "<td class='text-center'><a class='glyphicon glyphicon-pencil' href='/Showing Schedule/editShowingDateSelection.php?MLS=" . $array['Listings_MLS_number'] . "&showing_id=" . $showing_id . "'></a></td>";
         echo "<td class='text-center'><a class='glyphicon glyphicon-home' href='/Listing/detailedListingDisplay.php?MLS=" . $array['Listings_MLS_number'] . "'></a></td>";
 			  echo "<td class='text-center'><a class='glyphicon glyphicon-book' href='/Showing Schedule/feedbackDisplay.php?MLS=" . $array['Listings_MLS_number'] . "&showing_id=" . $showing_id . "'></a></td>";
   			  echo "<td class='text-center'><a data-id='A ". $showing_id . "' data-toggle='modal' data-target='#myDeleteModal' data-backdrop='false' class='deleteShowingsButton glyphicon glyphicon-remove'></a></td>";

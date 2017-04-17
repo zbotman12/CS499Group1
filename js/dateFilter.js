@@ -48,10 +48,10 @@
 			return false;
 		}	
 		
-		return isTimeValid();	
+		return true;	
 	}
 	
-	function isTimeValid()
+	function isTimeValid(times, hour_keys)
 	{
 		var Stester;
 		var Stester2;
@@ -65,6 +65,8 @@
 		Stester2 = document.forms["scheduleForm"]["startMin"].value;
 		Stester3 = document.forms["scheduleForm"]["startTime"].value;
 		
+
+
 		Etester = document.forms["scheduleForm"]["endHour"].value;
 		Etester2 = document.forms["scheduleForm"]["endMin"].value;
 		Etester3 = document.forms["scheduleForm"]["endTime"].value;
@@ -72,16 +74,54 @@
 		Stester= parseInt(Stester);
 		Etester= parseInt(Etester);
 		
-		if(Stester3 == "PM")
+
+		if(Stester <10)
+		{
+			var holdStart="0"+Stester+Stester2;
+		}
+
+		if(Etester<10)
+		{
+			var holdEnd="0"+Etester+Etester2;
+		}
+
+		if(Stester3=="AM" && Stester==12)
+		{
+			Stester=0;
+			var holdStart="0"+Stester+Stester2;
+
+		}
+
+		if(Etester3=="AM" && Etester==12)
+		{
+			Etester=0;
+			var holdEnd="0"+Etester+Etester2;
+
+		}
+
+		if(Stester3 == "PM" && Stester !=12)
 		{
 			Stester = Stester + 12;
+			var holdStart=Stester+Stester2;
+			
 		}
 		
-		if(Etester3 == "PM")
+		if(Etester3 == "PM" && Etester !=12)
 		{
 			Etester = Etester + 12;
+			var holdEnd = Etester+Etester2;
+		}
+
+		if(Stester==12 && Stester3=="PM")
+		{
+			var holdStart=Stester+Stester2;
 		}
 		
+		if(Etester==12 && Etester3=="PM")
+		{
+			var holdEnd=Etester+Etester2;
+		}
+
 		switch(Stester2) {
 	    case ":00":
 	        break;
@@ -113,11 +153,131 @@
 	    default:
 	        break;
 		}
+
 		if(Etester <= Stester)
 		{
 			alert("Invalid Start/End Time");
 			return false;
 		}
 		
+		var testIndex= hour_keys.indexOf(holdStart);
+
+		if(times[hour_keys[testIndex]] == 0 || times[hour_keys[testIndex]]==3)
+		{	
+			var inc=1;
+			while(hour_keys[testIndex+inc] != holdEnd && (testIndex+inc) < 95)
+			{
+				if(times[hour_keys[testIndex+inc]]>=1)
+				{
+					alert("ERROR: Schedule Overlap- Please Review Available Times 1");
+					return false;
+				}
+				inc++;
+			}
+		}
+		else
+		{
+			alert("ERROR: Schedule Overlap- Please Review Available Times 2");
+				return false;	
+		}
 		return true;
 	}
+
+	/*function updateTimes(timeAll, hourAll)
+	{
+		//alert("called updateTimes");
+		var startHour;
+		var startMin;
+		startHour=document.forms["scheduleForm"]["Stime"].value;
+		
+
+		document.scheduleForm.EHour.options.length=0;
+		document.scheduleForm.EMin.options.length=0;
+		document.scheduleForm.SMin.options.length=0;
+
+		var count;
+		var num_op;
+		num_op=0;
+		var check;
+		check = 1;
+		for(count = 0; count<12; count++){
+
+		if(hourAll[count]==startHour)
+		{
+			
+			check = 0;
+		}
+
+		if(hourAll[count]!="13" && check == 0)
+		{
+		document.scheduleForm.EHour.options[num_op]= new Option(hourAll[count], hourAll[count]);
+		num_op++;
+		}
+
+		}
+
+		check = 1;
+		num_op=0;
+		for(count=0; count<4; count++){
+			
+			if(timeAll[startHour][count]!="13")
+			{
+				document.scheduleForm.SMin.options[num_op]= new Option(timeAll[startHour][count],timeAll[startHour][count]);
+				num_op++;
+			}
+
+		}
+
+		startMin=document.forms["scheduleForm"]["SMin"].value;
+		check = 1;
+		num_op=0;
+		for(count=0; count<4; count++){
+			
+			if(timeAll[startHour][count]==startMin)
+			{
+				check = 0;
+			}
+			else if(check==0)
+			{
+				check =2;
+			}
+
+			if(timeAll[startHour][count]!="13" && check == 2)
+			{
+				document.scheduleForm.EMin.options[num_op]= new Option(timeAll[startHour][count],timeAll[startHour][count]);
+				num_op++;
+			}
+
+		}
+
+		check = 1;
+		num_op=0;
+		for(count=0; count<4; count++){
+			
+
+			if(timeAll[startHour][count]!="13" && check == 2)
+			{
+				document.scheduleForm.EMin.options[num_op]= new Option(timeAll[startHour][count],timeAll[startHour][count]);
+				num_op++;
+			}
+
+		}
+
+	}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

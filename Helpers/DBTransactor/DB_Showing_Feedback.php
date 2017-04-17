@@ -103,7 +103,9 @@
             
 		$query = "UPDATE " . $this->SHOWINGS_FEEDB_TABLE . " SET customer_interest_level= ".$set_array["customer_interest_level"].", showing_agent_experience_level= ".$set_array["showing_agent_experience_level"].", customer_price_opinion= \"".$set_array["customer_price_opinion"]."\", additional_notes= \"".$set_array["additional_notes"]. "\" WHERE Showings_showing_id= " . $where_array["Showings_showing_id"] . ";";
 
+
             $results = $this->connection->query($query);
+
             return $results;
         }
 
@@ -162,6 +164,8 @@
               $c = $this->conditionBuilder($cond, " AND ", []);
               $query = "SELECT " . $s . " FROM " . $this->SHOWINGS_FEEDB_TABLE . " WHERE " . $c . ";";
               
+       
+
               $results = $this->connection->query($query);
 			  
               //If results is false, return empty array.

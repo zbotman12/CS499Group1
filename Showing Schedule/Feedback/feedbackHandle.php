@@ -25,7 +25,11 @@ function handleFeedbackData()
 			"additional_notes"=>$additional);
 	$feedback_cond= array("Showings_showing_id"=>intval($showing_id));
 	$update_feedback=$feedback->update($feedback_array, $feedback_cond);
-	error_log("Made it", 0);
+	
+	ob_start();
+            var_dump($update_feedback);
+            $result_information = ob_get_clean();
+            error_log($result_information,0);
 	
 	header('location: ./../showings.php?MLS=' . $_POST['MLS']);
 }

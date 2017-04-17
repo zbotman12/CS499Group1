@@ -12,6 +12,7 @@ function getAgentInfo()
 	$agent_info=$agents->select_with_order($temp_array, $empty_cond);
 	$formatted_info= array();
 	$temp_array= array("company_name");
+
 	foreach($agent_info as $agent)
 	{
 		$temp_var = array("agency_id"=>$agent["Agencies_agency_id"]);
@@ -22,6 +23,97 @@ function getAgentInfo()
 	
 	return $formatted_info;
 }
+
+function getFreeTime($agent, $day)
+{
+	$showings=DBTransactorFactory::build("Showings");
+	$agents=DBTransactorFactory::build("Agents");
+	$agencies=DBTransactorFactory::build("Agencies");
+
+	$parsed_info=parseShowingAgentData($agent);
+	$SA_first_name= $parsed_info[1];
+	$SA_last_name= $parsed_info[0];
+	$SA_company_name= $parsed_info[2];
+
+	$temp_array= array("agency_id");
+	$temp_array2= array("company_name"=>$SA_company_name);
+	$confirmed_company= $agencies->select($temp_array, $temp_array2);
+	//ob_start();
+	//var_dump($confirmed_company);
+	//$result_information = ob_get_clean();
+	//error_log($result_information,0);
+	$select_company=array_pop($confirmed_company);
+	$temp_array3= array("agent_id");
+	$temp_array4= array("first_name"=>$SA_first_name, "last_name"=>$SA_last_name, "Agencies_agency_id"=>$select_company["agency_id"]);
+	//error_log("company_id ".$select_company["agency_id"], 0);
+	$confirmed_SA_id=$agents->select($temp_array3, $temp_array4);
+	$select_SA_id=array_pop($confirmed_SA_id);
+	$SA_id=$select_SA_id["agent_id"];
+
+	$finalDay= str_replace("/", "-", $day);
+	$tempStr=substr($finalDay, 6, 4);
+	$tempStr2= substr($finalDay, 0, 5);
+	$finalStr= $tempStr."-".$tempStr2;
+
+	
+
+	$test= array("TIME(start_time) as Stime", "TIME(end_time) as Etime");
+	$testCondAllTimes = array("DATE(start_time)"=>$finalStr, "Listings_MLS_number"=>$_POST['MLS']);
+	$testCondAgentTimes= array("DATE(start_time)"=>$finalStr, "showing_agent_id"=>$SA_id);
+
+
+	$resultsForAllTimes= $showings->select($test, $testCondAllTimes);
+	$resultsForAgentTimes= $showings->select($test, $testCondAgentTimes);
+
+	$resultsMerged= array_unique(array_merge($resultsForAllTimes,$resultsForAgentTimes), SORT_REGULAR);
+
+
+	$hour_array= array("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
+	$add_array= array();
+	$minute_array= array(":00", ":15", ":30", ":45");
+	$key_array=array();
+
+	for($i=0; $i<24; $i++)
+	{
+		for($j=0; $j<4;$j++)
+		{
+			$tempHM= $hour_array[$i].$minute_array[$j];
+			$add_array[$tempHM]=0;
+			array_push($key_array, $tempHM);
+		}
+	}
+
+	
+	
+	$return_array= array();
+	foreach($resultsMerged as $timeSlot)
+	{
+		$STime = substr($timeSlot["Stime"], 0, 5);
+		$ETime= substr($timeSlot["Etime"], 0, 5);
+
+		$searchTime= array_search($STime, $key_array);
+		
+		$add_array[$key_array[$searchTime]]=1;
+		
+		$increment = 1;
+		while(true)
+		{
+			//error_log($key_array[$searchTime+$increment], 0);
+			if($key_array[$searchTime+$increment]!=$ETime)
+			{
+				$add_array[$key_array[$searchTime+$increment]]=2;
+			}
+			else if($key_array[$searchTime+$increment]==$ETime)
+			{
+				$add_array[$key_array[$searchTime+$increment]]=3;
+				break;
+			}
+			$increment++;
+		}
+	}
+	return $add_array;
+	}
+
 
 function getDefinedAgentInfo($SA_id)
 {
@@ -55,12 +147,11 @@ function getDefinedAgentInfo($SA_id)
 }
 
 function getCompanyInfo(){
-	error_log("made it", 0);
+	
 	$company=DBTransactorFactory::build("Agencies");
 	$tempCond = array("company_name");
 	$tempS = array();
 
-	error_log("made 2", 0);
 	$company_array=$company->select($tempName, $tempS);
 	$final_array= array();
 	foreach($company_array as $agency_id => $com)
@@ -68,10 +159,10 @@ function getCompanyInfo(){
 		array_push($final_array, $com[$agency_id]["company_name"]);
 	}
 
-	ob_start();
+	/*ob_start();
 			var_dump($final_array);
 			$result_information = ob_get_clean();
-			error_log($result_information,0);
+			error_log($result_information,0);*/
 	return $final_array;
 }
 
@@ -155,7 +246,23 @@ function push_into_associative_array($tempArray, $value, $key)
 	return $tempArray;
 }
 
-
+// Parse out string containing agent info into array
+function parseShowingAgentData($full_info)
+{	//error_log($full_info, 0);
+	$parsed_array = array(); // Lines 120-122: Parse out last name
+	$pos=strrpos($full_info, ",");
+	$tempStr=substr($full_info, 0, $pos);
+	array_push($parsed_array, $tempStr);
+	//error_log("$pos= ".$pos, 0);
+	$pos2=strrpos($full_info, " of "); // Lines 125-127: Parse out first name
+	$tempStr=substr($full_info, $pos+2, $pos2-$pos-2);
+	array_push($parsed_array, $tempStr);
+	//error_log("$pos2= ".$pos2, 0);
+	$tempStr=substr($full_info, $pos2+4); // Lines 129-130: Parse out Company
+	array_push($parsed_array, $tempStr);
+	
+	return $parsed_array; 
+}
 
 	
 	
