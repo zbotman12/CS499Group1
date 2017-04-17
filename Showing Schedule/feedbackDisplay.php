@@ -9,7 +9,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
 	href="/style/formattingFileFeedback.css"
 	type="text/css"
 	rel="stylesheet">
-<title>"Edit Listing Photos"</title>
+<title>Showing Feedback</title>
   <?php
         // $files = GetFilePathArray();   
         $info= get_FeedbackInfo();

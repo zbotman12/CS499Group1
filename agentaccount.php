@@ -1,4 +1,4 @@
-<html>
+<html> 
     <!-- File: agentaccount.php
          Makes an agent entry in database.
     -->
@@ -38,7 +38,6 @@
 			<h2>Edit your account</h2>
 			<form id="createagent" action="./Helpers/editAgentAccountHandle.php" method="post">
 				<input type='hidden' name='submitted' id='submitted' value='1'/>
-				<legend><b class='bold'>Enter your agent information</b></legend>
 				
 				<label for='first_name'> First name: </label>
 				<input type="text" name="first_name" id='first_name' maxlength="50" value="<?php echo $agent['first_name']?>"/>  <br/>
@@ -51,8 +50,6 @@
 
 				<label for='agent_phone_number'> Phone number:</label>
 				<input type='text' name='phone_number' id='agent_phone_number' maxlength="14" value="<?php echo $agent['phone_number']?>"/><br/>
-
-				<legend><b class='bold'> Edit your password</b></legend>
 
 				<a href="./changepass.php" class="btn btn-default">Change Password</a>
 

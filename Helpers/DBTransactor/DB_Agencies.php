@@ -149,6 +149,7 @@
 
             $s = implode(",", $array);
 
+            //var_dump($s);
             // If condition is empty. Just select all columns given.
             if (empty($cond)) {
               $query = "SELECT " . $s . " FROM " . $this->AGENCIES_TABLE . ";"; 

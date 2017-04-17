@@ -14,33 +14,55 @@
         //print_r($_POST);
         if ($_POST == Array() || empty($_POST)) {
             header("location: index.php");
-            //echo "test";
             exit;
         }
 
-        // Create a connection to the database and access Agents table
-        try {
-          $agent = DBTransactorFactory::build("Agents");
-        }
-        catch (Exception $e) {
-              // Serious error. Could not connect to the database and initalize DBTransactor object.
-              echo $e->getMessage() . "<br/>"; 
-        }
 
-        // Insert Agent information into database.
+        // Create a connection to the database and access Agents table and Agencies table
         try {
+          $agent    = DBTransactorFactory::build("Agents");
+          $agencies = DBTransactorFactory::build("Agencies");
+
+          $sel = ["address", "city", "state", "zip", "phone_number"];
+          $results = $agencies->select($sel, ["company_name" => $_POST["company_name"]]);
+
+          $agencyRes = [];
+
+          //If results are empty, that means this is a new Agency. Take post array and upload.
+          if (empty($results)) {
             if($agent->insert($_POST) == true) {
                 echo "Created your account succesfully! You may now login. <br/>";
             }
             else {
                 echo "Could not create agent credentials. <br/>";
-            }
-        }
-        catch(Exception $e) {
-            //PHP Code to Handle Database Exception
-            echo $e->getMessage() . "<br/>";
-        }
-        catch(BadMethodCallException $e) {
+            }           
+          } else {
+                //Agency exists. Ignore user input address and replace with database address.
+                foreach ($results as $agenc) {
+                    $agencyRes = $agenc;
+                }
+
+                //Replace post array values for address of listing.
+                $_POST["address"]             = $agencyRes["address"];
+                $_POST["state"]               = $agencyRes["state"];
+                $_POST["city"]                = $agencyRes["city"];
+                $_POST["zip"]                 = $agencyRes["zip"];
+                $_POST["agency_phone_number"] = $agencyRes["phone_number"];
+
+                //echo "Got in else<br>";
+                //print_r($_POST);
+                if($agent->insert($_POST) == true) {
+                    echo "Created your account succesfully! You may now login. <br/>";
+                }
+                else {
+                    echo "Could not create agent credentials. <br/>";
+                }           
+          }
+
+        } catch (Exception $e) {
+              // Serious error. Could not connect to the database and initalize DBTransactor object.
+              echo $e->getMessage() . "<br/>"; 
+        } catch(BadMethodCallException $e) {
             //PHP Code to Handle $e bad user input Exception
             echo $e->getMessage() . "<br/>";
         }

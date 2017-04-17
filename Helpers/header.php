@@ -1,4 +1,4 @@
-<?php 
+<?php  
 	//Start session so as to be able to read variables
 	//TODO: Set relative path root to website base
 	if(session_id() == null)
@@ -8,7 +8,7 @@
 ?>
 <head>
     <link href="/style/bootstrap.css" rel="stylesheet">
-    <link href="/style/detailedListing.css" rel="stylesheet">
+    <link href="/style/Listing.css" rel="stylesheet">
     <script src="/js/jquery-1.11.3.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 	

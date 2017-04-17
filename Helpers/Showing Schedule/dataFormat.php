@@ -54,6 +54,27 @@ function getDefinedAgentInfo($SA_id)
 	return $formatted_info;
 }
 
+function getCompanyInfo(){
+	error_log("made it", 0);
+	$company=DBTransactorFactory::build("Agencies");
+	$tempCond = array("company_name");
+	$tempS = array();
+
+	error_log("made 2", 0);
+	$company_array=$company->select($tempName, $tempS);
+	$final_array= array();
+	foreach($company_array as $agency_id => $com)
+	{
+		array_push($final_array, $com[$agency_id]["company_name"]);
+	}
+
+	ob_start();
+			var_dump($final_array);
+			$result_information = ob_get_clean();
+			error_log($result_information,0);
+	return $final_array;
+}
+
 function getPreviousData(){
 	$conn=DBTransactorFactory::build("Showings");
 	$return_array= array();
