@@ -96,13 +96,13 @@ a:active {
 .panel-default
 {
     background-color: rgb(255, 204, 0) !important;
-    border: 3px solid #FFFFFF !important;
+    border: 3px solid #337ab7 !important;
 }
 
 .panel-heading
 {
     background-color: rgb(255, 204, 0) !important;
-     border-bottom: 3px solid #FFFFFF !important;
+    border-bottom: 3px solid #337ab7 !important;
 }
 
 .infoPanel

@@ -119,6 +119,29 @@
 		<h2>Listings</h2>
 		<hr/>
 		<!--Listing options form-->
+		<?php
+			if(!isset($_GET["sqftMin"]))
+			{
+				$_GET["sqftMin"] = '';
+			}
+			if(!isset($_GET["sqftMax"]))
+			{
+				$_GET["sqftMax"] = '';
+			}
+			if(!isset($_GET["priceMin"]))
+			{
+				$_GET["priceMin"] = '';
+			}
+			if(!isset($_GET["priceMax"]))
+			{
+				$_GET["priceMax"] = '';
+			}
+			if(!isset($_GET["zipCode"]))
+			{
+				$_GET["zipCode"] = '';
+			}
+		?>
+
 		<form action="./listings.php" method="GET">
 			<div class="form-group">
 				<label for="sqftMin">Min Sq. Ft.</label>

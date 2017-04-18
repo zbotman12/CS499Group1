@@ -1,5 +1,5 @@
 <?php
-    header("Location:listings.php");
+    header("Location:listings.php?page=1");
 ?>
 
 <html>
