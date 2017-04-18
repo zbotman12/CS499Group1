@@ -42,7 +42,7 @@
 
 <!--Create header-->
 <div class="site-header">
-	<a href="/listings.php" class="btn">
+	<a href="/listings.php?page=1" class="btn">
 		<span class="glyphicon glyphicon-home"></span><span class="btn-text">Home</span>
 	</a>
 
