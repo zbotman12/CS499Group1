@@ -23,7 +23,7 @@
   {
   	text-decoration: none;
   	font-size: 20px;
-  }
+  } 
   .paragon
   {
   	color: #337ab7 !important;
@@ -44,6 +44,7 @@
 	?>
 	<div class="container-fluid">
 	  <h2>Showings for <?php echo $_SESSION['name']; ?></h2>
+	<p style="font-style: italic;">To create a new showing, go to your listings page.</p>
  
 
 <div class="table-responsive">

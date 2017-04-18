@@ -36,7 +36,8 @@
 	<script type="text/javascript" src="/js/crayJS/jquery-ui.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			$( '#date' ).datepicker({ minDate: 0 });
+			$( '#date' ).datepicker({ minDate: 0
+			 });
 		});
 
 		$(function() {
@@ -62,7 +63,7 @@
 				<br/>
 				
 				<label for="date"><b>Date (MM/DD/YYYY):</b></label> 
-				<input type="text" name="date" id="date" required>
+				<input type="text" name="date" id="date" readonly='true' required>
 				<br>
 				
 				<label for="fname"><b>Customer First Name:</b></label>

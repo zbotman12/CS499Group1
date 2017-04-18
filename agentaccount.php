@@ -4,6 +4,11 @@
     -->
     <head>
 		<title>Your Account</title>
+		<style>
+			label {
+				width: 15%;
+			}
+		</style>
 	</head>
     <body>
         <?php
@@ -36,7 +41,9 @@
         ?>
 		<div class="container-fluid">
 			<h2>Edit your account</h2>
-			<form id="createagent" action="./Helpers/editAgentAccountHandle.php" method="post">
+			<hr/>
+			
+			<form id="createagent" class="col-l-6" action="./Helpers/editAgentAccountHandle.php" method="post">
 				<input type='hidden' name='submitted' id='submitted' value='1'/>
 				
 				<label for='first_name'> First name: </label>
@@ -50,11 +57,11 @@
 
 				<label for='agent_phone_number'> Phone number:</label>
 				<input type='text' name='phone_number' id='agent_phone_number' maxlength="14" value="<?php echo $agent['phone_number']?>"/><br/>
-
+				<br/>
+				
+				<input type='submit' name='Submit' value='Submit' class="btn btn-default"/>
 				<a href="./changepass.php" class="btn btn-default">Change Password</a>
-
-				<input type="hidden" name = "user_login" value=" <?php echo $agent['user_login'];?>"><br><br>
-				<input type='submit' name='Submit' value='Submit' /> <br/>
+				<input type="hidden" name = "user_login" value=" <?php echo $agent['user_login'];?>">
 			</form>
 		</div>
         <?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/footer.php"; ?>

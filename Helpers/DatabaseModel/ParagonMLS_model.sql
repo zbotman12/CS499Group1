@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `ParagonMLS`.`Listings` (
   CONSTRAINT `fk_Listings_Agents1`
     FOREIGN KEY (`Agents_listing_agent_id`)
     REFERENCES `ParagonMLS`.`Agents` (`agent_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

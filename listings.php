@@ -48,6 +48,8 @@
 	//Returns the text of the listing's price
     function getPrice($MLS, $listings) {
 		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
+		$ListingArray[$MLS]["price"] = str_replace("$", "", $ListingArray[$MLS]["price"]);
+		$ListingArray[$MLS]["price"] = number_format($ListingArray[$MLS]["price"]);
 		return $ListingArray[$MLS]["price"];
     }
 

@@ -140,7 +140,7 @@
                         </html>";
 
             // Return either true or false if both emails were sent.
-            return (mail($to, $subject, $message, implode("\r\n", $headers))) && (mail($to, $showingASubject, $showingMessage, implode("\r\n", $headers)));
+            return (mail($to, $subject, $message, implode("\r\n", $headers))) && (mail($toS, $showingASubject, $showingMessage, implode("\r\n", $headers)));
         }
 
         // Cron job mail. 

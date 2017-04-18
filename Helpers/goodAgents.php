@@ -66,7 +66,7 @@
 		Check Showings edit information. Only showing agent or listing agent can edit.
 	***********************************************************************************************/
 	//Check Showings. 
-	if ((strpos($_SERVER['REQUEST_URI'], "/Showing%20Schedule/editShowingDisplay.php") !== false) || (strpos($_SERVER['REQUEST_URI'], "/Showing%20Schedule/deleteShowingHandle.php") !== false))  {
+	if ((strpos($_SERVER['REQUEST_URI'], "/Showing%20Schedule/editShowingDateSelection.php") !== false) || (strpos($_SERVER['REQUEST_URI'], "/Showing%20Schedule/deleteShowingHandle.php") !== false))  {
 		$showingsTable = DBTransactorFactory::build("Showings");
 
 		//Get Showing information using MLS number. 

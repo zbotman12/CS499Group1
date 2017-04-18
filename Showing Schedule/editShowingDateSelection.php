@@ -32,6 +32,10 @@
 			font-family: sans-seriff;
 		}
 		
+		.wholeForm {
+			overflow: hidden !important; 
+		}
+		
 		input {
 			width: auto;
 		}
@@ -43,6 +47,7 @@
 </head>
 <body>
 	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
+	
 	<script type="text/javascript" src="/js/crayJS/jquery-ui.js"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -61,6 +66,7 @@
 			});
 		});
 	</script>
+	
 	<div class="container-fluid">
 		<h2>Create Showing</h2>
 		<hr/>
@@ -72,7 +78,7 @@
 				<br/>
 				
 				<label for="date"><b>Date (MM/DD/YYYY):</b></label> 
-				<input type="text" name="date" id="date" value="<?php echo $previous_data_array["date"]; ?>" required>
+				<input type="text" name="date" id="date" value="<?php echo $previous_data_array["date"]; ?>" readonly='true' required>
 				<br>
 				
 				<label for="fname"><b>Customer First Name:</b></label>

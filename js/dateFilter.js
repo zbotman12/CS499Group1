@@ -75,6 +75,21 @@
 		Stester= parseInt(Stester);
 		Etester= parseInt(Etester);
 		
+		if(Stester==10 || Stester==11)
+		{	
+			if(Stester3=="AM")
+			{
+				var holdStart=""+Stester+Stester2;
+			}
+		}
+
+		if(Etester==10 || Etester==11)
+		{	
+			if(Etester3=="AM")
+			{
+				var holdEnd=""+Etester+Etester2;
+			}
+		}
 
 		if(Stester <10)
 		{
@@ -161,6 +176,10 @@
 			return false;
 		}
 		
+		
+
+
+
 		var testIndex= hour_keys.indexOf(holdStart);
 
 		if(times[hour_keys[testIndex]] == 0 || times[hour_keys[testIndex]]==3)
@@ -170,7 +189,7 @@
 			{
 				if(times[hour_keys[testIndex+inc]]>=1)
 				{
-					alert("ERROR: Schedule Overlap- Please Review Available");
+					alert("ERROR: Schedule Overlap- Please Review Available Loop");
 					return false;
 				}
 				inc++;

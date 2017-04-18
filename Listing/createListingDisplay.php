@@ -10,10 +10,13 @@
 	type="text/css"
 	rel="stylesheet">
 	
-	 <link
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	
+	<link
     href="/js/crayJS/jquery-ui.min.css"
     type="text/css"
     rel="stylesheet">
+	
     <body>
 	<script>
 		$(document).ready(function() {
@@ -51,16 +54,16 @@
    <script type="text/javascript" src="/js/crayJS/jquery-ui.js"></script>
    <script type="text/javascript">
     $(function() {
-                var availableTags = [ "AK","AL","AR","AZ","CA","CO","CT","DE","FL","GA","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VA","VT","WA","WI","WV","WY"];
-                $('#state').autocomplete({
-                source: availableTags,
-                change: function (event, ui) {
-                        if(!ui.item){
-                            $('#state').val("");
-                        }
-                }
-                });
-            });
+		var availableTags = [ "AK","AL","AR","AZ","CA","CO","CT","DE","FL","GA","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VA","VT","WA","WI","WV","WY"];
+		$('#state').autocomplete({
+		source: availableTags,
+		change: function (event, ui) {
+			if(!ui.item){
+				$('#state').val("");
+			}
+		}
+		});
+	});
    </script>
 
 	<!-- action_page.php is a php file that handles the submitted input --> 
@@ -104,15 +107,15 @@
 				<label class= "field" for="localDesc">Location Description:</label><br>
 				<textarea name="localDesc" rows="10" cols="30" class="thousandChars"></textarea>
 				<p class="remainingChars">Characters remaining: 1000</p>
-				<br><br>
+				<br>
 	
 				<label class= "field" for="agent_only_info">Agent-Only Information:</label><br>
 				<textarea name="agent_only_info" rows="10" cols="30" class="threeHundredChars"></textarea>
 				<p class="remainingChars">Characters remaining: 300</p>
-				<br><br>
+				<br>
 
-				<input type="submit" value="Continue">
-				<input type="reset">
+				<input type="submit" value="Continue" class="btn btn-default">
+				<input type="reset" class="btn btn-default">
 			</fieldset>
 		</form>
 	</div>

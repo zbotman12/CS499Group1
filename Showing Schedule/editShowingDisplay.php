@@ -8,10 +8,10 @@
 	<!-- <meta charset="UTF-8"> -->
 	<title>Edit Showing</title>
 	<?php 
-		//include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/goodAgents.php";
+		include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/goodAgents.php";
 		//include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/dataFormat.php";
 		//include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
-		include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/dataFormat.php";
+		//include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/dataFormat.php";
 		$previous_data_array=getPreviousData($_POST['showing_id']);
 		$beginTime=$previous_data_array["startHour"].$previous_data_array["startMin"].$previous_data_array["startCycle"];
 		$closeTime=$previous_data_array["endHour"].$previous_data_array["endMin"].$previous_data_array["endCycle"];
