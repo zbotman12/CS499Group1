@@ -97,7 +97,7 @@
                     echo GetData('phone_number', 'Agents') . "<br>";
                     echo GetData('email', 'Agents') . "<br>";
                 ?>
-            <button type="button" class="btn btn-default paragon" data-toggle="modal" data-target="#myModal" data-backdrop="false">Contact Me!</button>
+            <button type="button" class="btn btn-primary paragon" data-toggle="modal" data-target="#myModal" data-backdrop="false">Contact Me!</button>
             </div>
             <br>
             Listing Company:
@@ -166,7 +166,7 @@
                             echo "<div class='row'>";
                                 echo "<div class='col-sm-9 col-xs-9'> Hits (Today): " . GetData('daily_hit_count', 'Listings')  . "<br>";
                                 echo "Hits (All-Time): " . GetData('hit_count', 'Listings')  . "</div>";
-                                echo "<a class='btn btn-default col-sm-3 col-xs-3' style='padding: 10px;' href='/Showing Schedule/showings.php?MLS=" . $_GET['MLS'] . "'>View Showings</a>";
+                                echo "<a class='btn btn-primary col-sm-3 col-xs-3' style='padding: 10px;' href='/Showing Schedule/showings.php?MLS=" . $_GET['MLS'] . "'>Showings</a>";
                             echo "</div>";
                         echo "</div>";
                     echo "</div>";

@@ -110,12 +110,8 @@
 		}
 		
 	</style>
-	
-	<script>
-	</script>
-	
 	<title>Listings</title>
-	</head>
+</head>
 
 <body>
 	<?php  include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/header.php"; ?>
