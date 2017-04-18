@@ -29,8 +29,9 @@
 </script>
 
 <div class="availability">
-	<b>Available Times</b><br/>
+	<b>Available Times for Showing Agent and Listing</b><br/>
 	<?php
+
 	
 		for($x=0;$x<95;$x++)
 		{

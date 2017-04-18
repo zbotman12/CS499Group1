@@ -15,7 +15,7 @@
 		include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/goodAgents.php";
 		//include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Showing Schedule/dataFormat.php";
 		//include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/sessionCheck.php";
-		$previous_data_array=getPreviousData();
+		$previous_data_array=getPreviousData($_GET['showing_id']);
 		$formatted_info = getDefinedAgentInfo($previous_data_array["SA_id"]);
 	?>
 	<script src="/js/dateFilter.js"></script>

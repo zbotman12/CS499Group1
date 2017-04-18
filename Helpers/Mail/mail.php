@@ -12,6 +12,9 @@
         // Throws exception. Make sure to catch the exception.
         public function showing_mail($showing) {
             
+            // Parse config file. Get info.
+            $config = $this->parseConfig();
+            
             //Create transactors
             $agentsTable   = DBTransactorFactory::build("Agents");
             $agencyTable   = DBTransactorFactory::build("Agencies");
@@ -101,10 +104,8 @@
                                             <td>" . $showing['lockbox_code'] . "</td></tr>
                                       </table>" . "<br> <p> This is an automated
                                       email from ParagonMLS. <br> CS499 Team 1. <a
-                                      href=\"207.98.161.214\" target=\"_blank\">
-                                      ParagonMLS</a></p>" . "
-                            </body>
-                        </html>";
+                                      href=\"" . $config['websiteURL'] . "\" target=\"_blank\">
+                                      ParagonMLS</a></p>" . "</body></html>";
 
             // To send HTML mail, the Content-type header must be set
             $headers[] = 'MIME-Version: 1.0';
@@ -133,7 +134,7 @@
                                             <td>" . $showing['lockbox_code'] . "</td></tr>
                                       </table>" . "<br> <p> This is an automated
                                       email from ParagonMLS. <br> CS499 Team 1. <a
-                                      href=\"207.98.161.214\" target=\"_blank\">
+                                      href=\"" . $config['websiteURL'] . "\" target=\"_blank\">
                                       ParagonMLS</a></p>" . "
                             </body>
                         </html>";
@@ -182,6 +183,9 @@
         }
 
         private function mass_mailer($agentListings) {
+            // Parse config file. Get info.
+            $config = $this->parseConfig();
+
             //Build transactors
             $agentsTable   = DBTransactorFactory::build("Agents");
             $agent_id = null;
@@ -227,7 +231,7 @@
             
             $message = $message . "<p> This is an automated
                                   email from ParagonMLS. <br> CS499 Team 1. <a
-                                  href=\"207.98.161.214\" target=\"_blank\">
+                                  href=\"" . $config['websiteURL'] . "\" target=\"_blank\">
                                   ParagonMLS</a></p>" . "</p></body></body><html>";
             //var_dump($agentListings);
             //var_dump($message);
@@ -239,6 +243,8 @@
 
         // Send email through email form.
         public function email_form($messageArray) {
+            // Parse config file. Get info.
+            $config = $this->parseConfig();
             
             // Sanitize $messageArray for white space and convert to integer.
             $messageArray['MLS_number'] = intval(str_replace(' ', '', $messageArray['MLS_number']));
@@ -293,7 +299,7 @@
                                 <p> --BEGIN MESSAGE-- <br><br>" . $messageArray['message'] .  " </p>";
             $message .= "<p> --END MESSAGE --</p> <br> <p>You may reach " . $messageArray['name'] . " at the following email address: " . $messageArray['email'] ." </p> <br> <p> This is an automated
                                   email from ParagonMLS. <br> CS499 Team 1. <a
-                                  href=\"207.98.161.214\" target=\"_blank\">
+                                  href=\"" . $config['websiteURL'] . "\" target=\"_blank\">
                                   ParagonMLS</a></p>" . "
                             </body>
                         </html>";
@@ -307,6 +313,79 @@
             // Return either true or false if email was sent.
             return mail($to, $subject, $message, implode("\r\n", $headers));
         }
+
+            // Emails the database administrator to approve your account for legitimate agents only
+        public function emailAdminNewAgent($info) {
+                    // Parse config file. Get info.
+                    $config = $this->parseConfig();
+
+                    $to = $config['adminEmail'];
+                    $subject = "New account request.";
+
+                    $message = "<html>
+                                    <head>
+                                        <title>ParagonMLS</title>
+                                    </head>
+                                <body>
+                                    <p> New account request with following information. </p>
+                                    <table>
+                                        <tr>
+                                            <th>Company Name</th>
+                                            <th>Company Address</th>
+                                            <th>City</th>
+                                            <th>State</th>
+                                            <th>Zip</th>
+                                            <th>Agency Phone Number</th>
+                                            <th>Username</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                        </tr>
+                                        <tr>
+                                            <td>" . $info['company_name'] . "</td>" .
+                                           "<td>" . $info['address']      . "</td>" .
+                                           "<td>" . $info['city']         . "</td>" .
+                                           "<td>" . $info['state']        . "</td>" .
+                                           "<td>" . $info['zip']          . "</td>" .
+                                           "<td>" . $info['agency_phone_number'] . "</td>" .
+                                           "<td>" . $info['user_login']   . "</td>" .
+                                           "<td>" . $info['first_name']   . "</td>" .
+                                           "<td>" . $info['last_name']    . "</td>" .
+                                           "<td>" . $info['email']        . "</td>" .
+                                           "<td>" . $info['agent_phone_number'] . "</td>" .
+                                        "</tr></table>" . "<br> <p> This is an automated
+                                  email from ParagonMLS. <br> CS499 Team 1. <a
+                                  href=\"" . $config['websiteURL'] . "\"  target=\"_blank\">
+                                  ParagonMLS</a></p>" . "</body></html>";
+
+                    // Headers
+                    $headers[] = 'MIME-Version: 1.0';
+                    $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+                    $headers[] = "To:" . " " . $config['firstName'] . " " . $config['lastName'] . " " . "<" . $config['adminEmail'] . ">";
+                    $headers[] = 'From: ParagonMLS <postmaster@ParagonMLS.com>';
+
+                // Return either true or false if email was sent.
+                return mail($to, $subject, $message, implode("\r\n", $headers));
+            }
+
+            private function parseConfig() {
+                $filepaths = array('/var/www/config.ini','D:\wamp64\www\config.ini', 'C:\wamp64\www\config.ini', $_SERVER['DOCUMENT_ROOT'] . "/config.ini");
+                $config = null;
+                foreach ($filepaths as $k => $v) {
+                    if(file_exists($v))
+                    {
+                        $config = parse_ini_file($v);
+                        break;
+                    }
+                }
+                if($config == null)
+                {
+                    echo "No configuration file found. Could not connect to database.";
+                    exit;
+                }
+                return $config;
+            }
     }
 
 ?>

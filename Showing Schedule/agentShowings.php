@@ -44,7 +44,7 @@
 	?>
 	<div class="container-fluid">
 	  <h2>Showings for <?php echo $_SESSION['name']; ?></h2>
-    <!--<a class="btn btn-default paragon" href="/Listing/detailedListingDisplay.php?MLS=<?php echo $_GET['MLS']; ?>">View Listing</a>-->
+ 
 
 <div class="table-responsive">
 	  <table class="table table-hover">

@@ -53,6 +53,7 @@
 	
 	function isTimeValid(times, hour_keys)
 	{
+		
 		var Stester;
 		var Stester2;
 		var Stester3;
@@ -169,7 +170,7 @@
 			{
 				if(times[hour_keys[testIndex+inc]]>=1)
 				{
-					alert("ERROR: Schedule Overlap- Please Review Available Times 1");
+					alert("ERROR: Schedule Overlap- Please Review Available");
 					return false;
 				}
 				inc++;
@@ -177,94 +178,13 @@
 		}
 		else
 		{
-			alert("ERROR: Schedule Overlap- Please Review Available Times 2");
+			alert("ERROR: Schedule Overlap- Please Review Available");
 				return false;	
 		}
 		return true;
 	}
 
-	/*function updateTimes(timeAll, hourAll)
-	{
-		//alert("called updateTimes");
-		var startHour;
-		var startMin;
-		startHour=document.forms["scheduleForm"]["Stime"].value;
-		
-
-		document.scheduleForm.EHour.options.length=0;
-		document.scheduleForm.EMin.options.length=0;
-		document.scheduleForm.SMin.options.length=0;
-
-		var count;
-		var num_op;
-		num_op=0;
-		var check;
-		check = 1;
-		for(count = 0; count<12; count++){
-
-		if(hourAll[count]==startHour)
-		{
-			
-			check = 0;
-		}
-
-		if(hourAll[count]!="13" && check == 0)
-		{
-		document.scheduleForm.EHour.options[num_op]= new Option(hourAll[count], hourAll[count]);
-		num_op++;
-		}
-
-		}
-
-		check = 1;
-		num_op=0;
-		for(count=0; count<4; count++){
-			
-			if(timeAll[startHour][count]!="13")
-			{
-				document.scheduleForm.SMin.options[num_op]= new Option(timeAll[startHour][count],timeAll[startHour][count]);
-				num_op++;
-			}
-
-		}
-
-		startMin=document.forms["scheduleForm"]["SMin"].value;
-		check = 1;
-		num_op=0;
-		for(count=0; count<4; count++){
-			
-			if(timeAll[startHour][count]==startMin)
-			{
-				check = 0;
-			}
-			else if(check==0)
-			{
-				check =2;
-			}
-
-			if(timeAll[startHour][count]!="13" && check == 2)
-			{
-				document.scheduleForm.EMin.options[num_op]= new Option(timeAll[startHour][count],timeAll[startHour][count]);
-				num_op++;
-			}
-
-		}
-
-		check = 1;
-		num_op=0;
-		for(count=0; count<4; count++){
-			
-
-			if(timeAll[startHour][count]!="13" && check == 2)
-			{
-				document.scheduleForm.EMin.options[num_op]= new Option(timeAll[startHour][count],timeAll[startHour][count]);
-				num_op++;
-			}
-
-		}
-
-	}
-*/
+	
 
 
 
