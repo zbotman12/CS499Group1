@@ -8,18 +8,25 @@
 
     function createAgent() {
 
-        include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/DBTransactor/DBTransactorFactory.php";
+        include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/Mail/mail.php";
 
-        //Test
-        //print_r($_POST);
         if ($_POST == Array() || empty($_POST)) {
             header("location: index.php");
+            //echo "test";
             exit;
         }
 
+        // We will instead email the database administrator about the new agent. 
+        $mailer = new Mail;
+        if($mailer->emailAdminNewAgent($_POST) == true) {
+            echo "We have sent your information to the system administrator. Please wait for approval. You will receive an email from the administrator in 2-4 business days. <br/>";
+        }
+        else {
+            echo "Could not send these credentials to system administrator. Please contact administrator directly or try again later. <br/>";
+        }        
 
         // Create a connection to the database and access Agents table and Agencies table
-        try {
+        /*try {
           $agent    = DBTransactorFactory::build("Agents");
           $agencies = DBTransactorFactory::build("Agencies");
 
@@ -65,7 +72,7 @@
         } catch(BadMethodCallException $e) {
             //PHP Code to Handle $e bad user input Exception
             echo $e->getMessage() . "<br/>";
-        }
+        }*/
     }
 ?>
 

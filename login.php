@@ -32,7 +32,7 @@
 			Change Password
 		</a> -->
 		<a href="./createagent.php" class="btn btn-default">
-			Create New Agent
+			Request an agent account
 		</a>
 	</div>
 	<br/>

@@ -44,7 +44,7 @@
   ?>
 	<div class="container-fluid">
 	  <h2>Showings for <?php echo GetData('address', 'Listings') . ", " . GetData('city', 'Listings') . ", " . GetData('state', 'Listings');?></h2>
-	  <a class="btn btn-default paragon" href="/Showing Schedule/newShowingDisplay.php?MLS=<?php echo $_GET['MLS']; ?>">Add A Showing</a>
+	  <a class="btn btn-default paragon" href="/Showing Schedule/showingDateSelection.php?MLS=<?php echo $_GET['MLS']; ?>">Add A Showing</a>
 	  <a class="btn btn-default paragon" href="/Listing/detailedListingDisplay.php?MLS=<?php echo $_GET['MLS']; ?>">View Listing</a>
     <button type="button" class="btn btn-default paragon" data-toggle="modal" data-target="#myModal" data-backdrop="false">Send Email</button>
 
@@ -85,7 +85,7 @@
 				echo "<td class='text-center'>" . $agentInfo["full_name"] . "</td>";
 				echo "<td class='text-center'>" . $agentInfo["company_name"] . "</td>";
 				echo "<td class='text-center'>" . GetShowingData('lockbox_code', $key) . "</td>";
-				echo "<td class='text-center'><a class='glyphicon glyphicon-pencil' href='/Showing Schedule/editShowingDisplay.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'></a></td>";
+				echo "<td class='text-center'><a class='glyphicon glyphicon-pencil' href='/Showing Schedule/editShowingDateSelection.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'></a></td>";
 			  echo "<td class='text-center'><a class='glyphicon glyphicon-book' href='/Showing Schedule/feedbackDisplay.php?MLS=" . $_GET['MLS'] . "&showing_id=" . GetShowingData('showing_id', $key) . "'></a></td>";
 			  echo "<td class='text-center'><a data-id='S ". $key . "' data-toggle='modal' data-target='#myDeleteModal' data-backdrop='false' class='deleteShowingsButton glyphicon glyphicon-remove'></a></td>";
 			  echo "</tr>";

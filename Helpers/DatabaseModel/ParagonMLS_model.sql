@@ -56,6 +56,7 @@ ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `ParagonMLS`.`Listings`
+--
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ParagonMLS`.`Listings` (
   `MLS_number` INT NOT NULL AUTO_INCREMENT,

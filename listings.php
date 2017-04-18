@@ -77,21 +77,21 @@
 		return $AgenciesArray[$agencyID]["company_name"];
 	}
 
-	//Returns the square footage of the listing
+	//Returns the square footage of the listing as a numeral
     function getSqFootage($MLS, $listings) {
 		$ListingArray = $listings->select(["*"], ["MLS_number" => $MLS]);
 		return $ListingArray[$MLS]["square_footage"];
     }
 
 	//Returns <a class="btn btn-default"> linking to the listing's detail page
-    function createDetailsLink($MLS) {
+    /* function createDetailsLink($MLS) {
     	$toReturn = "";
     	$toReturn .= "<a class=\"btn btn-default\" href=\"Listing/detailedListingDisplay.php?MLS=";
 		$toReturn .= $MLS;
 		$toReturn .= "\">";
 		$toReturn .= "Details</a>";
 		return $toReturn;
-    }
+    } */
 ?>
 
 <head>
@@ -155,6 +155,7 @@
 				<label for="zipCode">ZIP Code</label>
 				<input type="text" name="zipCode" value="<?php echo $_GET["zipCode"]; ?>"/>
 				<button type="submit" class="btn btn-primary">Search</button>
+				<button type="reset" class="btn btn-primary">Clear</button>
 				<input type="hidden" value="1" name="page"/>
 			</div>
 		</form>
@@ -268,7 +269,6 @@
 					</div>
 					<div class="col-sm-6 col-xs-6">
 						<?php echo getCompany($MLS, $listings, $agents, $agencies); ?>
-						<?php //echo createDetailsLink($MLS); ?>
 					</div>
 				</div>
 			</div>

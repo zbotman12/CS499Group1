@@ -134,8 +134,12 @@ function fixTimeFormat($temp, $temp2)
 		$temp2 = $temp2+12;
 		if($temp2 == 24)
 		{
-			$temp2 = 00;
+			$temp2 = 12;
 		}
+	}
+	if($temp=="AM" && $temp2==12)
+	{
+		$temp2=0;
 	}
 	return $temp2;
 }

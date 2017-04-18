@@ -43,6 +43,7 @@
             */
             
             include $_SERVER['DOCUMENT_ROOT'] . "/Helpers/dbConnect.php";
+            include __DIR__ . "/../dbConnect.php";
             //include "/var/www/html/Helpers/dbConnect.php";
             return $conn;
         }

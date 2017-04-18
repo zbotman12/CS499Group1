@@ -96,12 +96,13 @@
             <label for ='user_loginname'>Username: </label>
             <input type='text' name='user_login' id='user_login' maxlength='50' required/><br/>
 
-            <label for='password' >Create a password:</label>
+            <!-- We don't need this anymore. System administrator now handles initial account creation.-->
+            <!--<label for='password' >Create a password:</label>
             <input type='password' name='password' id='password' maxlength="25" required/> <br/>
 
             <label for='confirm_pass'>Confirm Password:</label>
             <input type='password' name='confirm_pass' id='confirm_pass' maxlength="25" required/><br/> <br/>
-
+            -->
             <legend><b class='bold'>Enter your agent information</b></legend>
             
             <label for='first_name'> First name: </label>

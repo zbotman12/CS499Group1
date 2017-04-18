@@ -43,6 +43,8 @@ function handleShowingData(){
 		$MLS= intval($_POST['MLS']);
 		$complete_info=test_input($_POST["SAgent"]);
 	}
+
+	error_log($startTime, 0);
 	// Lines 42-62: Used to format and parse agent info.
 	$parsed_info=parseShowingAgentData($complete_info);
 	$SA_first_name= $parsed_info[1];
@@ -131,13 +133,19 @@ function parseShowingAgentData($full_info)
 // Sets 1-12 hour to 0-23 hour format
 function fixTimeFormat($temp, $temp2)
 {
+	if($temp=="AM" && $temp2==12)
+	{
+		$temp2=0;
+	}
+
 	if($temp == "PM")
 	{
 		$temp2 = $temp2+12;
-		if($temp2 == 24)
+		if($temp2==24)
 		{
-			$temp2 = 00;
+			$temp2=12;
 		}
+
 	}
 	return $temp2;
 }
