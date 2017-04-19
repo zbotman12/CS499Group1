@@ -39,7 +39,6 @@
             header("location: ./../../Listing/photoEditDisplay.php?MLS=" . $_GET['MLS_number']);
         } catch(Exception $e) {
             echo $e->getMessage() . "<br\>";
-        }
-        
+        } 
     }
 ?>

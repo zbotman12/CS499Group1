@@ -167,6 +167,8 @@
             $a = array();
             $s = '';
 
+            $parseKeyArray = ["agent_only_info", "listing_desc", "room_desc", "additional_info", "agent_only_info", "address"];
+
             foreach ($array as $key => $value) {
 				//This is what was failing with select Showings.
 				//If statement corrects date syntax for Showings.
@@ -175,6 +177,13 @@
 				} else {
                     $s = $key . "=" . "'" . $value . "'";
 				}
+
+                if (in_array($key, $parseKeyArray)) {
+                    $s = $key . "=" . "\"" . $value . "\"";
+                }
+
+
+                
                 array_push($a, $s);
                 //echo $s;
             }

@@ -63,8 +63,8 @@
             //Build listings query 
             // Last two default values are for hit counter and daily hit counter
             $listings_q  = "INSERT INTO " . $this->LISTINGS_TABLE   . " VALUES (NULL,";
-            $listings_q .= "'" . $assoc_array['Agents_listing_agent_id']  . "'" . ",";
-            $listings_q .= "'" . $assoc_array['price']                    . "'" . ",";
+            $listings_q .= "'"  . $assoc_array['Agents_listing_agent_id']  . "'" . ",";
+            $listings_q .= "'"  . $assoc_array['price']                    . "'" . ",";
             $listings_q .= "\"" . $assoc_array['city']                     . "\"" . ",";
             $listings_q .= "\"" . $assoc_array['state']                    . "\"" . ",";
             $listings_q .= "\"" . $assoc_array['zip']                      . "\"" . ",";
@@ -99,13 +99,19 @@
             }     
             
             $ignore = ['submitted', 'Submit'];
-            unset($set_array["MLS"]);
+         
             $columns     = $this->conditionBuilder($set_array, ",", $ignore);
-	    //$condition   = $this->conditionBuilder($where_array, " AND ", $ignore);
-            
-		$query = "UPDATE " . $this->LISTINGS_TABLE . " SET " . $columns . " WHERE MLS_number= " . $where_array["MLS_number"] . ";";
-            $results = $this->connection->query($query);
+	        $condition   = $this->conditionBuilder($where_array, " AND ", $ignore);
+            //unset($columns['MLS_number']); 
+            //echo "<br>Printing columns<br>";
+            //var_dump($columns);
+            //echo "<br>Printing condition<br><br>";
+            //var_dump($condition);
 
+     		$query = "UPDATE " . $this->LISTINGS_TABLE . " SET " . $columns . " WHERE MLS_number= " . $where_array["MLS_number"] . ";";
+            $results = $this->connection->query($query);
+            
+            //var_dump($results);
             return $results;
         }
 
