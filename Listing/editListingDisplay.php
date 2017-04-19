@@ -83,7 +83,7 @@
 			<fieldset>
 			<h2>Listing Information</h2>
 			<hr/>
-			<label class= "field" for="price">List Price:</label><br>
+			<label class= "field" for="price">List Price (e.g. 150000):</label><br>
 			<input type="text" name="price" value="<?php echo $data['price']; ?>" required><br><br>
 
 			<label class= "field" for="city">City:</label><br>
