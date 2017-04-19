@@ -18,7 +18,7 @@ For MySQL, you must create a new database using the command ```CREATE DATABASE m
 On your terminal, you must import the database model located in ```Helpers/DatabaseModel/ParagonMLS_model.sql``` using the following command: ``` mysql -u myMySQLusername -p myDatabaseName < ParagonMLS_model.sql``` into your MySQL server.
 
 
-###Installing
+### Installing
 Once the prerequisites are satisfied and you have a webserver listening for HTTP requests, you are then ready to install the real estate utility. 
 
 Download and place the entire program in the root of your webserver directory. You must configure Apache to read the ```index.php``` file that must be located at the root of the webserver.  
