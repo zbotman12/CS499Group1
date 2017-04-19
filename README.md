@@ -33,7 +33,7 @@ password   = mypassword
 dbname     = myDatabaseName
 dblocation = localhost
 adminEmail  = "example@example.com"
-websiteURL  = "207.98.161.214" or "http://mydomain.com/"
+websiteURL  = "1.2.3.4" or "http://mydomain.com/"
 firstName  = "sys admin first name"
 lastName   = "sys admin last name"
 
