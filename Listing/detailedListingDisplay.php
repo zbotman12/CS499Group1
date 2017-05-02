@@ -164,9 +164,11 @@
                             echo "Agent Information:<br>";
                             echo "<pre>" . GetData('agent_only_info', 'Listings')  . "</pre><br>";
                             echo "<div class='row'>";
-                                echo "<div class='col-sm-9 col-xs-9'> Hits (Today): " . GetData('daily_hit_count', 'Listings')  . "<br>";
+                                echo "<div class='col-sm-5 col-xs-5'> Hits (Today): " . GetData('daily_hit_count', 'Listings')  . "<br>";
                                 echo "Hits (All-Time): " . GetData('hit_count', 'Listings')  . "</div>";
+                                echo "<br/>";
                                 echo "<a class='btn btn-primary col-sm-3 col-xs-3' style='padding: 10px;' href='/Showing Schedule/showings.php?MLS=" . $_GET['MLS'] . "'>Showings</a>";
+                                echo "<a class='btn btn-primary col-sm-3 col-xs-3' style='padding: 10px; margin-left:10px;' href='../paperwork.php?MLS=" . $_GET['MLS'] . "'>Paperwork</a>";
                             echo "</div>";
                         echo "</div>";
                     echo "</div>";
